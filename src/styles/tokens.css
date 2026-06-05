@@ -1,0 +1,45 @@
+:root {
+  /* Terre, sang, or — palette FANG */
+  --color-void: #0d0b09;
+  --color-night: #14110f;
+  --color-bark: #1a1612;
+  --color-earth: #2a1f17;
+  --color-clay: #3a261a;
+  --color-rust: #5c3d1f;
+  --color-bronze: #7d5c3a;
+  --color-ochre: #9a7b52;
+  --color-sand: #c4b6a3;
+  --color-bone: #e6d8c2;
+  --color-ivory: #f2ebe3;
+
+  --color-copper: #c9a66b;
+  --color-copper-dim: #8a6f45;
+  --color-blood: #8c2317;
+  --color-blood-deep: #4a0e1c;
+  --color-flame: #a0341e;
+
+  --color-mist: rgba(242, 235, 227, 0.08);
+
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  /** Écriture manuscrite du fondateur (Fallou Ngom) — pour signature, citation et note. */
+  --font-hand: "Ohasso", "Cormorant Garamond", "Brush Script MT", cursive;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 9rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration: 0.6s;
+
+  --focus-ring: 2px solid var(--color-copper);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+}

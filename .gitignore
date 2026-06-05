@@ -1,0 +1,15 @@
+node_modules
+dist
+.DS_Store
+*.local
+.vite
+coverage
+.next
+.claude
+.review
+
+# Assets sources locaux (trop volumineux pour Git)
+COLLECTION 1 NEEL FANG TE DUNDU/
+Ohasso-Regular 2.ttf
+# Sous-projet atelier (repo Git séparé)
+fang-atelier/
