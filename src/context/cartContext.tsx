@@ -8,6 +8,7 @@ import {
 } from "react";
 import type { CartLine } from "@/context/cartTypes";
 import type { ShopProduct } from "@/content/shop";
+import { getDefaultVariation, getVariationById } from "@/content/shop";
 
 export type CartToast = { title: string; image: string };
 
@@ -21,8 +22,21 @@ function loadLines(): CartLine[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
-    const parsed = JSON.parse(raw) as CartLine[];
-    return Array.isArray(parsed) ? parsed : [];
+    const parsed = JSON.parse(raw) as Partial<CartLine>[];
+    if (!Array.isArray(parsed)) return [];
+    return parsed.map((l) => ({
+      lineId: l.lineId ?? uid(),
+      productId: l.productId ?? "",
+      productKey: l.productKey ?? "",
+      slug: l.slug ?? "",
+      title: l.title ?? "",
+      image: l.image ?? "",
+      size: l.size ?? "",
+      variationId: l.variationId ?? "default",
+      variationLabel: l.variationLabel ?? "Pièce",
+      priceXof: l.priceXof ?? 0,
+      qty: l.qty ?? 1,
+    }));
   } catch {
     return [];
   }
@@ -42,7 +56,11 @@ export type CartCtx = {
   openDrawer: () => void;
   closeDrawer: () => void;
   toggleDrawer: () => void;
-  addItem: (product: ShopProduct, size: string, qty?: number, silent?: boolean) => void;
+  addItem: (
+    product: ShopProduct,
+    size: string,
+    options?: { qty?: number; silent?: boolean; variationId?: string }
+  ) => void;
   removeLine: (lineId: string) => void;
   setQty: (lineId: string, qty: number) => void;
   clearCart: () => void;
@@ -77,36 +95,60 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const closeDrawer = useCallback(() => setDrawerOpen(false), []);
   const toggleDrawer = useCallback(() => setDrawerOpen((v) => !v), []);
 
-  const addItem = useCallback((product: ShopProduct, size: string, qty = 1, silent = false) => {
-    setLines((prev) => {
-      const existing = prev.find(
-        (l) => l.productId === product.id && l.size === size
-      );
-      if (existing) {
-        return prev.map((l) =>
-          l.lineId === existing.lineId
-            ? { ...l, qty: l.qty + qty }
-            : l
+  const addItem = useCallback(
+    (
+      product: ShopProduct,
+      size: string,
+      options?: { qty?: number; silent?: boolean; variationId?: string }
+    ) => {
+      const qty = options?.qty ?? 1;
+      const silent = options?.silent ?? false;
+      const variation =
+        getVariationById(product.variations, options?.variationId) ??
+        getDefaultVariation(product.variations);
+
+      setLines((prev) => {
+        const existing = prev.find(
+          (l) =>
+            l.productId === product.id &&
+            l.size === size &&
+            l.variationId === variation.id
         );
+        if (existing) {
+          return prev.map((l) =>
+            l.lineId === existing.lineId ? { ...l, qty: l.qty + qty } : l
+          );
+        }
+        const lineTitle =
+          product.variations.length > 1
+            ? `${product.name} — ${variation.label}`
+            : product.name;
+        const line: CartLine = {
+          lineId: uid(),
+          productId: product.id,
+          productKey: product.productKey,
+          slug: product.slug,
+          title: lineTitle,
+          image: product.coverImage || product.images[0] || "",
+          size,
+          variationId: variation.id,
+          variationLabel: variation.label,
+          priceXof: variation.priceXof,
+          qty,
+        };
+        return [...prev, line];
+      });
+      if (silent) {
+        setToast({
+          title: product.name,
+          image: product.coverImage || product.images[0] || "",
+        });
+      } else {
+        setDrawerOpen(true);
       }
-      const line: CartLine = {
-        lineId: uid(),
-        productId: product.id,
-        slug: product.slug,
-        title: product.name,
-        image: product.images[0] ?? "",
-        size,
-        priceXof: product.priceXof,
-        qty,
-      };
-      return [...prev, line];
-    });
-    if (silent) {
-      setToast({ title: product.name, image: product.images[0] ?? "" });
-    } else {
-      setDrawerOpen(true);
-    }
-  }, []);
+    },
+    []
+  );
 
   const removeLine = useCallback((lineId: string) => {
     setLines((prev) => prev.filter((l) => l.lineId !== lineId));

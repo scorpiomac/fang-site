@@ -1,59 +1,27 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getChapterById } from "@/content/chapters";
+import { getChapterById as getChapterLoreById } from "@/content/chapters";
+import { getChapterById } from "@/content/collectionCatalog";
 import { copy } from "@/content/copy";
-import { getProductBySlug, formatPriceXof, shopProducts } from "@/content/shop";
+import { getProductBySlug, formatPriceXof, shopProducts, type ShopProduct } from "@/content/shop";
 import { useCart } from "@/context/useCart";
+import { useStock } from "@/context/stockContext";
+import { useSiteSettings } from "@/context/siteSettingsContext";
+import { CommerceJourney } from "@/components/shop/CommerceJourney";
+import { TrustStrip } from "@/components/shop/TrustStrip";
+import { StickyBuyBar } from "@/components/shop/StickyBuyBar";
+import {
+  ProductVariationSelect,
+  useProductVariation,
+} from "@/components/shop/ProductVariationSelect";
+import { WishlistButton } from "@/components/shop/WishlistButton";
+import { ProductReviews } from "@/components/shop/ProductReviews";
+import { trackProductView, getRecentlyViewed } from "@/lib/recentlyViewed";
+import { Seo } from "@/components/Seo";
 
 export function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
-  const { addItem } = useCart();
   const product = slug ? getProductBySlug(slug) : undefined;
-  const chapter = product?.chapterId ? getChapterById(product.chapterId) : undefined;
-  const [activeImg, setActiveImg] = useState(0);
-  const [size, setSize] = useState<string | null>(null);
-  const [addedFeedback, setAddedFeedback] = useState(false);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-
-  const sizes = product?.sizes ?? [];
-
-  const mainImg = useMemo(() => {
-    if (!product) return "";
-    return product.images[activeImg] ?? product.images[0] ?? "";
-  }, [product, activeImg]);
-
-  const related = useMemo(() => {
-    if (!product) return [];
-    const others = shopProducts.filter((p) => p.id !== product.id);
-    const sameChapter = others.filter((p) => p.chapterId === product.chapterId);
-    const otherChapters = others.filter((p) => p.chapterId !== product.chapterId);
-    return [...sameChapter, ...otherChapters].slice(0, 3);
-  }, [product]);
-
-  useEffect(() => {
-    setActiveImg(0);
-    setSize(null);
-    setAddedFeedback(false);
-    setLightboxOpen(false);
-  }, [slug]);
-
-  useEffect(() => {
-    if (!lightboxOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxOpen(false);
-      if (e.key === "ArrowLeft")
-        setActiveImg((i) => (i - 1 + (product?.images.length ?? 1)) % (product?.images.length ?? 1));
-      if (e.key === "ArrowRight")
-        setActiveImg((i) => (i + 1) % (product?.images.length ?? 1));
-    };
-    window.addEventListener("keydown", onKey);
-    document.documentElement.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.documentElement.style.overflow = "";
-    };
-  }, [lightboxOpen, product?.images.length]);
 
   if (!product) {
     return (
@@ -66,15 +34,124 @@ export function ProductPage() {
     );
   }
 
-  const onAdd = () => {
-    if (!size) return;
-    addItem(product, size, 1);
+  return <ProductPageView product={product} slug={slug} />;
+}
+
+function ProductPageView({ product, slug }: { product: ShopProduct; slug?: string }) {
+  const navigate = useNavigate();
+  const { addItem, openDrawer } = useCart();
+  const { settings } = useSiteSettings();
+  const { qtyFor } = useStock();
+  const chapter = getChapterById(product.chapterId);
+  const chapterLore = getChapterLoreById(product.chapterId);
+  const [activeImg, setActiveImg] = useState(0);
+  const [size, setSize] = useState<string | null>(null);
+  const [qty, setQty] = useState(1);
+  const { variationId, variation, setVariationId } = useProductVariation(product);
+  const [addedFeedback, setAddedFeedback] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const availableQty = size ? qtyFor(product.productKey, variationId, size) : null;
+  const isOutOfStock = availableQty != null && availableQty <= 0;
+  const insufficientStock = availableQty != null && availableQty < qty;
+
+  const mainImg = useMemo(() => {
+    return product.images[activeImg] ?? product.images[0] ?? "";
+  }, [product, activeImg]);
+
+  const related = useMemo(() => {
+    const others = shopProducts.filter((p) => p.id !== product.id);
+    const sameChapter = others.filter((p) => p.chapterId === product.chapterId);
+    const otherChapters = others.filter((p) => p.chapterId !== product.chapterId);
+    return [...sameChapter, ...otherChapters].slice(0, 3);
+  }, [product]);
+
+  useEffect(() => {
+    setActiveImg(0);
+    setSize(null);
+    setQty(1);
+    setAddedFeedback(false);
+    setLightboxOpen(false);
+    if (product.slug) trackProductView(product.slug);
+  }, [slug, product.slug]);
+
+  const recentlyViewed = useMemo(() => {
+    const recent = getRecentlyViewed().filter((s) => s !== product.slug);
+    return recent
+      .map((s) => shopProducts.find((p) => p.slug === s))
+      .filter((p): p is ShopProduct => Boolean(p))
+      .slice(0, 4);
+  }, [product.slug]);
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "ArrowLeft")
+        setActiveImg((i) => (i - 1 + product.images.length) % product.images.length);
+      if (e.key === "ArrowRight")
+        setActiveImg((i) => (i + 1) % product.images.length);
+    };
+    window.addEventListener("keydown", onKey);
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.documentElement.style.overflow = "";
+    };
+  }, [lightboxOpen, product.images.length]);
+
+  const onAdd = (thenCheckout = false) => {
+    if (!size || isOutOfStock || insufficientStock) return;
+    addItem(product, size, { silent: thenCheckout, variationId, qty });
     setAddedFeedback(true);
+    if (thenCheckout) {
+      navigate("/commande");
+    } else {
+      openDrawer();
+    }
     setTimeout(() => setAddedFeedback(false), 2200);
   };
 
+  const sizes = product.sizes;
+
+  const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const productImage = product.coverImage || product.images[0];
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description || `${product.name} — ${product.chapterLabel}`,
+    image: productImage ? [productImage.startsWith("http") ? productImage : `${siteUrl}${productImage}`] : [],
+    brand: { "@type": "Brand", name: settings.brand.name },
+    sku: product.slug,
+    offers: {
+      "@type": "Offer",
+      url: `${siteUrl}/boutique/${product.slug}`,
+      priceCurrency: "XOF",
+      price: product.priceXof,
+      availability: "https://schema.org/InStock",
+    },
+  };
+
   return (
-    <main id="contenu-principal" className="product-page shop-shell">
+    <main id="contenu-principal" className="product-page shop-shell commerce-shell">
+      <Seo
+        title={`${product.name} — ${settings.brand.name}`}
+        description={product.description || `${product.name} — Pièce ${product.chapterLabel}, fabriquée à Dakar.`}
+        image={productImage}
+        url={`${siteUrl}/boutique/${product.slug}`}
+        type="product"
+        jsonLd={productJsonLd}
+      />
+      <CommerceJourney
+        steps={[
+          { label: "Collection", to: "/collection" },
+          ...(chapter
+            ? [{ label: chapter.name, to: `/collection/${chapter.slug}` }]
+            : []),
+          { label: product.name, current: true },
+        ]}
+      />
       <button type="button" className="product-page__back" onClick={() => navigate(-1)}>
         ← Retour
       </button>
@@ -114,81 +191,160 @@ export function ProductPage() {
           <h1 className="product-page__title">{product.name}</h1>
           {chapter ? (
             <aside className="product-page__character" aria-labelledby="product-character-heading">
-              <p className="product-page__character-kicker">Ce vêtement incarne le personnage</p>
+              <p className="product-page__character-kicker">Personnage · {chapter.name}</p>
               <h2 className="product-page__character-name" id="product-character-heading">
-                {chapter.name}
+                {product.characterName}
               </h2>
-              <p className="product-page__character-role">{chapter.role}</p>
-              <blockquote className="product-page__character-quote">
-                <span aria-hidden="true">«&nbsp;</span>
-                {chapter.quote}
-                <span aria-hidden="true">&nbsp;»</span>
-              </blockquote>
-              <p className="product-page__character-wear">{chapter.wear}</p>
-              <Link to={`/personnages/${chapter.slug}`} className="product-page__character-link">
-                Fiche du personnage
+              {chapterLore?.role ? (
+                <p className="product-page__character-role">{chapterLore.role}</p>
+              ) : null}
+              {chapterLore?.quote ? (
+                <blockquote className="product-page__character-quote">
+                  <span aria-hidden="true">«&nbsp;</span>
+                  {chapterLore.quote}
+                  <span aria-hidden="true">&nbsp;»</span>
+                </blockquote>
+              ) : null}
+              <Link
+                to={`/collection/${chapter.slug}/${product.characterSlug}`}
+                className="product-page__character-link"
+              >
+                Voir les produits du personnage
+                <span aria-hidden="true"> →</span>
+              </Link>
+              <Link to={`/collection/${chapter.slug}`} className="product-page__character-link">
+                Tous les personnages · {chapter.name}
                 <span aria-hidden="true"> →</span>
               </Link>
             </aside>
           ) : null}
           <p className="product-page__price">
-            {formatPriceXof(product.priceXof)} <span>FCFA</span>
+            {formatPriceXof(variation.priceXof)} <span>FCFA</span>
           </p>
           <p className="product-page__kind">{product.kind} · {product.material}</p>
           <p className="product-page__excerpt">{product.excerpt}</p>
           <p className="product-page__desc">{product.description}</p>
 
+          <ProductVariationSelect
+            product={product}
+            variationId={variationId}
+            onVariationChange={setVariationId}
+          />
+
           <div className="product-page__sizes">
             <p className="product-page__sizes-label">Taille</p>
             <div className="product-page__size-list" role="group" aria-label="Choisir une taille">
-              {sizes.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  className={`product-page__size ${size === s ? "is-selected" : ""}`}
-                  onClick={() => setSize(s)}
-                >
-                  {s}
-                </button>
-              ))}
+              {sizes.map((s) => {
+                const q = qtyFor(product.productKey, variationId, s);
+                const isOut = q != null && q <= 0;
+                return (
+                  <button
+                    key={s}
+                    type="button"
+                    className={`product-page__size ${size === s ? "is-selected" : ""} ${isOut ? "product-page__size--out" : ""}`}
+                    disabled={isOut}
+                    onClick={() => setSize(s)}
+                    title={isOut ? "Rupture de stock" : q != null ? `${q} dispo` : ""}
+                  >
+                    {s}
+                  </button>
+                );
+              })}
+            </div>
+            {isOutOfStock ? (
+              <p className="product-page__stock product-page__stock--out">
+                Cette taille est en rupture pour cette variation.
+              </p>
+            ) : availableQty != null && availableQty <= 3 ? (
+              <p className="product-page__stock product-page__stock--low">
+                Plus que {availableQty} disponible{availableQty > 1 ? "s" : ""}.
+              </p>
+            ) : null}
+          </div>
+
+          <div className="product-page__qty">
+            <span className="product-page__qty-label">Quantité</span>
+            <div className="product-page__qty-control">
+              <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Diminuer">
+                −
+              </button>
+              <span>{qty}</span>
+              <button
+                type="button"
+                onClick={() =>
+                  setQty((q) =>
+                    availableQty != null ? Math.min(availableQty, q + 1) : Math.min(99, q + 1)
+                  )
+                }
+                aria-label="Augmenter"
+              >
+                +
+              </button>
             </div>
           </div>
+
+          {settings.production.showLeadTime ? (
+            <p className="product-page__lead-time">
+              <strong>Production :</strong> {settings.production.leadTime}
+            </p>
+          ) : null}
 
           <div className="product-page__actions">
             <button
               type="button"
               className={`cta cta--solid product-page__add-btn ${addedFeedback ? "product-page__add-btn--done" : ""}`}
-              disabled={!size}
-              onClick={onAdd}
+              disabled={!size || isOutOfStock || insufficientStock}
+              onClick={() => onAdd(false)}
             >
-              {addedFeedback ? "Ajouté au panier ✓" : "Ajouter au panier"}
+              {isOutOfStock
+                ? "Rupture de stock"
+                : addedFeedback
+                  ? copy.addedToCart
+                  : copy.addToCart}
+            </button>
+            <button
+              type="button"
+              className="cta cta--ghost product-page__checkout-btn"
+              disabled={!size || isOutOfStock || insufficientStock}
+              onClick={() => onAdd(true)}
+            >
+              {copy.checkoutDirect}
             </button>
             <Link
-              to={chapter ? `/boutique?personnage=${chapter.id}` : "/boutique"}
-              className="cta cta--ghost"
+              to={chapter ? `/boutique?chapitre=${chapter.id}` : "/boutique"}
+              className="product-page__continue-link"
             >
               {chapter ? copy.productPageContinueCharacterBoutique : copy.productPageContinueShopping}
             </Link>
+            <WishlistButton slug={product.slug} className="product-page__wishlist" label />
           </div>
 
-          <ul className="product-page__notes product-page__notes--cards" aria-label="Engagements atelier">
-            <li>
-              <strong>Atelier Dakar</strong>
-              <span>Coupe et finitions à la main par l'équipe FANG.</span>
-            </li>
-            <li>
-              <strong>Délais 2–6 semaines</strong>
-              <span>Selon la pièce et la disponibilité du tissu.</span>
-            </li>
-            <li>
-              <strong>Échanges sous 7 jours</strong>
-              <span>Contactez l'atelier dès réception.</span>
-            </li>
-          </ul>
+          <TrustStrip compact />
         </div>
       </div>
 
-      {/* Related products */}
+      <ProductReviews productSlug={product.slug} />
+
+      {recentlyViewed.length > 0 && (
+        <section className="product-page__related">
+          <p className="product-page__related-label">Récemment consultées</p>
+          <div className="product-page__related-grid">
+            {recentlyViewed.map((p) => (
+              <Link key={p.id} to={`/boutique/${p.slug}`} className="product-related-card">
+                <div className="product-related-card__media">
+                  <img src={p.coverImage || p.images[0]} alt="" loading="lazy" />
+                </div>
+                <div className="product-related-card__body">
+                  <p className="product-related-card__chapter">{p.chapterLabel}</p>
+                  <p className="product-related-card__name">{p.name}</p>
+                  <p className="product-related-card__price">{formatPriceXof(p.priceXof)} FCFA</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       {related.length > 0 && (
         <section className="product-page__related">
           <p className="product-page__related-label">De la même collection</p>
@@ -196,7 +352,7 @@ export function ProductPage() {
             {related.map((p) => (
               <Link key={p.id} to={`/boutique/${p.slug}`} className="product-related-card">
                 <div className="product-related-card__media">
-                  <img src={p.images[0]} alt="" loading="lazy" />
+                  <img src={p.coverImage || p.images[0]} alt="" loading="lazy" />
                   <img src={p.images[1] ?? p.images[0]} alt="" loading="lazy" aria-hidden="true" className="product-related-card__img-hover" />
                 </div>
                 <div className="product-related-card__body">
@@ -275,6 +431,8 @@ export function ProductPage() {
           )}
         </div>
       )}
+
+      <StickyBuyBar product={product} />
     </main>
   );
 }

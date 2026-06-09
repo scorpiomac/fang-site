@@ -1,0 +1,335 @@
+{
+  "tambali": {
+    "gue-am": {
+      "cover": "collection/s01/tambali/cast/gue-am/cover.jpg",
+      "images": [
+        "collection/s01/tambali/cast/gue-am/cover.jpg",
+        "collection/s01/tambali/cast/gue-am/img-01.jpg",
+        "collection/s01/tambali/cast/gue-am/img-02.jpg",
+        "collection/s01/tambali/cast/gue-am/img-03.jpg",
+        "collection/s01/tambali/cast/gue-am/img-04.jpg",
+        "collection/s01/tambali/cast/gue-am/img-05.jpg",
+        "collection/s01/tambali/cast/gue-am/img-06.jpg",
+        "collection/s01/tambali/cast/gue-am/img-07.jpg",
+        "collection/s01/tambali/cast/gue-am/img-08.jpg"
+      ]
+    },
+    "jant": {
+      "cover": "collection/s01/tambali/cast/jant/cover.jpg",
+      "images": [
+        "collection/s01/tambali/cast/jant/cover.jpg",
+        "collection/s01/tambali/cast/jant/img-01.jpg",
+        "collection/s01/tambali/cast/jant/img-02.jpg",
+        "collection/s01/tambali/cast/jant/img-03.jpg",
+        "collection/s01/tambali/cast/jant/img-04.jpg",
+        "collection/s01/tambali/cast/jant/img-05.jpg",
+        "collection/s01/tambali/cast/jant/img-06.jpg",
+        "collection/s01/tambali/cast/jant/img-07.jpg",
+        "collection/s01/tambali/cast/jant/img-08.jpg"
+      ]
+    },
+    "mossann": {
+      "cover": "collection/s01/tambali/cast/mossann/cover.jpg",
+      "images": [
+        "collection/s01/tambali/cast/mossann/cover.jpg",
+        "collection/s01/tambali/cast/mossann/img-01.jpg",
+        "collection/s01/tambali/cast/mossann/img-02.jpg",
+        "collection/s01/tambali/cast/mossann/img-03.jpg",
+        "collection/s01/tambali/cast/mossann/img-04.jpg"
+      ]
+    },
+    "djaak": {
+      "cover": "collection/s01/tambali/cast/djaak/cover.jpg",
+      "images": [
+        "collection/s01/tambali/cast/djaak/cover.jpg",
+        "collection/s01/tambali/cast/djaak/img-01.jpg",
+        "collection/s01/tambali/cast/djaak/img-02.jpg",
+        "collection/s01/tambali/cast/djaak/img-03.jpg",
+        "collection/s01/tambali/cast/djaak/img-04.jpg"
+      ]
+    },
+    "fod": {
+      "cover": "collection/s01/tambali/cast/fod/cover.jpg",
+      "images": [
+        "collection/s01/tambali/cast/fod/cover.jpg",
+        "collection/s01/tambali/cast/fod/img-01.jpg"
+      ]
+    },
+    "miik": {
+      "cover": "collection/s01/tambali/cast/miik/cover.jpg",
+      "images": [
+        "collection/s01/tambali/cast/miik/cover.jpg",
+        "collection/s01/tambali/cast/miik/img-01.jpg"
+      ]
+    },
+    "racine": {
+      "cover": "collection/s01/tambali/cast/racine/cover.jpg",
+      "images": [
+        "collection/s01/tambali/cast/racine/cover.jpg",
+        "collection/s01/tambali/cast/racine/img-01.jpg",
+        "collection/s01/tambali/cast/racine/img-02.jpg"
+      ]
+    },
+    "sukoh": {
+      "cover": "collection/s01/tambali/cast/sukoh/cover.jpg",
+      "images": [
+        "collection/s01/tambali/cast/sukoh/cover.jpg"
+      ]
+    }
+  },
+  "passage": {
+    "gue-am": {
+      "cover": "collection/s01/passage/cast/gue-am/cover.jpg",
+      "images": [
+        "collection/s01/passage/cast/gue-am/cover.jpg",
+        "collection/s01/passage/cast/gue-am/img-01.jpg",
+        "collection/s01/passage/cast/gue-am/img-02.jpg",
+        "collection/s01/passage/cast/gue-am/img-03.jpg",
+        "collection/s01/passage/cast/gue-am/img-04.jpg",
+        "collection/s01/passage/cast/gue-am/img-05.jpg",
+        "collection/s01/passage/cast/gue-am/img-06.jpg",
+        "collection/s01/passage/cast/gue-am/img-07.jpg",
+        "collection/s01/passage/cast/gue-am/img-08.jpg",
+        "collection/s01/passage/cast/gue-am/img-09.jpg",
+        "collection/s01/passage/cast/gue-am/img-10.jpg",
+        "collection/s01/passage/cast/gue-am/img-11.jpg"
+      ]
+    },
+    "jant": {
+      "cover": "collection/s01/passage/cast/jant/cover.jpg",
+      "images": [
+        "collection/s01/passage/cast/jant/cover.jpg",
+        "collection/s01/passage/cast/jant/img-01.jpg",
+        "collection/s01/passage/cast/jant/img-02.jpg",
+        "collection/s01/passage/cast/jant/img-03.jpg",
+        "collection/s01/passage/cast/jant/img-04.jpg",
+        "collection/s01/passage/cast/jant/img-05.jpg",
+        "collection/s01/passage/cast/jant/img-06.jpg",
+        "collection/s01/passage/cast/jant/img-07.jpg",
+        "collection/s01/passage/cast/jant/img-08.jpg",
+        "collection/s01/passage/cast/jant/img-09.jpg"
+      ]
+    },
+    "miiik": {
+      "cover": "collection/s01/passage/cast/miiik/cover.jpg",
+      "images": [
+        "collection/s01/passage/cast/miiik/cover.jpg",
+        "collection/s01/passage/cast/miiik/img-01.jpg",
+        "collection/s01/passage/cast/miiik/img-02.jpg",
+        "collection/s01/passage/cast/miiik/img-03.jpg",
+        "collection/s01/passage/cast/miiik/img-04.jpg",
+        "collection/s01/passage/cast/miiik/img-05.jpg",
+        "collection/s01/passage/cast/miiik/img-06.jpg",
+        "collection/s01/passage/cast/miiik/img-07.jpg",
+        "collection/s01/passage/cast/miiik/img-08.jpg",
+        "collection/s01/passage/cast/miiik/img-09.jpg",
+        "collection/s01/passage/cast/miiik/img-10.jpg",
+        "collection/s01/passage/cast/miiik/img-11.jpg"
+      ]
+    },
+    "djalann": {
+      "cover": "collection/s01/passage/cast/djalann/cover.jpg",
+      "images": [
+        "collection/s01/passage/cast/djalann/cover.jpg",
+        "collection/s01/passage/cast/djalann/img-01.jpg",
+        "collection/s01/passage/cast/djalann/img-02.jpg"
+      ]
+    },
+    "racine": {
+      "cover": "collection/s01/passage/cast/racine/cover.jpg",
+      "images": [
+        "collection/s01/passage/cast/racine/cover.jpg",
+        "collection/s01/passage/cast/racine/img-01.jpg"
+      ]
+    }
+  },
+  "exposition": {
+    "gue-am": {
+      "cover": "collection/s01/exposition/cast/gue-am/cover.jpg",
+      "images": [
+        "collection/s01/exposition/cast/gue-am/cover.jpg",
+        "collection/s01/exposition/cast/gue-am/img-01.jpg",
+        "collection/s01/exposition/cast/gue-am/img-02.jpg",
+        "collection/s01/exposition/cast/gue-am/img-03.jpg",
+        "collection/s01/exposition/cast/gue-am/img-04.jpg",
+        "collection/s01/exposition/cast/gue-am/img-05.jpg",
+        "collection/s01/exposition/cast/gue-am/img-06.jpg",
+        "collection/s01/exposition/cast/gue-am/img-07.jpg",
+        "collection/s01/exposition/cast/gue-am/img-08.jpg",
+        "collection/s01/exposition/cast/gue-am/img-09.jpg",
+        "collection/s01/exposition/cast/gue-am/img-10.jpg"
+      ]
+    },
+    "jant": {
+      "cover": "collection/s01/exposition/cast/jant/cover.jpg",
+      "images": [
+        "collection/s01/exposition/cast/jant/cover.jpg",
+        "collection/s01/exposition/cast/jant/img-01.jpg",
+        "collection/s01/exposition/cast/jant/img-02.jpg",
+        "collection/s01/exposition/cast/jant/img-03.jpg",
+        "collection/s01/exposition/cast/jant/img-04.jpg",
+        "collection/s01/exposition/cast/jant/img-05.jpg",
+        "collection/s01/exposition/cast/jant/img-06.jpg",
+        "collection/s01/exposition/cast/jant/img-07.jpg",
+        "collection/s01/exposition/cast/jant/img-08.jpg",
+        "collection/s01/exposition/cast/jant/img-09.jpg",
+        "collection/s01/exposition/cast/jant/img-10.jpg",
+        "collection/s01/exposition/cast/jant/img-11.jpg"
+      ]
+    }
+  },
+  "feu": {
+    "gue-am": {
+      "cover": "collection/s01/feu/cast/gue-am/cover.jpg",
+      "images": [
+        "collection/s01/feu/cast/gue-am/cover.jpg",
+        "collection/s01/feu/cast/gue-am/img-01.jpg",
+        "collection/s01/feu/cast/gue-am/img-02.jpg",
+        "collection/s01/feu/cast/gue-am/img-03.jpg",
+        "collection/s01/feu/cast/gue-am/img-04.jpg",
+        "collection/s01/feu/cast/gue-am/img-05.jpg",
+        "collection/s01/feu/cast/gue-am/img-06.jpg",
+        "collection/s01/feu/cast/gue-am/img-07.jpg",
+        "collection/s01/feu/cast/gue-am/img-08.jpg",
+        "collection/s01/feu/cast/gue-am/img-09.jpg",
+        "collection/s01/feu/cast/gue-am/img-10.jpg",
+        "collection/s01/feu/cast/gue-am/img-11.jpg"
+      ]
+    },
+    "jant": {
+      "cover": "collection/s01/feu/cast/jant/cover.jpg",
+      "images": [
+        "collection/s01/feu/cast/jant/cover.jpg",
+        "collection/s01/feu/cast/jant/img-01.jpg",
+        "collection/s01/feu/cast/jant/img-02.jpg",
+        "collection/s01/feu/cast/jant/img-03.jpg",
+        "collection/s01/feu/cast/jant/img-04.jpg",
+        "collection/s01/feu/cast/jant/img-05.jpg",
+        "collection/s01/feu/cast/jant/img-06.jpg",
+        "collection/s01/feu/cast/jant/img-07.jpg",
+        "collection/s01/feu/cast/jant/img-08.jpg",
+        "collection/s01/feu/cast/jant/img-09.jpg",
+        "collection/s01/feu/cast/jant/img-10.jpg",
+        "collection/s01/feu/cast/jant/img-11.jpg"
+      ]
+    },
+    "panda": {
+      "cover": "collection/s01/feu/cast/panda/cover.jpg",
+      "images": [
+        "collection/s01/feu/cast/panda/cover.jpg",
+        "collection/s01/feu/cast/panda/img-01.jpg",
+        "collection/s01/feu/cast/panda/img-02.jpg",
+        "collection/s01/feu/cast/panda/img-03.jpg",
+        "collection/s01/feu/cast/panda/img-04.jpg",
+        "collection/s01/feu/cast/panda/img-05.jpg",
+        "collection/s01/feu/cast/panda/img-06.jpg",
+        "collection/s01/feu/cast/panda/img-07.jpg",
+        "collection/s01/feu/cast/panda/img-08.jpg",
+        "collection/s01/feu/cast/panda/img-09.jpg",
+        "collection/s01/feu/cast/panda/img-10.jpg",
+        "collection/s01/feu/cast/panda/img-11.jpg"
+      ]
+    },
+    "yaranka": {
+      "cover": "collection/s01/feu/cast/yaranka/cover.jpg",
+      "images": [
+        "collection/s01/feu/cast/yaranka/cover.jpg",
+        "collection/s01/feu/cast/yaranka/img-01.jpg",
+        "collection/s01/feu/cast/yaranka/img-02.jpg",
+        "collection/s01/feu/cast/yaranka/img-03.jpg",
+        "collection/s01/feu/cast/yaranka/img-04.jpg",
+        "collection/s01/feu/cast/yaranka/img-05.jpg",
+        "collection/s01/feu/cast/yaranka/img-06.jpg",
+        "collection/s01/feu/cast/yaranka/img-07.jpg",
+        "collection/s01/feu/cast/yaranka/img-08.jpg",
+        "collection/s01/feu/cast/yaranka/img-09.jpg",
+        "collection/s01/feu/cast/yaranka/img-10.jpg",
+        "collection/s01/feu/cast/yaranka/img-11.jpg"
+      ]
+    }
+  },
+  "mbougir": {
+    "gue-am": {
+      "cover": "collection/s01/mbougir/cast/gue-am/cover.jpg",
+      "images": [
+        "collection/s01/mbougir/cast/gue-am/cover.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-01.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-02.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-03.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-04.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-05.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-06.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-07.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-08.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-09.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-10.jpg",
+        "collection/s01/mbougir/cast/gue-am/img-11.jpg"
+      ]
+    },
+    "fod": {
+      "cover": "collection/s01/mbougir/cast/fod/cover.jpg",
+      "images": [
+        "collection/s01/mbougir/cast/fod/cover.jpg",
+        "collection/s01/mbougir/cast/fod/img-01.jpg",
+        "collection/s01/mbougir/cast/fod/img-02.jpg",
+        "collection/s01/mbougir/cast/fod/img-03.jpg",
+        "collection/s01/mbougir/cast/fod/img-04.jpg",
+        "collection/s01/mbougir/cast/fod/img-05.jpg",
+        "collection/s01/mbougir/cast/fod/img-06.jpg",
+        "collection/s01/mbougir/cast/fod/img-07.jpg",
+        "collection/s01/mbougir/cast/fod/img-08.jpg",
+        "collection/s01/mbougir/cast/fod/img-09.jpg",
+        "collection/s01/mbougir/cast/fod/img-10.jpg",
+        "collection/s01/mbougir/cast/fod/img-11.jpg"
+      ]
+    },
+    "mossane": {
+      "cover": "collection/s01/mbougir/cast/mossane/cover.jpg",
+      "images": [
+        "collection/s01/mbougir/cast/mossane/cover.jpg",
+        "collection/s01/mbougir/cast/mossane/img-01.jpg",
+        "collection/s01/mbougir/cast/mossane/img-02.jpg",
+        "collection/s01/mbougir/cast/mossane/img-03.jpg",
+        "collection/s01/mbougir/cast/mossane/img-04.jpg",
+        "collection/s01/mbougir/cast/mossane/img-05.jpg",
+        "collection/s01/mbougir/cast/mossane/img-06.jpg",
+        "collection/s01/mbougir/cast/mossane/img-07.jpg",
+        "collection/s01/mbougir/cast/mossane/img-08.jpg",
+        "collection/s01/mbougir/cast/mossane/img-09.jpg",
+        "collection/s01/mbougir/cast/mossane/img-10.jpg",
+        "collection/s01/mbougir/cast/mossane/img-11.jpg"
+      ]
+    },
+    "jant": {
+      "cover": "collection/s01/mbougir/cast/jant/cover.jpg",
+      "images": [
+        "collection/s01/mbougir/cast/jant/cover.jpg",
+        "collection/s01/mbougir/cast/jant/img-01.jpg",
+        "collection/s01/mbougir/cast/jant/img-02.jpg",
+        "collection/s01/mbougir/cast/jant/img-03.jpg",
+        "collection/s01/mbougir/cast/jant/img-04.jpg",
+        "collection/s01/mbougir/cast/jant/img-05.jpg",
+        "collection/s01/mbougir/cast/jant/img-06.jpg",
+        "collection/s01/mbougir/cast/jant/img-07.jpg",
+        "collection/s01/mbougir/cast/jant/img-08.jpg",
+        "collection/s01/mbougir/cast/jant/img-09.jpg",
+        "collection/s01/mbougir/cast/jant/img-10.jpg",
+        "collection/s01/mbougir/cast/jant/img-11.jpg"
+      ]
+    },
+    "djalane": {
+      "cover": "collection/s01/mbougir/cast/djalane/cover.jpg",
+      "images": [
+        "collection/s01/mbougir/cast/djalane/cover.jpg",
+        "collection/s01/mbougir/cast/djalane/img-01.jpg",
+        "collection/s01/mbougir/cast/djalane/img-02.jpg",
+        "collection/s01/mbougir/cast/djalane/img-03.jpg",
+        "collection/s01/mbougir/cast/djalane/img-04.jpg",
+        "collection/s01/mbougir/cast/djalane/img-05.jpg",
+        "collection/s01/mbougir/cast/djalane/img-06.jpg",
+        "collection/s01/mbougir/cast/djalane/img-07.jpg",
+        "collection/s01/mbougir/cast/djalane/img-08.jpg"
+      ]
+    }
+  }
+}

@@ -7,6 +7,18 @@ export default defineConfig({
   resolve: {
     alias: { "@": path.resolve(__dirname, "src") },
   },
+  server: {
+    proxy: {
+      "/api/admin": {
+        target: "http://localhost:5170",
+        changeOrigin: true,
+      },
+      "/api/store": {
+        target: "http://localhost:5170",
+        changeOrigin: true,
+      },
+    },
+  },
   build: {
     rollupOptions: {
       output: {

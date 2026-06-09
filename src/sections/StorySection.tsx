@@ -1,16 +1,20 @@
 import { forwardRef } from "react";
 import { storyFragments, copy } from "@/content/copy";
+import { useCmsText, useCmsList } from "@/context/CmsContext";
 
 export const StorySection = forwardRef<HTMLElement>(function StorySection(_, ref) {
+  const tagline = useCmsText("brand.tagline", copy.tagline);
+  const taglineFr = useCmsText("brand.taglineFr", copy.taglineFr);
+  const fragments = useCmsList("home.story.fragments", storyFragments);
   return (
     <section ref={ref} className="story" id="philosophie" aria-labelledby="philosophie-title">
       <div className="story__rail">
         <p className="story__eyebrow" id="philosophie-title">
           Philosophie
         </p>
-        <p className="story__lede">{copy.tagline} — {copy.taglineFr}.</p>
+        <p className="story__lede">{tagline} — {taglineFr}.</p>
         <ol className="story__lines">
-          {storyFragments.map((line, i) => (
+          {fragments.map((line, i) => (
             <li key={line} className="story-fragment" data-index={String(i + 1).padStart(2, "0")}>
               <span className="story-fragment__num">{String(i + 1).padStart(2, "0")}</span>
               <span className="story-fragment__text">{line}</span>

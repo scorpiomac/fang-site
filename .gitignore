@@ -2,6 +2,9 @@ node_modules
 dist
 .DS_Store
 *.local
+.env
+.env.local
+.env.*.local
 .vite
 coverage
 .next
@@ -13,3 +16,11 @@ COLLECTION 1 NEEL FANG TE DUNDU/
 Ohasso-Regular 2.ttf
 # Sous-projet atelier (repo Git séparé)
 fang-atelier/
+
+# Backups data/
+backups/
+
+# Backups générés par scripts/test-runner.mjs
+data.testbackup-*/
+src/content/siteOverrides.json.testbackup-*
+

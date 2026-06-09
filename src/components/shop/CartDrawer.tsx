@@ -67,6 +67,7 @@ export function CartDrawer() {
                       {l.title}
                     </Link>
                     <p className="cart-line__meta">
+                      {l.variationLabel !== "Pièce" ? `${l.variationLabel} · ` : ""}
                       Taille {l.size} · {formatPriceXof(l.priceXof)} FCFA
                     </p>
                     <div className="cart-line__qty">

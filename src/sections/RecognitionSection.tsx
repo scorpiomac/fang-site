@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { recognition } from "@/content/creator";
 import { copy } from "@/content/copy";
+import { useCmsText } from "@/context/CmsContext";
 
 export function RecognitionSection() {
+  const eyebrow = useCmsText("home.recognition.eyebrow", copy.recognitionEyebrow);
+  const title = useCmsText("home.recognition.title", copy.recognitionTitle);
+  const body = useCmsText("home.recognition.body", copy.recognitionBody);
   return (
     <section
       className="recognition"
@@ -10,11 +14,11 @@ export function RecognitionSection() {
       aria-labelledby="reconnaissance-title"
     >
       <div className="recognition__head">
-        <p className="recognition__eyebrow">{copy.recognitionEyebrow}</p>
+        <p className="recognition__eyebrow">{eyebrow}</p>
         <h2 className="recognition__title" id="reconnaissance-title">
-          {copy.recognitionTitle}
+          {title}
         </h2>
-        <p className="recognition__lede">{copy.recognitionBody}</p>
+        <p className="recognition__lede">{body}</p>
       </div>
 
       <ol className="recognition__timeline">

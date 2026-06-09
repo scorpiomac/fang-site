@@ -1,0 +1,615 @@
+{
+  "season": {
+    "id": "s01",
+    "slug": "saison-01",
+    "title": "Nel Fang Te Dundu",
+    "subtitle": "Saison 01",
+    "tagline": "L’ordre et la numérotation des collections suivent le dossier atelier Saison 01.",
+    "sourceRoot": "SAISON 1  neel fang",
+    "chapterOrder": [
+      "tambali",
+      "passage",
+      "exposition",
+      "feu",
+      "ge-am",
+      "racine",
+      "mbougir"
+    ]
+  },
+  "chapters": [
+    {
+      "order": 1,
+      "id": "tambali",
+      "slug": "tambali",
+      "index": "01",
+      "name": "Tambali",
+      "sourceFolder": "CHAPITRE 1 TAMBALI",
+      "characters": [
+        {
+          "id": "tambali-djaak",
+          "slug": "djaak",
+          "name": "Djaak",
+          "sourceFolder": "DJAAK",
+          "cover": "collection/s01/tambali/personnages/djaak/cover.jpg",
+          "images": [
+            "collection/s01/tambali/personnages/djaak/cover.jpg",
+            "collection/s01/tambali/personnages/djaak/produit-01.jpg",
+            "collection/s01/tambali/personnages/djaak/produit-02.jpg",
+            "collection/s01/tambali/personnages/djaak/produit-03.jpg",
+            "collection/s01/tambali/personnages/djaak/produit-04.jpg"
+          ],
+          "productCount": 5
+        },
+        {
+          "id": "tambali-fod",
+          "slug": "fod",
+          "name": "Fod",
+          "sourceFolder": "FOD",
+          "cover": "collection/s01/tambali/personnages/fod/cover.jpg",
+          "images": [
+            "collection/s01/tambali/personnages/fod/cover.jpg",
+            "collection/s01/tambali/personnages/fod/produit-01.jpg"
+          ],
+          "productCount": 2
+        },
+        {
+          "id": "tambali-gue-am",
+          "slug": "gue-am",
+          "name": "Gue Am",
+          "sourceFolder": "gue am",
+          "cover": "collection/s01/tambali/personnages/gue-am/cover.jpg",
+          "images": [
+            "collection/s01/tambali/personnages/gue-am/cover.jpg",
+            "collection/s01/tambali/personnages/gue-am/produit-01.jpg",
+            "collection/s01/tambali/personnages/gue-am/produit-02.jpg",
+            "collection/s01/tambali/personnages/gue-am/produit-03.jpg",
+            "collection/s01/tambali/personnages/gue-am/produit-04.jpg",
+            "collection/s01/tambali/personnages/gue-am/produit-05.jpg",
+            "collection/s01/tambali/personnages/gue-am/produit-06.jpg",
+            "collection/s01/tambali/personnages/gue-am/produit-07.jpg",
+            "collection/s01/tambali/personnages/gue-am/produit-08.jpg"
+          ],
+          "productCount": 9
+        },
+        {
+          "id": "tambali-jant",
+          "slug": "jant",
+          "name": "Jant",
+          "sourceFolder": "jant",
+          "cover": "collection/s01/tambali/personnages/jant/cover.jpg",
+          "images": [
+            "collection/s01/tambali/personnages/jant/cover.jpg",
+            "collection/s01/tambali/personnages/jant/produit-01.jpg",
+            "collection/s01/tambali/personnages/jant/produit-02.jpg",
+            "collection/s01/tambali/personnages/jant/produit-03.jpg",
+            "collection/s01/tambali/personnages/jant/produit-04.jpg",
+            "collection/s01/tambali/personnages/jant/produit-05.jpg",
+            "collection/s01/tambali/personnages/jant/produit-06.jpg",
+            "collection/s01/tambali/personnages/jant/produit-07.jpg",
+            "collection/s01/tambali/personnages/jant/produit-08.jpg"
+          ],
+          "productCount": 9
+        },
+        {
+          "id": "tambali-miik",
+          "slug": "miik",
+          "name": "Miik",
+          "sourceFolder": "MIIK",
+          "cover": "collection/s01/tambali/personnages/miik/cover.jpg",
+          "images": [
+            "collection/s01/tambali/personnages/miik/cover.jpg",
+            "collection/s01/tambali/personnages/miik/produit-01.jpg"
+          ],
+          "productCount": 2
+        },
+        {
+          "id": "tambali-mossann",
+          "slug": "mossann",
+          "name": "Mossann",
+          "sourceFolder": "mossann",
+          "cover": "collection/s01/tambali/personnages/mossann/cover.jpg",
+          "images": [
+            "collection/s01/tambali/personnages/mossann/cover.jpg",
+            "collection/s01/tambali/personnages/mossann/produit-01.jpg",
+            "collection/s01/tambali/personnages/mossann/produit-02.jpg",
+            "collection/s01/tambali/personnages/mossann/produit-03.jpg",
+            "collection/s01/tambali/personnages/mossann/produit-04.jpg"
+          ],
+          "productCount": 5
+        },
+        {
+          "id": "tambali-racine",
+          "slug": "racine",
+          "name": "Racine",
+          "sourceFolder": "racine",
+          "cover": "collection/s01/tambali/personnages/racine/cover.jpg",
+          "images": [
+            "collection/s01/tambali/personnages/racine/cover.jpg",
+            "collection/s01/tambali/personnages/racine/produit-01.jpg",
+            "collection/s01/tambali/personnages/racine/produit-02.jpg"
+          ],
+          "productCount": 3
+        },
+        {
+          "id": "tambali-sukoh",
+          "slug": "sukoh",
+          "name": "Sukoh",
+          "sourceFolder": "sukoh",
+          "cover": "collection/s01/tambali/personnages/sukoh/cover.jpg",
+          "images": [
+            "collection/s01/tambali/personnages/sukoh/cover.jpg"
+          ],
+          "productCount": 1
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "id": "passage",
+      "slug": "passage",
+      "index": "02",
+      "name": "Mik Fi Djaalan",
+      "sourceFolder": "Chap2 MIK  fi djaalan",
+      "characters": [
+        {
+          "id": "passage-djalann",
+          "slug": "djalann",
+          "name": "Djalann",
+          "sourceFolder": "DJALANN",
+          "cover": "collection/s01/passage/personnages/djalann/cover.jpg",
+          "images": [
+            "collection/s01/passage/personnages/djalann/cover.jpg",
+            "collection/s01/passage/personnages/djalann/produit-01.jpg",
+            "collection/s01/passage/personnages/djalann/produit-02.jpg"
+          ],
+          "productCount": 3
+        },
+        {
+          "id": "passage-gue-am",
+          "slug": "gue-am",
+          "name": "Gue Am",
+          "sourceFolder": "GUE AM",
+          "cover": "collection/s01/passage/personnages/gue-am/cover.jpg",
+          "images": [
+            "collection/s01/passage/personnages/gue-am/cover.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-01.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-02.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-03.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-04.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-05.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-06.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-07.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-08.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-09.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-10.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-11.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-12.jpg",
+            "collection/s01/passage/personnages/gue-am/produit-13.jpg"
+          ],
+          "productCount": 14
+        },
+        {
+          "id": "passage-jant",
+          "slug": "jant",
+          "name": "Jant",
+          "sourceFolder": "JANT",
+          "cover": "collection/s01/passage/personnages/jant/cover.jpg",
+          "images": [
+            "collection/s01/passage/personnages/jant/cover.jpg",
+            "collection/s01/passage/personnages/jant/produit-01.jpg",
+            "collection/s01/passage/personnages/jant/produit-02.jpg",
+            "collection/s01/passage/personnages/jant/produit-03.jpg",
+            "collection/s01/passage/personnages/jant/produit-04.jpg",
+            "collection/s01/passage/personnages/jant/produit-05.jpg",
+            "collection/s01/passage/personnages/jant/produit-06.jpg",
+            "collection/s01/passage/personnages/jant/produit-07.jpg",
+            "collection/s01/passage/personnages/jant/produit-08.jpg",
+            "collection/s01/passage/personnages/jant/produit-09.jpg"
+          ],
+          "productCount": 10
+        },
+        {
+          "id": "passage-miiik",
+          "slug": "miiik",
+          "name": "Miiik",
+          "sourceFolder": "MIIIK",
+          "cover": "collection/s01/passage/personnages/miiik/cover.jpg",
+          "images": [
+            "collection/s01/passage/personnages/miiik/cover.jpg",
+            "collection/s01/passage/personnages/miiik/produit-01.jpg",
+            "collection/s01/passage/personnages/miiik/produit-02.jpg",
+            "collection/s01/passage/personnages/miiik/produit-03.jpg",
+            "collection/s01/passage/personnages/miiik/produit-04.jpg",
+            "collection/s01/passage/personnages/miiik/produit-05.jpg",
+            "collection/s01/passage/personnages/miiik/produit-06.jpg",
+            "collection/s01/passage/personnages/miiik/produit-07.jpg",
+            "collection/s01/passage/personnages/miiik/produit-08.jpg",
+            "collection/s01/passage/personnages/miiik/produit-09.jpg",
+            "collection/s01/passage/personnages/miiik/produit-10.jpg",
+            "collection/s01/passage/personnages/miiik/produit-11.jpg"
+          ],
+          "productCount": 12
+        },
+        {
+          "id": "passage-racine",
+          "slug": "racine",
+          "name": "Racine",
+          "sourceFolder": "RACINE",
+          "cover": "collection/s01/passage/personnages/racine/cover.jpg",
+          "images": [
+            "collection/s01/passage/personnages/racine/cover.jpg",
+            "collection/s01/passage/personnages/racine/produit-01.jpg"
+          ],
+          "productCount": 2
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "id": "exposition",
+      "slug": "exposition",
+      "index": "03",
+      "name": "Ohasso A Roka",
+      "sourceFolder": "chap3 ohasso a roka",
+      "characters": [
+        {
+          "id": "exposition-gue-am",
+          "slug": "gue-am",
+          "name": "Gue Am",
+          "sourceFolder": "GUE AM",
+          "cover": "collection/s01/exposition/personnages/gue-am/cover.jpg",
+          "images": [
+            "collection/s01/exposition/personnages/gue-am/cover.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-01.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-02.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-03.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-04.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-05.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-06.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-07.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-08.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-09.jpg",
+            "collection/s01/exposition/personnages/gue-am/produit-10.jpg"
+          ],
+          "productCount": 11
+        },
+        {
+          "id": "exposition-jant",
+          "slug": "jant",
+          "name": "Jant",
+          "sourceFolder": "JANT",
+          "cover": "collection/s01/exposition/personnages/jant/cover.jpg",
+          "images": [
+            "collection/s01/exposition/personnages/jant/cover.jpg",
+            "collection/s01/exposition/personnages/jant/produit-01.jpg",
+            "collection/s01/exposition/personnages/jant/produit-02.jpg",
+            "collection/s01/exposition/personnages/jant/produit-03.jpg",
+            "collection/s01/exposition/personnages/jant/produit-04.jpg",
+            "collection/s01/exposition/personnages/jant/produit-05.jpg",
+            "collection/s01/exposition/personnages/jant/produit-06.jpg",
+            "collection/s01/exposition/personnages/jant/produit-07.jpg",
+            "collection/s01/exposition/personnages/jant/produit-08.jpg",
+            "collection/s01/exposition/personnages/jant/produit-09.jpg",
+            "collection/s01/exposition/personnages/jant/produit-10.jpg",
+            "collection/s01/exposition/personnages/jant/produit-11.jpg",
+            "collection/s01/exposition/personnages/jant/produit-12.jpg",
+            "collection/s01/exposition/personnages/jant/produit-13.jpg",
+            "collection/s01/exposition/personnages/jant/produit-14.jpg",
+            "collection/s01/exposition/personnages/jant/produit-15.jpg",
+            "collection/s01/exposition/personnages/jant/produit-16.jpg",
+            "collection/s01/exposition/personnages/jant/produit-17.jpg",
+            "collection/s01/exposition/personnages/jant/produit-18.jpg",
+            "collection/s01/exposition/personnages/jant/produit-19.jpg",
+            "collection/s01/exposition/personnages/jant/produit-20.jpg",
+            "collection/s01/exposition/personnages/jant/produit-21.jpg",
+            "collection/s01/exposition/personnages/jant/produit-22.jpg",
+            "collection/s01/exposition/personnages/jant/produit-23.jpg"
+          ],
+          "productCount": 24
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "id": "feu",
+      "slug": "feu",
+      "index": "04",
+      "name": "Panda Fi Yaranka",
+      "sourceFolder": " 4 PANDA FI YARANKA",
+      "characters": [
+        {
+          "id": "feu-gue-am",
+          "slug": "gue-am",
+          "name": "Gue Am",
+          "sourceFolder": "GUE AM",
+          "cover": "collection/s01/feu/personnages/gue-am/cover.jpg",
+          "images": [
+            "collection/s01/feu/personnages/gue-am/cover.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-01.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-02.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-03.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-04.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-05.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-06.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-07.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-08.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-09.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-10.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-11.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-12.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-13.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-14.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-15.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-16.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-17.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-18.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-19.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-20.jpg",
+            "collection/s01/feu/personnages/gue-am/produit-21.jpg"
+          ],
+          "productCount": 22
+        },
+        {
+          "id": "feu-jant",
+          "slug": "jant",
+          "name": "Jant",
+          "sourceFolder": "JANT",
+          "cover": "collection/s01/feu/personnages/jant/cover.jpg",
+          "images": [
+            "collection/s01/feu/personnages/jant/cover.jpg",
+            "collection/s01/feu/personnages/jant/produit-01.jpg",
+            "collection/s01/feu/personnages/jant/produit-02.jpg",
+            "collection/s01/feu/personnages/jant/produit-03.jpg",
+            "collection/s01/feu/personnages/jant/produit-04.jpg",
+            "collection/s01/feu/personnages/jant/produit-05.jpg",
+            "collection/s01/feu/personnages/jant/produit-06.jpg",
+            "collection/s01/feu/personnages/jant/produit-07.jpg",
+            "collection/s01/feu/personnages/jant/produit-08.jpg",
+            "collection/s01/feu/personnages/jant/produit-09.jpg",
+            "collection/s01/feu/personnages/jant/produit-10.jpg",
+            "collection/s01/feu/personnages/jant/produit-11.jpg",
+            "collection/s01/feu/personnages/jant/produit-12.jpg",
+            "collection/s01/feu/personnages/jant/produit-13.jpg",
+            "collection/s01/feu/personnages/jant/produit-14.jpg",
+            "collection/s01/feu/personnages/jant/produit-15.jpg"
+          ],
+          "productCount": 16
+        },
+        {
+          "id": "feu-panda",
+          "slug": "panda",
+          "name": "Panda",
+          "sourceFolder": "PANDA",
+          "cover": "collection/s01/feu/personnages/panda/cover.jpg",
+          "images": [
+            "collection/s01/feu/personnages/panda/cover.jpg",
+            "collection/s01/feu/personnages/panda/produit-01.jpg",
+            "collection/s01/feu/personnages/panda/produit-02.jpg",
+            "collection/s01/feu/personnages/panda/produit-03.jpg",
+            "collection/s01/feu/personnages/panda/produit-04.jpg",
+            "collection/s01/feu/personnages/panda/produit-05.jpg",
+            "collection/s01/feu/personnages/panda/produit-06.jpg",
+            "collection/s01/feu/personnages/panda/produit-07.jpg",
+            "collection/s01/feu/personnages/panda/produit-08.jpg",
+            "collection/s01/feu/personnages/panda/produit-09.jpg",
+            "collection/s01/feu/personnages/panda/produit-10.jpg",
+            "collection/s01/feu/personnages/panda/produit-11.jpg",
+            "collection/s01/feu/personnages/panda/produit-12.jpg",
+            "collection/s01/feu/personnages/panda/produit-13.jpg",
+            "collection/s01/feu/personnages/panda/produit-14.jpg",
+            "collection/s01/feu/personnages/panda/produit-15.jpg",
+            "collection/s01/feu/personnages/panda/produit-16.jpg",
+            "collection/s01/feu/personnages/panda/produit-17.jpg",
+            "collection/s01/feu/personnages/panda/produit-18.jpg",
+            "collection/s01/feu/personnages/panda/produit-19.jpg",
+            "collection/s01/feu/personnages/panda/produit-20.jpg"
+          ],
+          "productCount": 21
+        },
+        {
+          "id": "feu-yaranka",
+          "slug": "yaranka",
+          "name": "Yaranka",
+          "sourceFolder": "YARANKA",
+          "cover": "collection/s01/feu/personnages/yaranka/cover.jpg",
+          "images": [
+            "collection/s01/feu/personnages/yaranka/cover.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-01.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-02.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-03.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-04.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-05.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-06.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-07.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-08.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-09.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-10.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-11.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-12.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-13.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-14.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-15.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-16.jpg",
+            "collection/s01/feu/personnages/yaranka/produit-17.jpg"
+          ],
+          "productCount": 18
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "id": "ge-am",
+      "slug": "ge-am",
+      "index": "05",
+      "name": "Gue Am",
+      "sourceFolder": "5 GUE AM",
+      "characters": []
+    },
+    {
+      "order": 6,
+      "id": "racine",
+      "slug": "racine",
+      "index": "06",
+      "name": "Racine",
+      "sourceFolder": "6 RACINE",
+      "characters": []
+    },
+    {
+      "order": 7,
+      "id": "mbougir",
+      "slug": "mbougir",
+      "index": "07",
+      "name": "Mbougir",
+      "sourceFolder": "CHAPITRE 7 MBOUGIR",
+      "characters": [
+        {
+          "id": "mbougir-djalane",
+          "slug": "djalane",
+          "name": "Djalane",
+          "sourceFolder": "DJALANE",
+          "cover": "collection/s01/mbougir/personnages/djalane/cover.jpg",
+          "images": [
+            "collection/s01/mbougir/personnages/djalane/cover.jpg",
+            "collection/s01/mbougir/personnages/djalane/produit-01.jpg",
+            "collection/s01/mbougir/personnages/djalane/produit-02.jpg",
+            "collection/s01/mbougir/personnages/djalane/produit-03.jpg",
+            "collection/s01/mbougir/personnages/djalane/produit-04.jpg",
+            "collection/s01/mbougir/personnages/djalane/produit-05.jpg",
+            "collection/s01/mbougir/personnages/djalane/produit-06.jpg",
+            "collection/s01/mbougir/personnages/djalane/produit-07.jpg",
+            "collection/s01/mbougir/personnages/djalane/produit-08.jpg"
+          ],
+          "productCount": 9
+        },
+        {
+          "id": "mbougir-fod",
+          "slug": "fod",
+          "name": "Fod",
+          "sourceFolder": "FOD",
+          "cover": "collection/s01/mbougir/personnages/fod/cover.jpg",
+          "images": [
+            "collection/s01/mbougir/personnages/fod/cover.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-01.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-02.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-03.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-04.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-05.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-06.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-07.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-08.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-09.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-10.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-11.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-12.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-13.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-14.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-15.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-16.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-17.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-18.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-19.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-20.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-21.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-22.jpg",
+            "collection/s01/mbougir/personnages/fod/produit-23.jpg"
+          ],
+          "productCount": 24
+        },
+        {
+          "id": "mbougir-gue-am",
+          "slug": "gue-am",
+          "name": "Gue Am",
+          "sourceFolder": "GUE AM",
+          "cover": "collection/s01/mbougir/personnages/gue-am/cover.jpg",
+          "images": [
+            "collection/s01/mbougir/personnages/gue-am/cover.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-01.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-02.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-03.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-04.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-05.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-06.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-07.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-08.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-09.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-10.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-11.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-12.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-13.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-14.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-15.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-16.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-17.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-18.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-19.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-20.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-21.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-22.jpg",
+            "collection/s01/mbougir/personnages/gue-am/produit-23.jpg"
+          ],
+          "productCount": 24
+        },
+        {
+          "id": "mbougir-jant",
+          "slug": "jant",
+          "name": "Jant",
+          "sourceFolder": "JANT",
+          "cover": "collection/s01/mbougir/personnages/jant/cover.jpg",
+          "images": [
+            "collection/s01/mbougir/personnages/jant/cover.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-01.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-02.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-03.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-04.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-05.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-06.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-07.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-08.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-09.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-10.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-11.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-12.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-13.jpg",
+            "collection/s01/mbougir/personnages/jant/produit-14.jpg"
+          ],
+          "productCount": 15
+        },
+        {
+          "id": "mbougir-mossane",
+          "slug": "mossane",
+          "name": "Mossane",
+          "sourceFolder": "MOSSANE",
+          "cover": "collection/s01/mbougir/personnages/mossane/cover.jpg",
+          "images": [
+            "collection/s01/mbougir/personnages/mossane/cover.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-01.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-02.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-03.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-04.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-05.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-06.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-07.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-08.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-09.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-10.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-11.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-12.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-13.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-14.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-15.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-16.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-17.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-18.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-19.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-20.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-21.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-22.jpg",
+            "collection/s01/mbougir/personnages/mossane/produit-23.jpg"
+          ],
+          "productCount": 24
+        }
+      ]
+    }
+  ],
+  "syncedAt": "2026-06-09T03:29:06.306Z"
+}

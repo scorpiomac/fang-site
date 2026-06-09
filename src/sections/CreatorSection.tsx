@@ -2,8 +2,13 @@ import { forwardRef } from "react";
 import { creator } from "@/content/creator";
 import { copy } from "@/content/copy";
 import { publicUrl } from "@/lib/publicUrl";
+import { useCmsText } from "@/context/CmsContext";
 
 export const CreatorSection = forwardRef<HTMLElement>(function CreatorSection(_, ref) {
+  const eyebrow = useCmsText("home.creator.eyebrow", copy.creatorEyebrow);
+  const name = useCmsText("home.creator.name", creator.name);
+  const role = useCmsText("home.creator.role", creator.role);
+  const quote = useCmsText("home.creator.quote", copy.creatorQuote);
   return (
     <section
       ref={ref}
@@ -22,13 +27,13 @@ export const CreatorSection = forwardRef<HTMLElement>(function CreatorSection(_,
         </aside>
 
         <div className="creator__body">
-          <p className="creator__eyebrow">{copy.creatorEyebrow}</p>
+          <p className="creator__eyebrow">{eyebrow}</p>
           <h2 className="creator__name" id="createur-title">
-            {creator.name}
+            {name}
           </h2>
-          <p className="creator__role">{creator.role}</p>
+          <p className="creator__role">{role}</p>
 
-          <blockquote className="creator__quote">{copy.creatorQuote}</blockquote>
+          <blockquote className="creator__quote">{quote}</blockquote>
 
           <div className="creator__paragraphs">
             {creator.paragraphs.map((p) => (

@@ -1,0 +1,11 @@
+{
+  "chapters": {
+    "tambali": {
+      "coverImage": "collection/s01/test/cover.jpg",
+      "posterImage": "collection/s01/test/poster.jpg"
+    }
+  },
+  "copy": {
+    "heroTitle": "Test titre"
+  }
+}

@@ -164,6 +164,12 @@ export function PersonnagePage() {
                       </span>
                     </Link>
                     <Link
+                      to={`/collection/${chapter.slug}`}
+                      className="cta cta--ghost personnage-doc__hero-cta personnage-doc__hero-cta--secondary"
+                    >
+                      {copy.collectionSeeChapter} — {copy.collectionPersonnagesLabel.toLowerCase()}
+                    </Link>
+                    <Link
                       to={`/boutique?personnage=${chapter.id}`}
                       className="cta cta--ghost personnage-doc__hero-cta personnage-doc__hero-cta--secondary"
                     >

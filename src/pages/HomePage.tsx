@@ -17,6 +17,8 @@ import { useSectionSceneBindings } from "@/hooks/useSectionSceneBindings";
 import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { chapters } from "@/content/chapters";
+import { Seo } from "@/components/Seo";
+import { useSiteSettings } from "@/context/siteSettingsContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -262,8 +264,43 @@ export function HomePage() {
     };
   }, [loaded]);
 
+  const { settings } = useSiteSettings();
+  const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: settings.brand.name,
+    legalName: settings.brand.legalName,
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.svg`,
+    sameAs: [settings.social.instagram].filter(Boolean),
+    address: settings.brand.address
+      ? {
+          "@type": "PostalAddress",
+          streetAddress: settings.brand.address,
+        }
+      : undefined,
+    contactPoint: settings.contact.email
+      ? {
+          "@type": "ContactPoint",
+          email: settings.contact.email,
+          telephone: settings.contact.phone,
+          contactType: "customer service",
+        }
+      : undefined,
+  };
+
   return (
     <div ref={rootRef} className="home">
+      <Seo
+        title={`${settings.brand.name} — Maison afro-contemporaine`}
+        description={
+          settings.brand.tagline ??
+          "FANG. Maison sénégalaise de mode afro-contemporaine. Pièces faites à la main à Dakar."
+        }
+        url={siteUrl}
+        jsonLd={orgJsonLd}
+      />
       {!loaded ? <Loader onDone={onLoaderDone} /> : null}
       <div className={`home__stage ${loaded ? "home__stage--ready" : ""}`}>
         <div className="canvas-layer" aria-hidden="true">
