@@ -1,0 +1,12 @@
+[Unit]
+Description=FANG — backup quotidien data + cms-media
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/usr/local/etc/fang-site
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node scripts/backup.mjs create
+
+[Install]
+WantedBy=multi-user.target

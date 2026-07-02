@@ -1,13 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
-import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
+import { mirrorDataBackup, backupCmsMedia } from "./persistence.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.resolve(__dirname, "../../data");
 const BACKUP_DIR = path.resolve(__dirname, "../../backups");
-const KEEP_DAYS = 7;
+const KEEP_DAYS = 30;
 
 const BACKUP_TARGETS = [
   "settings.json",
@@ -22,6 +22,7 @@ const BACKUP_TARGETS = [
   "reviews.json",
   "wishlists.json",
   "pages.json",
+  "cms.json",
   "mailTemplates.json",
   "audit.json",
   "newsletter.json",
@@ -62,6 +63,16 @@ export async function createBackup() {
   fs.writeFileSync(outFile, gz);
 
   rotateBackups();
+  try {
+    mirrorDataBackup(outFile);
+  } catch (err) {
+    console.warn("[backup] mirror externe échoué:", err.message);
+  }
+  try {
+    backupCmsMedia();
+  } catch (err) {
+    console.warn("[backup] cms-media échoué:", err.message);
+  }
   return outFile;
 }
 

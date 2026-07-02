@@ -20,6 +20,11 @@ fang-atelier/
 # Backups data/
 backups/
 
+# Données éditoriales & médias CMS (ne jamais versionner — sauvegardés hors repo)
+data/cms.json
+data/cms.history/
+cms-media/
+
 # Backups générés par scripts/test-runner.mjs
 data.testbackup-*/
 src/content/siteOverrides.json.testbackup-*

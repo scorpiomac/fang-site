@@ -97,6 +97,7 @@ import {
   restoreBackup,
   scheduleDailyBackup,
 } from "./lib/backup.mjs";
+import { ensurePersistenceOnBoot } from "./lib/persistence.mjs";
 import {
   listOnlineProviders,
   createPaymentIntent,
@@ -189,6 +190,12 @@ import {
   notifyAdmins,
   isSmtpConfigured,
 } from "./lib/mailer.mjs";
+import {
+  getCertificate,
+  buildCertificatePage,
+  sendOrderAuthenticityCertificates,
+  resolvePublicBaseUrl,
+} from "./lib/authenticity.mjs";
 
 initUsers();
 
@@ -198,12 +205,16 @@ const CATALOG_FILE = path.join(ROOT, "src/content/atelierCatalog.json");
 const PRODUCTS_OVERRIDES_FILE = path.join(ROOT, "src/content/productsOverrides.json");
 const SITE_OVERRIDES_FILE = path.join(ROOT, "src/content/siteOverrides.json");
 const PUBLIC_ROOT = path.join(ROOT, "public");
+const CMS_MEDIA_ROOT = path.join(ROOT, "cms-media");
 const MEDIA_ROOT = path.join(ROOT, "public/collection/s01");
 const LIBRARY_ROOT = path.join(ROOT, "public/medias/library");
 const PORT = Number(process.env.FANG_ADMIN_PORT ?? 5170);
 const CORS_ORIGIN = process.env.FANG_CORS_ORIGIN ?? "http://localhost:5173";
 
 const IMG_RE = /\.(jpe?g|png|webp)$/i;
+const MEDIA_FILE_RE = /\.(jpe?g|png|webp|mp4|webm)$/i;
+const CMS_VIDEO_RE = /\.(mp4|webm)$/i;
+const CMS_IMAGE_RE = /\.(jpe?g|png|webp)$/i;
 
 const app = express();
 
@@ -273,6 +284,21 @@ function getPublicBaseUrl(req) {
   if (settings.brand?.siteUrl) return String(settings.brand.siteUrl).replace(/\/$/, "");
   const proto = req.headers["x-forwarded-proto"] ?? "http";
   return `${proto}://${req.headers.host}`;
+}
+
+/** Envoie les certificats d'authenticité si la commande est finalisée (payée ou expédiée). */
+function scheduleAuthenticityCertificates(order, req) {
+  if (!order?.id || order.authenticity?.sentAt) return;
+  if (order.status === "cancelled") return;
+  const ready =
+    order.paymentStatus === "paid" || ["shipped", "delivered"].includes(order.status);
+  if (!ready) return;
+
+  const settings = getSettings();
+  const base = req ? getPublicBaseUrl(req) : resolvePublicBaseUrl(settings);
+  sendOrderAuthenticityCertificates(order, settings, base).catch((err) => {
+    console.error("[authenticity] envoi échoué:", err);
+  });
 }
 
 app.get("/robots.txt", (req, res) => {
@@ -435,6 +461,7 @@ app.post("/api/store/checkout/start", storeLimiter, async (req, res) => {
       sendTemplate("order_confirmation", pendingPayload.customer.email, orderMailVars(confirmed, settings)),
       notifyAdmins("admin_new_order", orderMailVars(confirmed, settings)),
     ]).catch(() => {});
+    scheduleAuthenticityCertificates(confirmed, req);
     recordAudit("payment.simulated", {
       target: { type: "order", id: order.id },
       ip: req.ip,
@@ -802,6 +829,32 @@ app.get("/api/store/cms", (req, res) => {
     return res.json({ content: getCmsDraft(), mode: "draft" });
   }
   res.json({ content: getCmsPublished(), mode: "published" });
+});
+
+app.get("/api/store/authenticity/:certId", (req, res) => {
+  const cert = getCertificate(req.params.certId);
+  if (!cert) return res.status(404).json({ error: "Certificat introuvable", valid: false });
+  res.json({
+    valid: true,
+    certificate: {
+      id: cert.id,
+      orderId: cert.orderId,
+      title: cert.title,
+      variationLabel: cert.variationLabel,
+      size: cert.size,
+      chapterLabel: cert.chapterLabel,
+      characterName: cert.characterName,
+      issuedAt: cert.issuedAt,
+      verifyUrl: cert.verifyUrl,
+    },
+  });
+});
+
+app.get("/api/store/authenticity/:certId/view", async (req, res) => {
+  const cert = getCertificate(req.params.certId);
+  if (!cert) return res.status(404).type("html").send("<p>Certificat introuvable.</p>");
+  const html = await buildCertificatePage(cert, getSettings());
+  res.type("html").send(html);
 });
 
 app.get("/api/store/products/:slug/reviews", (req, res) => {
@@ -1219,6 +1272,7 @@ async function finalizeOrderFromPending(
         : Promise.resolve(),
       notifyAdmins("admin_new_order", mailVars),
     ]).catch(() => {});
+    if (paymentStatus === "paid") scheduleAuthenticityCertificates(order);
   }
 
   return { order };
@@ -1255,6 +1309,7 @@ function confirmPaidOrder(orderId, { provider, ref, gatewayMeta }) {
       : Promise.resolve(),
     notifyAdmins("admin_new_order", mailVars),
   ]).catch(() => {});
+  scheduleAuthenticityCertificates(order);
   return { order };
 }
 
@@ -2063,6 +2118,9 @@ app.patch("/api/admin/orders/:orderId", requireCommerce, (req, res) => {
     };
     vars.statusLabel = statusLabels[order.status] ?? order.status;
     sendTemplate("order_status_change", order.customer.email, vars).catch(() => {});
+    if (["shipped", "delivered"].includes(order.status)) {
+      scheduleAuthenticityCertificates(order, req);
+    }
   }
   res.json({ order });
 });
@@ -2179,6 +2237,7 @@ app.get("/api/admin/meta", (_req, res) => {
 ensureFile(PRODUCTS_OVERRIDES_FILE, {});
 ensureFile(SITE_OVERRIDES_FILE, { chapters: {}, copy: {} });
 fs.mkdirSync(LIBRARY_ROOT, { recursive: true });
+fs.mkdirSync(CMS_MEDIA_ROOT, { recursive: true });
 
 /* ────────────────────── Médiathèque : helpers ────────────────────── */
 
@@ -2209,6 +2268,22 @@ function walkImages(dir, out = []) {
   return out;
 }
 
+function walkMedia(dir, out = []) {
+  if (!fs.existsSync(dir)) return out;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name.startsWith(".")) continue;
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walkMedia(full, out);
+    else if (MEDIA_FILE_RE.test(entry.name)) out.push(full);
+  }
+  return out;
+}
+
+function cmsMediaPathFromAbs(abs) {
+  const rel = path.relative(ROOT, abs).replace(/\\/g, "/");
+  return rel.startsWith("cms-media/") ? `/${rel}` : `/${rel}`;
+}
+
 function buildUsageMap() {
   const catalog = readJson(CATALOG_FILE, { season: {}, chapters: [] });
   const usage = new Map();
@@ -2226,25 +2301,49 @@ function buildUsageMap() {
       }
     }
   }
+  try {
+    const cms = getCmsPublished();
+    for (const [sectionId, fields] of Object.entries(cms)) {
+      for (const [fieldId, val] of Object.entries(fields ?? {})) {
+        if (typeof val !== "string" || !val.trim()) continue;
+        const key = val.replace(/^\/+/, "");
+        if (!key.startsWith("cms-media/") && !key.startsWith("collection/")) continue;
+        if (!usage.has(key)) usage.set(key, []);
+        usage.get(key).push({
+          cmsSection: sectionId,
+          cmsField: fieldId,
+          cmsLabel: `${sectionId}.${fieldId}`,
+        });
+      }
+    }
+  } catch {
+    /* ignore */
+  }
   return usage;
 }
 
 function collectMediaItems() {
-  const roots = [MEDIA_ROOT, LIBRARY_ROOT];
-  const files = roots.flatMap((r) => walkImages(r));
+  const roots = [MEDIA_ROOT, LIBRARY_ROOT, CMS_MEDIA_ROOT];
+  const files = roots.flatMap((r) => walkMedia(r));
   const usage = buildUsageMap();
   const items = files.map((abs) => {
     const stat = fs.statSync(abs);
-    const rel = publicPathFromAbs(abs);
+    const isCms = abs.startsWith(CMS_MEDIA_ROOT);
+    const rel = isCms
+      ? cmsMediaPathFromAbs(abs).replace(/^\/+/, "")
+      : publicPathFromAbs(abs);
+    const url = `/${rel}`;
     let hash = "";
     try {
       hash = hashFile(abs);
     } catch {
       hash = "";
     }
+    const kind = CMS_VIDEO_RE.test(abs) ? "video" : "image";
     return {
       path: rel,
-      url: `/${rel}`,
+      url,
+      kind,
       filename: path.basename(abs),
       size: stat.size,
       modified: stat.mtimeMs,
@@ -2716,6 +2815,60 @@ app.post("/api/admin/cms/preview", (_req, res) => {
   res.json({ token, expiresAt });
 });
 
+const cmsMediaUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, _file, cb) => {
+      const sectionId = String(req.query.sectionId ?? "misc").replace(/[^\w.-]/g, "");
+      const dir = path.join(CMS_MEDIA_ROOT, sectionId);
+      fs.mkdirSync(dir, { recursive: true });
+      cb(null, dir);
+    },
+    filename: (req, file, cb) => {
+      const fieldId = String(req.query.fieldId ?? "file").replace(/[^\w.-]/g, "");
+      const ext = path.extname(file.originalname).toLowerCase() || "";
+      cb(null, `${fieldId}-${Date.now()}${ext}`);
+    },
+  }),
+  limits: { fileSize: 50 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const kind = String(req.query.kind ?? "");
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (kind === "video" && !CMS_VIDEO_RE.test(ext)) {
+      return cb(new Error("Format vidéo non supporté (mp4, webm)."));
+    }
+    if (kind === "image" && !CMS_IMAGE_RE.test(ext)) {
+      return cb(new Error("Format image non supporté."));
+    }
+    cb(null, true);
+  },
+});
+
+app.post("/api/admin/cms/media/upload", cmsMediaUpload.single("file"), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "Fichier requis." });
+  const sectionId = String(req.query.sectionId ?? "");
+  const fieldId = String(req.query.fieldId ?? "");
+  const rel = cmsMediaPathFromAbs(req.file.path).replace(/^\/+/, "");
+  const url = `/${rel}`;
+  if (CMS_IMAGE_RE.test(req.file.filename)) {
+    try {
+      resizeImage(req.file.path, req.file.path);
+    } catch {
+      /* ignore */
+    }
+  }
+  recordAudit("cms.media.upload", {
+    target: { type: "cms.media", id: url },
+    meta: {
+      section: sectionId,
+      field: fieldId,
+      original: req.file.originalname,
+    },
+    actor: req.adminUser?.email,
+    ip: req.ip,
+  });
+  res.json({ url, path: rel });
+});
+
 app.put("/api/admin/site/season", (req, res) => {
   const catalog = readJson(CATALOG_FILE, { season: {}, chapters: [] });
   catalog.season = { ...(catalog.season ?? {}), ...req.body };
@@ -2868,12 +3021,17 @@ app.post(
   }
 );
 
+const persistResult = ensurePersistenceOnBoot();
+
 app.listen(PORT, () => {
+  if (persistResult.repaired) {
+    console.log(`[fang] CMS restauré depuis ${persistResult.source}`);
+  }
   console.log(`[fang] Serveur prêt — http://localhost:${PORT}`);
   console.log(`[fang] CORS : ${CORS_ORIGIN}`);
   if (process.env.FANG_DISABLE_BACKUPS !== "1") {
     scheduleDailyBackup();
-    console.log(`[fang] Backups quotidiens activés (rotation 7 jours).`);
+    console.log(`[fang] Backups quotidiens activés (rotation 30 jours, copie /var/backups/fang-site).`);
   }
   try {
     purgePending();

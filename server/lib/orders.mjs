@@ -179,6 +179,9 @@ export function updateOrder(id, patch) {
     order.payment = { ...(order.payment ?? {}), ...patch.payment };
   }
   if (patch.paymentMethod !== undefined) order.paymentMethod = patch.paymentMethod;
+  if (patch.authenticity !== undefined) {
+    order.authenticity = { ...(order.authenticity ?? {}), ...patch.authenticity };
+  }
   order.updatedAt = new Date().toISOString();
   data.orders[idx] = order;
   save(data);

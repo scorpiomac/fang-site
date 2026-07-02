@@ -16,6 +16,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import { withFileLock } from "./fileLock.mjs";
+import {
+  repairCmsIfNeeded,
+  onCmsWrite,
+  onCmsPublished,
+} from "./persistence.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,6 +48,18 @@ export const CMS_SCHEMA = {
       icon: "✦",
       lede: "La première vue. Sur-titre, titre, sous-titre et boutons d'action.",
       fields: [
+        {
+          id: "video",
+          label: "Vidéo hero",
+          type: "video",
+          hint: "MP4/WebM — stocké hors build (cms-media/)",
+        },
+        {
+          id: "poster",
+          label: "Image poster",
+          type: "image",
+          hint: "Affichée avant lecture et si la vidéo ne charge pas",
+        },
         { id: "eyebrow", label: "Sur-titre", type: "text", hint: "Petit texte au-dessus du titre" },
         { id: "title", label: "Titre principal", type: "text" },
         { id: "subtitle", label: "Sous-titre", type: "textarea", rows: 3 },
@@ -82,6 +99,12 @@ export const CMS_SCHEMA = {
       icon: "❖",
       lede: "Présentation du fondateur.",
       fields: [
+        {
+          id: "portrait",
+          label: "Portrait",
+          type: "image",
+          hint: "Photo du créateur",
+        },
         { id: "eyebrow", label: "Sur-titre", type: "text" },
         { id: "name", label: "Nom", type: "text" },
         { id: "role", label: "Rôle", type: "text" },
@@ -193,6 +216,8 @@ export const CMS_DEFAULTS = {
 };
 
 function load() {
+  repairCmsIfNeeded();
+
   if (!fs.existsSync(FILE)) {
     const empty = {
       draft: {},
@@ -202,12 +227,21 @@ function load() {
       draftUpdatedBy: null,
       publishedBy: null,
     };
+    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
     fs.writeFileSync(FILE, JSON.stringify(empty, null, 2));
     return empty;
   }
   try {
     return JSON.parse(fs.readFileSync(FILE, "utf8"));
   } catch {
+    const repaired = repairCmsIfNeeded();
+    if (repaired.repaired && fs.existsSync(FILE)) {
+      try {
+        return JSON.parse(fs.readFileSync(FILE, "utf8"));
+      } catch {
+        /* ignore */
+      }
+    }
     return {
       draft: {},
       published: {},
@@ -219,7 +253,8 @@ function load() {
   }
 }
 
-function save(state) {
+function save(state, reason = "write") {
+  onCmsWrite(state, reason);
   fs.writeFileSync(FILE, JSON.stringify(state, null, 2));
 }
 
@@ -294,7 +329,8 @@ export async function publishCms({ actor } = {}) {
     state.published = JSON.parse(JSON.stringify(draft ?? {}));
     state.publishedAt = new Date().toISOString();
     state.publishedBy = actor ?? null;
-    save(state);
+    save(state, "publish");
+    onCmsPublished(state);
     return mergedWithDefaults(state.published);
   });
 }
