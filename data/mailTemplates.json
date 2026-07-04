@@ -1,0 +1,32 @@
+{
+  "order_confirmation": {
+    "label": "Confirmation de commande",
+    "subject": "Votre commande {{brand}} {{orderId}} est confirmée",
+    "body": "Bonjour {{customerName}},\n\nMerci d'avoir choisi {{brand}}.\n\nVotre commande {{orderId}} a bien été enregistrée et sera traitée par l'atelier.\n\nRécapitulatif :\n{{orderSummary}}\n\nSous-total : {{subtotal}}\nLivraison : {{shipping}}\n{{taxLine}}{{discountLine}}Total : {{total}}\n\nMéthode de paiement choisie : {{paymentLabel}}\n{{paymentInstructions}}\n\nDélai de production estimé : {{leadTime}}\n\nVous pouvez suivre votre commande à tout moment depuis votre espace client.\n\nÀ très vite,\nL'équipe {{brand}} — {{contactEmail}}"
+  },
+  "order_status_change": {
+    "label": "Changement de statut de commande",
+    "subject": "Mise à jour de votre commande {{orderId}}",
+    "body": "Bonjour {{customerName}},\n\nVotre commande {{orderId}} est désormais : {{statusLabel}}.\n\n{{statusBody}}\n\nTotal : {{total}}\n\nL'équipe {{brand}}"
+  },
+  "customer_welcome": {
+    "label": "Bienvenue (création de compte)",
+    "subject": "Bienvenue chez {{brand}}",
+    "body": "Bonjour {{customerName}},\n\nVotre compte {{brand}} est créé. Vous pouvez désormais suivre vos commandes et accéder à votre profil ici : {{accountUrl}}\n\nÀ très vite,\nL'équipe {{brand}}"
+  },
+  "password_reset": {
+    "label": "Mot de passe oublié",
+    "subject": "Réinitialisation de votre mot de passe",
+    "body": "Bonjour {{customerName}},\n\nVous avez demandé à réinitialiser votre mot de passe. Cliquez sur le lien suivant (valable 30 minutes) :\n\n{{resetUrl}}\n\nSi vous n'êtes pas à l'origine de cette demande, ignorez ce message.\n\n— {{brand}}"
+  },
+  "admin_new_order": {
+    "label": "Notification admin (nouvelle commande)",
+    "subject": "[{{brand}}] Nouvelle commande {{orderId}} — {{total}}",
+    "body": "Nouvelle commande sur le site :\n\nID : {{orderId}}\nClient : {{customerName}} ({{customerEmail}}, {{customerPhone}})\nVille : {{customerCity}}, {{customerCountry}}\nTotal : {{total}}\nPaiement : {{paymentLabel}}\n\n{{orderSummary}}\n\nVoir dans l'admin : {{adminOrderUrl}}"
+  },
+  "contact_message": {
+    "label": "Message de contact (admin)",
+    "subject": "[{{brand}}] Nouveau message — {{contactName}}",
+    "body": "De : {{contactName}} <{{contactEmail}}>\nTéléphone : {{contactPhone}}\n\n{{contactMessage}}"
+  }
+}

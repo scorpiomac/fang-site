@@ -1,0 +1,91 @@
+{
+  "brand": {
+    "name": "FANG",
+    "tagline": "Nel Fang Te Dundu",
+    "legalName": "FANG — Fallou Ngom",
+    "address": "Dakar, Sénégal",
+    "siteUrl": ""
+  },
+  "contact": {
+    "email": "contact@fang.studio",
+    "phone": "",
+    "whatsapp": "221000000000",
+    "supportHours": "Lun–Ven · 9h–18h GMT"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/fanglamarque/",
+    "facebook": "",
+    "tiktok": "",
+    "youtube": ""
+  },
+  "currency": {
+    "code": "XOF",
+    "label": "FCFA",
+    "symbol": "FCFA",
+    "locale": "fr-SN"
+  },
+  "tax": {
+    "enabled": false,
+    "rate": 18,
+    "included": true,
+    "label": "TVA"
+  },
+  "production": {
+    "leadTime": "2 à 6 semaines",
+    "showLeadTime": true
+  },
+  "payments": {
+    "methods": [
+      {
+        "id": "whatsapp",
+        "label": "WhatsApp atelier",
+        "active": false,
+        "instructions": ""
+      },
+      {
+        "id": "bank",
+        "label": "Virement bancaire",
+        "active": false,
+        "instructions": ""
+      },
+      {
+        "id": "wave",
+        "label": "Wave",
+        "active": true,
+        "instructions": "Paiement mobile sécurisé via Wave."
+      },
+      {
+        "id": "orange_money",
+        "label": "Orange Money",
+        "active": true,
+        "instructions": "Paiement mobile sécurisé via Orange Money."
+      },
+      {
+        "id": "card",
+        "label": "Carte bancaire",
+        "active": true,
+        "instructions": "Visa, Mastercard et cartes internationales."
+      }
+    ]
+  },
+  "checkout": {
+    "paymentProvider": "off",
+    "allowSimulated": false,
+    "minOnlineAmount": 200
+  },
+  "maintenance": {
+    "enabled": false,
+    "message": "Le site est en maintenance. Revenez très bientôt."
+  },
+  "mail": {
+    "from": "FANG Atelier <contact@fang.studio>",
+    "notifyAdmins": true,
+    "adminRecipients": ""
+  },
+  "legal": {
+    "siret": "",
+    "rcs": "",
+    "vatNumber": ""
+  },
+  "updatedAt": null
+}

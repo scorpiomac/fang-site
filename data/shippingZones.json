@@ -1,0 +1,45 @@
+{
+  "zones": [
+    {
+      "id": "dakar",
+      "name": "Dakar (livraison express)",
+      "countries": [
+        "Sénégal"
+      ],
+      "cities": [
+        "Dakar",
+        "Almadies",
+        "Plateau",
+        "Sacré-Cœur",
+        "Ouakam",
+        "Mermoz"
+      ],
+      "priceXof": 2000,
+      "freeAboveXof": 150000,
+      "etaDays": "24–48 h",
+      "active": true
+    },
+    {
+      "id": "senegal",
+      "name": "Reste du Sénégal",
+      "countries": [
+        "Sénégal"
+      ],
+      "cities": [],
+      "priceXof": 5000,
+      "freeAboveXof": 250000,
+      "etaDays": "3–5 jours",
+      "active": true
+    },
+    {
+      "id": "international",
+      "name": "International",
+      "countries": [],
+      "cities": [],
+      "priceXof": 25000,
+      "freeAboveXof": null,
+      "etaDays": "7–14 jours",
+      "active": true
+    }
+  ]
+}
