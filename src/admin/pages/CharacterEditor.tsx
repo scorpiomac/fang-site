@@ -6,6 +6,14 @@ import { MediaPicker } from "../components/MediaPicker";
 import { MediaSlot } from "../components/MediaSlot";
 import { VariationEditor } from "../components/VariationEditor";
 import type { ProductVariation } from "@/content/productVariations";
+import { pieceIdFromImageUrl } from "@/content/shop";
+
+function pieceLabel(pieceId: string, index: number): string {
+  if (pieceId === "cover") return "Cover";
+  const match = pieceId.match(/produit-(\d+)/i);
+  if (match) return `Pièce ${Number(match[1])}`;
+  return `Pièce ${index + 1}`;
+}
 
 export function CharacterEditor() {
   const { chapterId, characterSlug } = useParams<{
@@ -227,6 +235,7 @@ export function CharacterEditor() {
           <h1>{character.name}</h1>
           <p className="admin-page__lede">
             {character.images.length} photo{character.images.length > 1 ? "s" : ""} ·{" "}
+            {character.images.length} pièce{character.images.length > 1 ? "s" : ""} boutique ·{" "}
             <Link
               to={`/collection/${chapter.slug}/${character.slug}`}
               target="_blank"
@@ -277,11 +286,15 @@ export function CharacterEditor() {
 
         <section className="admin-block">
           <header className="admin-block__head">
-            <h2>Produit lié</h2>
+            <h2>Valeurs par défaut</h2>
             <button type="button" className="admin-cta admin-cta--small" onClick={saveProduct}>
               Enregistrer
             </button>
           </header>
+          <p className="admin-help">
+            S&apos;appliquent à toutes les pièces de ce personnage, sauf surcharge individuelle
+            ci-dessous.
+          </p>
           <div className="admin-form">
             <VariationEditor
               variations={variations}
@@ -331,23 +344,21 @@ export function CharacterEditor() {
           </div>
 
           <MediaSlot
-            label="Image principale du produit"
+            label="Image principale (legacy)"
             value={productCover}
             onChange={setProductCover}
-            hint="Affichée dans les cartes boutique"
-            pickerTitle={`Image principale du produit — ${character.name}`}
-            pickerHelper="Choisissez l'image héros utilisée dans les listings boutique."
+            hint="Utilisée seulement si vous surchargez manuellement les images produit"
+            pickerTitle={`Image principale — ${character.name}`}
+            pickerHelper="Optionnel — chaque photo atelier génère sa propre fiche boutique."
           />
 
           <div className="admin-slot">
             <div className="admin-slot__head">
-              <span className="admin-form__label">
-                Pièces du produit (option)
-              </span>
+              <span className="admin-form__label">Galerie produit groupée (legacy)</span>
               <span className="admin-slot__hint">
                 {productImages.length === 0
-                  ? "Toutes les photos du personnage"
-                  : `${productImages.length} pièce(s) sélectionnée(s)`}
+                  ? "Non utilisé — une fiche par photo"
+                  : `${productImages.length} image(s) groupée(s)`}
               </span>
             </div>
             {productImages.length > 0 ? (
@@ -449,6 +460,52 @@ export function CharacterEditor() {
         </ul>
       </section>
 
+      <section className="admin-block">
+        <header className="admin-block__head">
+          <h2>Pièces boutique</h2>
+        </header>
+        <p className="admin-help">
+          Chaque photo ci-dessus correspond à une fiche produit distincte. Personnalisez le nom et
+          le prix par pièce.
+        </p>
+        <ul className="admin-product-list">
+          {character.images.map((src, i) => {
+            const pieceId = pieceIdFromImageUrl(src);
+            const charOv = bundle.productsOverrides?.[overrideKey] ?? {};
+            const pieceOv = bundle.productsOverrides?.[`${overrideKey}/${pieceId}`] ?? {};
+            const label = pieceLabel(pieceId, i);
+            const shopSlug = `${chapter.slug}-${character.slug}-${pieceId}`;
+            return (
+              <PieceRow
+                key={src}
+                id={`piece-${pieceId}`}
+                pieceId={pieceId}
+                label={label}
+                image={src}
+                shopSlug={shopSlug}
+                name={pieceOv.name ?? charOv.name ?? `${character.name} — ${label}`}
+                priceXof={pieceOv.priceXof ?? charOv.priceXof ?? 125000}
+                excerpt={pieceOv.excerpt ?? charOv.excerpt ?? ""}
+                onSave={async (patch) => {
+                  try {
+                    await adminApi.setPieceProductOverride(
+                      chapter.id,
+                      character.slug,
+                      pieceId,
+                      patch
+                    );
+                    await refresh();
+                    setToast(`${label} enregistrée`);
+                  } catch (err) {
+                    setToast(err instanceof Error ? err.message : "Erreur");
+                  }
+                }}
+              />
+            );
+          })}
+        </ul>
+      </section>
+
       <MediaPicker
         open={pickerOpen}
         onClose={() => setPickerOpen(false)}
@@ -466,5 +523,95 @@ export function CharacterEditor() {
         confirmLabel="Ajouter les pièces"
       />
     </section>
+  );
+}
+
+function PieceRow({
+  id,
+  pieceId,
+  label,
+  image,
+  shopSlug,
+  name: initialName,
+  priceXof: initialPrice,
+  excerpt: initialExcerpt,
+  onSave,
+}: {
+  id: string;
+  pieceId: string;
+  label: string;
+  image: string;
+  shopSlug: string;
+  name: string;
+  priceXof: number;
+  excerpt: string;
+  onSave: (patch: {
+    name: string;
+    priceXof: number;
+    excerpt: string;
+  }) => Promise<void>;
+}) {
+  const [name, setName] = useState(initialName);
+  const [priceXof, setPriceXof] = useState(initialPrice);
+  const [excerpt, setExcerpt] = useState(initialExcerpt);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    setName(initialName);
+    setPriceXof(initialPrice);
+    setExcerpt(initialExcerpt);
+  }, [initialName, initialPrice, initialExcerpt, pieceId]);
+
+  return (
+    <li id={id} className="admin-product-row">
+      <div className="admin-product-row__media">
+        <img src={fileUrlFromPath(image)} alt={label} />
+      </div>
+      <div className="admin-product-row__main admin-form" style={{ flex: 1 }}>
+        <strong>{label}</strong>
+        <label>
+          <span>Nom boutique</span>
+          <input value={name} onChange={(e) => setName(e.target.value)} />
+        </label>
+        <label>
+          <span>Prix (XOF)</span>
+          <input
+            type="number"
+            min={0}
+            value={priceXof}
+            onChange={(e) => setPriceXof(Number(e.target.value) || 0)}
+          />
+        </label>
+        <label>
+          <span>Accroche</span>
+          <input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
+        </label>
+      </div>
+      <div className="admin-page__actions">
+        <button
+          type="button"
+          className="admin-cta admin-cta--small"
+          disabled={saving}
+          onClick={async () => {
+            setSaving(true);
+            try {
+              await onSave({ name, priceXof, excerpt });
+            } finally {
+              setSaving(false);
+            }
+          }}
+        >
+          {saving ? "…" : "Enregistrer"}
+        </button>
+        <a
+          href={`/boutique/${shopSlug}`}
+          target="_blank"
+          rel="noreferrer"
+          className="admin-cta admin-cta--small admin-cta--ghost"
+        >
+          Voir →
+        </a>
+      </div>
+    </li>
   );
 }

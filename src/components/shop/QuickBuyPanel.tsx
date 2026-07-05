@@ -1,14 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import type { ShopProduct } from "@/content/shop";
 import { formatPriceXof } from "@/content/shop";
-import { useCart } from "@/context/useCart";
 import { copy } from "@/content/copy";
 import { TrustStrip } from "@/components/shop/TrustStrip";
-import {
-  ProductVariationSelect,
-  useProductVariation,
-} from "@/components/shop/ProductVariationSelect";
+import { ProductVariationSelect } from "@/components/shop/ProductVariationSelect";
+import { useProductPurchase } from "@/hooks/useProductPurchase";
 
 type Props = {
   product: ShopProduct;
@@ -17,19 +12,18 @@ type Props = {
 };
 
 export function QuickBuyPanel({ product, kicker, showTrust = true }: Props) {
-  const { addItem, openDrawer } = useCart();
-  const navigate = useNavigate();
-  const { variationId, variation, setVariationId } = useProductVariation(product);
-  const [size, setSize] = useState<string | null>(null);
-  const [added, setAdded] = useState(false);
-
-  const onAdd = (openCart: boolean) => {
-    if (!size) return;
-    addItem(product, size, { silent: !openCart, variationId });
-    setAdded(true);
-    if (openCart) openDrawer();
-    setTimeout(() => setAdded(false), 2800);
-  };
+  const {
+    variationId,
+    variation,
+    setVariationId,
+    size,
+    setSize,
+    addedFeedback,
+    canPurchase,
+    isOutOfStock,
+    addToCart,
+    sizeState,
+  } = useProductPurchase(product);
 
   return (
     <div className="quick-buy">
@@ -53,11 +47,12 @@ export function QuickBuyPanel({ product, kicker, showTrust = true }: Props) {
       <div className="quick-buy__sizes">
         <p className="quick-buy__sizes-label">{copy.selectSize}</p>
         <div className="quick-buy__sizes-row" role="group" aria-label="Choisir une taille">
-          {product.sizes.map((s) => (
+          {sizeState.map(({ size: s, isOut }) => (
             <button
               key={s}
               type="button"
-              className={`quick-buy__size${size === s ? " is-selected" : ""}`}
+              className={`quick-buy__size${size === s ? " is-selected" : ""}${isOut ? " is-out" : ""}`}
+              disabled={isOut}
               onClick={() => setSize(s)}
             >
               {s}
@@ -69,21 +64,17 @@ export function QuickBuyPanel({ product, kicker, showTrust = true }: Props) {
       <div className="quick-buy__actions">
         <button
           type="button"
-          className={`cta cta--solid quick-buy__cta${added ? " quick-buy__cta--done" : ""}`}
-          disabled={!size}
-          onClick={() => onAdd(true)}
+          className={`cta cta--solid quick-buy__cta${addedFeedback ? " quick-buy__cta--done" : ""}`}
+          disabled={!canPurchase}
+          onClick={() => addToCart(false)}
         >
-          {added ? copy.addedToCart : copy.addToCart}
+          {isOutOfStock ? "Rupture de stock" : addedFeedback ? copy.addedToCart : copy.addToCart}
         </button>
         <button
           type="button"
-          className={`cta cta--ghost quick-buy__checkout${!size ? " quick-buy__checkout--muted" : ""}`}
-          disabled={!size}
-          onClick={() => {
-            if (!size) return;
-            addItem(product, size, { silent: true, variationId });
-            navigate("/commande");
-          }}
+          className="cta cta--ghost quick-buy__checkout"
+          disabled={!canPurchase}
+          onClick={() => addToCart(true)}
         >
           {copy.checkoutDirect}
         </button>

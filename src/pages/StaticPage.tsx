@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchPage, type StorePage } from "@/lib/storeApi";
-import { FooterSection } from "@/sections/FooterSection";
 
 export function StaticPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -111,7 +110,6 @@ export function StaticPage() {
           ) : null}
         </div>
       </main>
-      <FooterSection />
     </>
   );
 }

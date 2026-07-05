@@ -5,7 +5,13 @@ import {
   getCharactersForChapter,
   totalProductsInChapter,
 } from "@/content/collectionCatalog";
-import { getProductByCharacter, formatPriceXof, getProductsForChapter } from "@/content/shop";
+import {
+  formatPriceRange,
+  formatPriceXof,
+  getCharacterPriceRange,
+  getProductsForCharacter,
+  getProductsForChapter,
+} from "@/content/shop";
 import { copy } from "@/content/copy";
 import { CommerceJourney } from "@/components/shop/CommerceJourney";
 import { TrustStrip } from "@/components/shop/TrustStrip";
@@ -81,7 +87,7 @@ export function ChapterHubPage() {
             <p className="collection-cast__eyebrow">{copy.collectionPersonnagesLabel}</p>
             <h2 id="personnages-heading">
               Choisissez un personnage
-              {productTotal > 0 ? ` · ${productTotal} looks` : ""}
+              {productTotal > 0 ? ` · ${productTotal} pièces` : ""}
             </h2>
             <p className="collection-cast__intro">
               Chaque personnage porte une pièce unique de ce chapitre. Sélectionnez, choisissez votre
@@ -95,32 +101,36 @@ export function ChapterHubPage() {
         ) : (
           <ul className="collection-cast__grid collection-cast__grid--shop">
             {characters.map((character) => {
-              const product = getProductByCharacter(chapter.id, character.slug);
+              const products = getProductsForCharacter(chapter.id, character.slug);
+              const firstProduct = products[0];
+              const priceRange = getCharacterPriceRange(chapter.id, character.slug);
               return (
                 <li key={character.id}>
                   <article className="cast-card cast-card--shop">
                     <Link to={`/collection/${chapter.slug}/${character.slug}`} className="cast-card__media-link">
                       <div className="cast-card__media">
                         <img src={character.cover} alt="" loading="lazy" />
-                        <span className="cast-card__count">{character.productCount} looks</span>
+                        <span className="cast-card__count">
+                          {character.productCount} pièce{character.productCount > 1 ? "s" : ""}
+                        </span>
                       </div>
                     </Link>
                     <div className="cast-card__body">
                       <h3>
                         <Link to={`/collection/${chapter.slug}/${character.slug}`}>{character.name}</Link>
                       </h3>
-                      {product ? (
-                        <p className="cast-card__price">{formatPriceXof(product.priceXof)} FCFA</p>
+                      {priceRange ? (
+                        <p className="cast-card__price">{formatPriceRange(priceRange.min, priceRange.max)}</p>
                       ) : null}
                       <div className="cast-card__actions">
                         <Link
                           to={`/collection/${chapter.slug}/${character.slug}`}
                           className="cta cta--ghost cast-card__btn"
                         >
-                          Voir le lookbook
+                          Voir les pièces
                         </Link>
-                        {product ? (
-                          <Link to={`/boutique/${product.slug}`} className="cta cta--solid cast-card__btn">
+                        {firstProduct ? (
+                          <Link to={`/boutique/${firstProduct.slug}`} className="cta cta--solid cast-card__btn">
                             Commander
                           </Link>
                         ) : null}
@@ -143,7 +153,7 @@ export function ChapterHubPage() {
                 <Link to={`/boutique/${p.slug}`} className="chapter-shop-strip__item">
                   <img src={p.coverImage || p.images[0]} alt="" loading="lazy" />
                   <span>
-                    <b>{p.characterName}</b>
+                    <b>{p.name}</b>
                     <em>{formatPriceXof(p.priceXof)} FCFA</em>
                   </span>
                 </Link>

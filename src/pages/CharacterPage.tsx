@@ -1,22 +1,24 @@
 import type { CSSProperties } from "react";
-import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getChapterBySlug, getCharacter } from "@/content/collectionCatalog";
-import { getProductByCharacter } from "@/content/shop";
+import {
+  formatPriceRange,
+  formatPriceXof,
+  getCharacterPriceRange,
+  getProductsForCharacter,
+} from "@/content/shop";
 import { copy } from "@/content/copy";
 import { CommerceJourney } from "@/components/shop/CommerceJourney";
-import { QuickBuyPanel } from "@/components/shop/QuickBuyPanel";
-import { StickyBuyBar } from "@/components/shop/StickyBuyBar";
 
 export function CharacterPage() {
   const { chapterSlug, characterSlug } = useParams<{ chapterSlug: string; characterSlug: string }>();
   const chapter = chapterSlug ? getChapterBySlug(chapterSlug) : undefined;
   const character =
     chapter && characterSlug ? getCharacter(chapter.id, characterSlug) : undefined;
-  const [active, setActive] = useState(0);
-
-  const images = useMemo(() => character?.images ?? [], [character]);
-  const product = chapter && character ? getProductByCharacter(chapter.id, character.slug) : undefined;
+  const products =
+    chapter && character ? getProductsForCharacter(chapter.id, character.slug) : [];
+  const priceRange =
+    chapter && character ? getCharacterPriceRange(chapter.id, character.slug) : null;
 
   if (!chapter || !character) {
     return (
@@ -28,8 +30,6 @@ export function CharacterPage() {
       </main>
     );
   }
-
-  const main = images[active] ?? character.cover;
 
   return (
     <main
@@ -51,58 +51,45 @@ export function CharacterPage() {
         ]}
       />
 
-      <div className="character-commerce__grid">
-        <div className="character-commerce__gallery">
-          <figure className="cast-gallery__main cast-gallery__main--premium">
-            <img src={main} alt={`${character.name} — ${chapter.name}`} />
-          </figure>
+      <header className="character-commerce__intro">
+        <p className="character-commerce__eyebrow">
+          Ch. {chapter.index} · {chapter.name}
+        </p>
+        <h1 className="character-commerce__name">{character.name}</h1>
+        <p className="character-commerce__sub">
+          {products.length} pièce{products.length > 1 ? "s" : ""}
+          {priceRange ? <> · {formatPriceRange(priceRange.min, priceRange.max)}</> : null}
+        </p>
+        {chapter.quote ? (
+          <blockquote className="character-commerce__quote">&laquo;&nbsp;{chapter.quote}&nbsp;&raquo;</blockquote>
+        ) : null}
+      </header>
 
-          {images.length > 1 ? (
-            <ul className="cast-gallery__thumbs cast-gallery__thumbs--film" aria-label="Looks du personnage">
-              {images.map((src, i) => (
-                <li key={src}>
-                  <button
-                    type="button"
-                    className={i === active ? "is-active" : undefined}
-                    onClick={() => setActive(i)}
-                    aria-label={`Look ${i + 1}`}
-                  >
-                    <img src={src} alt="" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
+      {products.length === 0 ? (
+        <p className="collection-cast__empty">{copy.collectionEmptyChapter}</p>
+      ) : (
+        <ul className="character-pieces-grid" aria-label="Pièces du personnage">
+          {products.map((product) => (
+            <li key={product.id}>
+              <Link to={`/boutique/${product.slug}`} className="character-piece-card">
+                <figure className="character-piece-card__media">
+                  <img src={product.coverImage} alt={product.name} loading="lazy" />
+                </figure>
+                <div className="character-piece-card__body">
+                  <p className="character-piece-card__label">{product.pieceLabel}</p>
+                  <h2 className="character-piece-card__name">{product.name}</h2>
+                  <p className="character-piece-card__price">{formatPriceXof(product.priceXof)} FCFA</p>
+                  <span className="character-piece-card__cta">Voir la pièce →</span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
 
-        <aside className="character-commerce__buy">
-          <p className="character-commerce__eyebrow">
-            Ch. {chapter.index} · {chapter.name}
-          </p>
-          <h1 className="character-commerce__name">{character.name}</h1>
-          <p className="character-commerce__sub">
-            {images.length} look{images.length > 1 ? "s" : ""} · {copy.collectionPersonnagesLabel} FANG
-          </p>
-          {chapter.quote ? (
-            <blockquote className="character-commerce__quote">&laquo;&nbsp;{chapter.quote}&nbsp;&raquo;</blockquote>
-          ) : null}
-
-          {product ? (
-            <QuickBuyPanel
-              product={product}
-              kicker={`Pièce · ${character.name}`}
-            />
-          ) : (
-            <p className="collection-cast__empty">{copy.collectionEmptyChapter}</p>
-          )}
-
-          <Link to={`/collection/${chapter.slug}`} className="character-commerce__back cta cta--ghost">
-            ← Tous les personnages
-          </Link>
-        </aside>
-      </div>
-
-      {product ? <StickyBuyBar product={product} /> : null}
+      <Link to={`/collection/${chapter.slug}`} className="character-commerce__back cta cta--ghost">
+        ← Tous les personnages
+      </Link>
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { shopProducts, formatPriceXof } from "@/content/shop";
 import { getChapterById } from "@/content/collectionCatalog";
 import { useCmsText } from "@/context/CmsContext";
+import { MediaImage } from "@/components/ui/MediaImage";
 
 export function FeaturedPiecesSection() {
   const items = shopProducts.slice(0, 3);
@@ -51,7 +52,12 @@ export function FeaturedPiecesSection() {
             >
               <Link to={`/boutique/${p.slug}`} className="featured-card__link">
                 <figure className="featured-card__media">
-                  <img src={p.coverImage || p.images[0]} alt="" loading="lazy" />
+                  <MediaImage
+                    src={p.coverImage || p.images[0]}
+                    fallbacks={p.images}
+                    alt=""
+                    loading="lazy"
+                  />
                 </figure>
                 <div className="featured-card__body">
                   <p className="featured-card__chapter">{p.chapterLabel}</p>

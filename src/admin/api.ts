@@ -384,6 +384,21 @@ export const adminApi = {
       `/chapters/${chapterId}/personnages/${slug}/product`,
       { method: "PUT", body: JSON.stringify(patch) }
     ),
+  setPieceProductOverride: (
+    chapterId: string,
+    characterSlug: string,
+    pieceId: string,
+    patch: ProductOverride
+  ) =>
+    request<{ override: ProductOverride }>(
+      `/chapters/${chapterId}/personnages/${characterSlug}/pieces/${encodeURIComponent(pieceId)}/product`,
+      { method: "PUT", body: JSON.stringify(patch) }
+    ),
+  deletePieceProductOverride: (chapterId: string, characterSlug: string, pieceId: string) =>
+    request<{ ok: boolean }>(
+      `/chapters/${chapterId}/personnages/${characterSlug}/pieces/${encodeURIComponent(pieceId)}/product`,
+      { method: "DELETE" }
+    ),
   deleteProductOverride: (chapterId: string, slug: string) =>
     request<{ ok: boolean }>(`/chapters/${chapterId}/personnages/${slug}/product`, {
       method: "DELETE",

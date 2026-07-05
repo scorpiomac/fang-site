@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "@/context/useCart";
 import { useCustomer } from "@/context/customerContext";
@@ -16,6 +16,29 @@ import {
 } from "@/lib/storeApi";
 import { openPaytechPopup } from "@/lib/paytechSdk";
 import type { CartLine } from "@/context/cartTypes";
+import type { DetectedLocation } from "@/lib/geolocation";
+import { useDynamicLocation } from "@/hooks/useDynamicLocation";
+import {
+  buildCountryOptions,
+  formatCountriesInput,
+  matchCountryOption,
+  parseCountriesInput,
+  primaryCountryForShipping,
+} from "@/lib/checkoutCountries";
+import { CountryMultiSelect } from "@/components/checkout/CountryMultiSelect";
+import { PaymentMethodPicker } from "@/components/checkout/PaymentMethodPicker";
+import {
+  EMPTY_PAYMENT_FORM,
+  PaymentDetailsForm,
+  buildPaymentNote,
+  validatePaymentForm,
+  type PaymentFormState,
+} from "@/components/checkout/PaymentDetailsForm";
+import {
+  isCheckoutPaymentId,
+  isOnlinePaymentMethod,
+  resolveCheckoutPaymentChoices,
+} from "@/lib/checkoutPayments";
 
 function CheckoutSteps({ step }: { step: 1 | 2 | 3 }) {
   const steps = [
@@ -47,8 +70,9 @@ export function CheckoutPage() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
-  const [country, setCountry] = useState("Sénégal");
+  const [countries, setCountries] = useState<string[]>(["Sénégal"]);
   const [notes, setNotes] = useState("");
+  const [locationLocked, setLocationLocked] = useState(false);
   const [promoInput, setPromoInput] = useState("");
   const [promoCode, setPromoCode] = useState<string | null>(null);
   const [discountXof, setDiscountXof] = useState(0);
@@ -66,20 +90,36 @@ export function CheckoutPage() {
   const [shippingEta, setShippingEta] = useState<string>("");
 
   /* Paiement */
-  const paymentMethods = settings.payments.methods;
-  const [paymentMethod, setPaymentMethod] = useState<string>(
-    paymentMethods[0]?.id ?? "whatsapp"
+  const paymentChoices = useMemo(
+    () => resolveCheckoutPaymentChoices(settings.payments.methods),
+    [settings.payments.methods]
   );
+  const [paymentMethod, setPaymentMethod] = useState<string>("wave");
+  const [paymentForm, setPaymentForm] = useState<PaymentFormState>(EMPTY_PAYMENT_FORM);
   useEffect(() => {
-    if (!paymentMethods.find((m) => m.id === paymentMethod)) {
-      setPaymentMethod(paymentMethods[0]?.id ?? "whatsapp");
+    if (!paymentChoices.find((m) => m.id === paymentMethod)) {
+      setPaymentMethod(paymentChoices[0]?.id ?? "wave");
     }
-  }, [paymentMethods, paymentMethod]);
+  }, [paymentChoices, paymentMethod]);
+
+  useEffect(() => {
+    if (
+      (paymentMethod === "wave" || paymentMethod === "orange_money") &&
+      !paymentForm.mobileNumber.trim() &&
+      phone.trim()
+    ) {
+      setPaymentForm((prev) => ({ ...prev, mobileNumber: phone.trim() }));
+    }
+  }, [paymentMethod, phone, paymentForm.mobileNumber]);
 
   /* Charger les zones disponibles */
   useEffect(() => {
     fetchShippingZones().then(setZones);
   }, []);
+
+  const countryOptions = useMemo(() => buildCountryOptions(zones), [zones]);
+  const countryLabel = useMemo(() => formatCountriesInput(countries), [countries]);
+  const shippingCountry = useMemo(() => primaryCountryForShipping(countries), [countries]);
 
   /* Recalcul livraison quand pays/ville/zone/subtotal/promo change */
   useEffect(() => {
@@ -87,7 +127,7 @@ export function CheckoutPage() {
     const baseForShipping = Math.max(0, subtotalXof - discountXof);
     quoteShipping({
       zoneId,
-      country,
+      country: shippingCountry,
       city,
       subtotalXof: baseForShipping,
     }).then((q) => {
@@ -95,7 +135,7 @@ export function CheckoutPage() {
       setShippingEta(q.zone?.etaDays ?? "");
       if (q.zone && !zoneId) setZoneId(q.zone.id);
     });
-  }, [zoneId, country, city, subtotalXof, discountXof]);
+  }, [zoneId, shippingCountry, city, subtotalXof, discountXof]);
 
   /* Calcul TVA */
   const taxXof = useMemo(() => {
@@ -124,9 +164,36 @@ export function CheckoutPage() {
     setName(customer.name);
     setEmail(customer.email);
     if (customer.phone) setPhone(customer.phone);
-    if (customer.city) setCity(customer.city);
-    if (customer.country) setCountry(customer.country);
+    if (customer.city) {
+      setCity(customer.city);
+      setLocationLocked(true);
+    }
+    if (customer.country) setCountries(parseCountriesInput(customer.country));
   }, [customer]);
+
+  const applyDetectedLocation = useCallback(
+    (detected: DetectedLocation) => {
+      if (detected.city) setCity(detected.city);
+      if (detected.country) {
+        const matched = matchCountryOption(detected.country, countryOptions);
+        if (matched) {
+          setCountries((prev) => {
+            if (prev.length === 1 && prev[0] === "Sénégal" && matched !== "Sénégal") {
+              return [matched];
+            }
+            return prev.includes(matched) ? prev : [matched, ...prev];
+          });
+        }
+      }
+    },
+    [countryOptions]
+  );
+
+  const { locating, watching, message: locationMessage, refresh, restart } =
+    useDynamicLocation({
+      enabled: !locationLocked,
+      onUpdate: applyDetectedLocation,
+    });
 
   const applyPromo = async () => {
     const code = promoInput.trim();
@@ -158,7 +225,15 @@ export function CheckoutPage() {
     setPromoError(null);
   };
 
-  const selectedPayment = paymentMethods.find((m) => m.id === paymentMethod);
+  useEffect(() => {
+    if (paymentMethod === "card" && !paymentForm.cardHolder.trim() && name.trim()) {
+      setPaymentForm((prev) => ({ ...prev, cardHolder: name.trim() }));
+    }
+  }, [paymentMethod, name, paymentForm.cardHolder]);
+
+  const totalLabel = `${formatPriceXof(totalXof)} ${settings.currency.label}`;
+
+  const selectedPayment = paymentChoices.find((m) => m.id === paymentMethod);
 
   const plainOrderText = useMemo(() => {
     const src = submitted && orderSnapshot ? orderSnapshot.lines : lines;
@@ -169,7 +244,7 @@ export function CheckoutPage() {
     const totalVal = submitted && orderSnapshot ? orderSnapshot.total : totalXof;
     const promo = submitted && orderSnapshot ? orderSnapshot.promo : promoCode;
     const header = `Commande ${settings.brand.name}${orderId ? ` — ${orderId}` : ""} — ${new Date().toLocaleDateString("fr-FR")}\n`;
-    const client = `Client: ${name}\nEmail: ${email}\nTél: ${phone}\n${city}, ${country}\n\n`;
+    const client = `Client: ${name}\nEmail: ${email}\nTél: ${phone}\n${city}, ${countryLabel}\n\n`;
     const items = src
       .map(
         (l) =>
@@ -199,7 +274,7 @@ export function CheckoutPage() {
     email,
     phone,
     city,
-    country,
+    countryLabel,
     notes,
     settings,
   ]);
@@ -208,6 +283,10 @@ export function CheckoutPage() {
     const wa = settings.contact.whatsapp || whatsappOrderNumber;
     return `https://wa.me/${wa}?text=${encodeURIComponent(plainOrderText)}`;
   }, [plainOrderText, settings.contact.whatsapp]);
+
+  const onlineProvider = settings.checkout?.paymentProvider ?? "off";
+  const payOnline =
+    onlineProvider !== "off" && isOnlinePaymentMethod(paymentMethod);
 
   if (lines.length === 0 && !submitted) {
     return (
@@ -233,9 +312,9 @@ export function CheckoutPage() {
         <p className="checkout-page__thanks-body">
           Votre commande est enregistrée. L'atelier vous confirme sous 24 à 48 h.
         </p>
-        {selectedPayment?.instructions ? (
+        {selectedPayment?.hint ? (
           <p className="checkout-page__payment-instructions">
-            <strong>Paiement — {selectedPayment.label} :</strong> {selectedPayment.instructions}
+            <strong>Paiement — {selectedPayment.label} :</strong> {selectedPayment.hint}
           </p>
         ) : null}
         <div className="checkout-page__thanks-actions">
@@ -260,13 +339,6 @@ export function CheckoutPage() {
       </main>
     );
   }
-
-  const onlineProvider = settings.checkout?.paymentProvider ?? "off";
-  const [payOnline, setPayOnline] = useState(onlineProvider !== "off");
-
-  useEffect(() => {
-    setPayOnline(onlineProvider !== "off");
-  }, [onlineProvider]);
 
   const buildOrderPayload = () => {
     let finalDiscount = discountXof;
@@ -300,8 +372,12 @@ export function CheckoutPage() {
             ? Math.round((baseAfterDiscount + finalShipping) * (settings.tax.rate / 100))
             : 0;
         const finalTotal = baseAfterDiscount + finalShipping + finalTax;
+        const paymentNote = selectedPayment
+          ? buildPaymentNote(paymentMethod, paymentForm, selectedPayment.label)
+          : "";
+        const mergedNotes = [notes.trim(), paymentNote].filter(Boolean).join("\n\n");
         resolve({
-          customer: { name, email, phone, city, country },
+          customer: { name, email, phone, city, country: countryLabel },
           lines,
           subtotalXof,
           discountXof: finalDiscount,
@@ -309,7 +385,7 @@ export function CheckoutPage() {
           taxXof: finalTax,
           totalXof: finalTotal,
           promoCode,
-          notes: notes.trim() || undefined,
+          notes: mergedNotes || undefined,
           shippingZoneId: zoneId,
           paymentMethod,
         });
@@ -333,7 +409,7 @@ export function CheckoutPage() {
     setOrderId(orderId);
     if (customer) {
       try {
-        await updateProfile({ name, phone, city, country });
+        await updateProfile({ name, phone, city, country: countryLabel });
       } catch {
         /* non bloquant */
       }
@@ -363,6 +439,13 @@ export function CheckoutPage() {
     setSubmitting(true);
     setSubmitError(null);
     try {
+      const paymentValidation = validatePaymentForm(paymentMethod, paymentForm, payOnline);
+      if (paymentValidation) {
+        setSubmitError(paymentValidation);
+        setSubmitting(false);
+        return;
+      }
+
       const payload = await buildOrderPayload();
       if (!payload) {
         setSubmitting(false);
@@ -370,7 +453,7 @@ export function CheckoutPage() {
       }
 
       /* ─── Flux paiement en ligne ─── */
-      if (payOnline && onlineProvider !== "off") {
+      if (payOnline) {
         const start = await startCheckout(payload);
 
         if (start.provider === "simulated") {
@@ -491,14 +574,74 @@ export function CheckoutPage() {
                 onChange={(e) => setPhone(e.target.value)}
               />
             </label>
+            <div className="checkout-location">
+              <div
+                className={`checkout-location__status${
+                  watching ? " is-active" : locating ? " is-locating" : ""
+                }`}
+              >
+                <span className="checkout-location__dot" aria-hidden="true" />
+                <span className="checkout-location__status-text">
+                  {locating
+                    ? "Détection en cours…"
+                    : watching
+                      ? "Localisation active — mise à jour automatique"
+                      : locationLocked
+                        ? "Saisie manuelle"
+                        : "En attente de position"}
+                </span>
+                <button
+                  type="button"
+                  className="checkout-location__btn"
+                  onClick={() => {
+                    if (locationLocked) {
+                      setLocationLocked(false);
+                      restart();
+                      return;
+                    }
+                    refresh();
+                  }}
+                  disabled={locating}
+                >
+                  {locationLocked ? "Utiliser ma position" : "Actualiser"}
+                </button>
+              </div>
+              {locationMessage ? (
+                <p
+                  className={`checkout-location__message${
+                    locationMessage.includes("mise à jour") ||
+                    locationMessage.includes("Détection de votre position")
+                      ? " checkout-location__message--ok"
+                      : ""
+                  }`}
+                >
+                  {locationMessage}
+                </p>
+              ) : null}
+            </div>
             <label className="checkout-label">
               Ville
-              <input required name="city" value={city} onChange={(e) => setCity(e.target.value)} />
+              <input
+                required
+                name="city"
+                autoComplete="address-level2"
+                value={city}
+                onChange={(e) => {
+                  setLocationLocked(true);
+                  setCity(e.target.value);
+                }}
+              />
             </label>
-            <label className="checkout-label">
-              Pays
-              <input name="country" value={country} onChange={(e) => setCountry(e.target.value)} />
-            </label>
+            <CountryMultiSelect
+              id="checkout-countries"
+              label="Pays (plusieurs choix possibles)"
+              options={countryOptions}
+              value={countries}
+              onChange={(next) => {
+                setLocationLocked(true);
+                setCountries(next);
+              }}
+            />
             <label className="checkout-label checkout-label--full">
               Note pour l&apos;atelier (optionnel)
               <textarea name="notes" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} />
@@ -534,51 +677,25 @@ export function CheckoutPage() {
             </fieldset>
           ) : null}
 
-          {paymentMethods.length > 0 ? (
-            <fieldset className="checkout-fieldset">
-              <legend>Paiement</legend>
-              {paymentMethods.map((m) => (
-                <label key={m.id} className="checkout-option">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    checked={paymentMethod === m.id}
-                    onChange={() => setPaymentMethod(m.id)}
-                  />
-                  <span>
-                    <strong>{m.label}</strong>
-                    {m.instructions ? (
-                      <span className="checkout-option__hint">{m.instructions}</span>
-                    ) : null}
-                  </span>
-                </label>
-              ))}
-            </fieldset>
+          {paymentChoices.length > 0 ? (
+            <PaymentMethodPicker
+              name="paymentMethod"
+              value={paymentMethod}
+              options={paymentChoices}
+              onChange={setPaymentMethod}
+            />
           ) : null}
 
-          {onlineProvider !== "off" ? (
-            <fieldset className="checkout-fieldset">
-              <legend>Paiement en ligne</legend>
-              <label className="checkout-option">
-                <input
-                  type="checkbox"
-                  checked={payOnline}
-                  onChange={(e) => setPayOnline(e.target.checked)}
-                />
-                <span>
-                  <strong>
-                    {payOnline ? "Payer maintenant" : "Régler hors-ligne"}
-                  </strong>
-                  <span className="checkout-option__hint">
-                    {payOnline
-                      ? onlineProvider === "paytech"
-                        ? "Paiement sécurisé PayTech (Wave, Orange Money, carte) — popup."
-                        : "Paiement sécurisé PayDunya (Wave, Orange Money, carte) — redirection."
-                      : "L'atelier vous recontacte pour finaliser le règlement."}
-                  </span>
-                </span>
-              </label>
-            </fieldset>
+          {isCheckoutPaymentId(paymentMethod) && selectedPayment ? (
+            <PaymentDetailsForm
+              method={paymentMethod}
+              label={selectedPayment.label}
+              totalLabel={totalLabel}
+              payOnline={payOnline}
+              contactPhone={phone}
+              value={paymentForm}
+              onChange={setPaymentForm}
+            />
           ) : null}
 
           {submitError ? <p className="checkout-form__error">{submitError}</p> : null}
@@ -588,9 +705,9 @@ export function CheckoutPage() {
               ? payOnline
                 ? "Redirection vers le paiement…"
                 : "Enregistrement…"
-              : payOnline && onlineProvider !== "off"
-                ? "Payer maintenant"
-                : "Valider et envoyer la commande"}
+              : payOnline
+                ? `Payer avec ${selectedPayment?.label ?? "le moyen choisi"}`
+                : "Valider la commande"}
           </button>
         </form>
 
@@ -598,16 +715,17 @@ export function CheckoutPage() {
           <h2 className="checkout-summary__title">Panier ({countItems})</h2>
           <ul className="checkout-summary__lines">
             {lines.map((l) => (
-              <li key={l.lineId}>
-                <img src={resolveMediaUrl(l.image)} alt="" />
-                <div>
+              <li key={l.lineId} className="checkout-summary__line">
+                <img src={resolveMediaUrl(l.image)} alt="" className="checkout-summary__thumb" />
+                <div className="checkout-summary__copy">
                   <strong>{l.title}</strong>
                   <span>
-                    {l.variationLabel !== "Pièce" ? `${l.variationLabel} · ` : ""}
                     {l.size} × {l.qty}
                   </span>
                 </div>
-                <span>{formatPriceXof(l.priceXof * l.qty)} {settings.currency.label}</span>
+                <span className="checkout-summary__price">
+                  {formatPriceXof(l.priceXof * l.qty)} {settings.currency.label}
+                </span>
               </li>
             ))}
           </ul>

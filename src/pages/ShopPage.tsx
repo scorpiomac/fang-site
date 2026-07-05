@@ -4,14 +4,13 @@ import { Link, useSearchParams } from "react-router-dom";
 import { shopProducts } from "@/content/shop";
 import { activeChapters, collectionChapters } from "@/content/collectionCatalog";
 import { ProductCard } from "@/components/shop/ProductCard";
-import { TrustStrip } from "@/components/shop/TrustStrip";
-import { CommerceJourney } from "@/components/shop/CommerceJourney";
+import { ShopSortSelect } from "@/components/shop/ShopSortSelect";
 import { copy } from "@/content/copy";
 import { Seo } from "@/components/Seo";
 import { useSiteSettings } from "@/context/siteSettingsContext";
 
 const FILTERS = [
-  { id: "all", label: "Toutes les pièces" },
+  { id: "all", label: "Toutes" },
   ...collectionChapters
     .filter((c) => activeChapters.some((a) => a.id === c.id))
     .map((c) => ({ id: c.id, label: `${c.index} · ${c.name}` })),
@@ -19,10 +18,10 @@ const FILTERS = [
 
 const SORT_OPTIONS = [
   { id: "default", label: "Par défaut" },
-  { id: "price-asc", label: "Prix croissant" },
-  { id: "price-desc", label: "Prix décroissant" },
-  { id: "name-asc", label: "Nom A → Z" },
-  { id: "name-desc", label: "Nom Z → A" },
+  { id: "price-asc", label: "Prix ↑" },
+  { id: "price-desc", label: "Prix ↓" },
+  { id: "name-asc", label: "A → Z" },
+  { id: "name-desc", label: "Z → A" },
 ] as const;
 
 type SortId = (typeof SORT_OPTIONS)[number]["id"];
@@ -107,114 +106,101 @@ export function ShopPage() {
 
   const { settings } = useSiteSettings();
   const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+
   return (
-    <main id="contenu-principal" className="shop-page shop-shell commerce-shell">
+    <main id="contenu-principal" className="shop-page shop-page--catalog shop-shell">
       <Seo
         title={`Boutique — ${settings.brand.name}`}
-        description={`Toutes les pièces de la saison 01. Production artisanale à Dakar. Livraison Sénégal & international.`}
+        description="Toutes les pièces de la saison 01. Production artisanale à Dakar."
         url={`${siteUrl}/boutique`}
       />
-      <div className="commerce-hero commerce-hero--shop">
-        <CommerceJourney
-          steps={[
-            { label: "Collection", to: "/collection" },
-            { label: "Boutique", current: true },
-            { label: "Commande", to: "/commande" },
-          ]}
-        />
-        <header className="shop-page__hero">
-          <p className="shop-page__eyebrow">Nel Fang Te Dundu — Boutique</p>
-          <h1 className="shop-page__title">Porter la collection.</h1>
-          <p className="shop-page__lede">{copy.conversionTagline}</p>
-          <div className="commerce-hero__actions">
-            <Link to="/collection" className="cta cta--ghost">
-              {copy.shopFromCollection}
-            </Link>
-          </div>
-        </header>
-        <TrustStrip />
-      </div>
 
-      <div className="shop-page__toolbar" data-active={filter}>
-        <div className="shop-page__filters" role="tablist" aria-label="Filtrer par chapitre">
+      <header className="shop-catalog-header">
+        <Link to="/collection" className="shop-catalog-header__back">
+          ← Collection
+        </Link>
+        <div className="shop-catalog-header__row">
+          <h1 className="shop-catalog-header__title">Boutique</h1>
+          <p className="shop-catalog-header__count" aria-live="polite">
+            {filtered.length} pièce{filtered.length > 1 ? "s" : ""}
+            {activeChapterName ? ` — ${activeChapterName}` : ""}
+          </p>
+        </div>
+      </header>
+
+      <div className="shop-catalog-bar">
+        <div className="shop-catalog-filters" role="tablist" aria-label="Filtrer par chapitre">
           {FILTERS.map((f) => (
             <button
               key={f.id}
               type="button"
               role="tab"
               aria-selected={filter === f.id}
-              className={`shop-filter ${filter === f.id ? "shop-filter--active" : ""}`}
+              className={`shop-catalog-filter${filter === f.id ? " shop-catalog-filter--active" : ""}`}
               onClick={() => applyFilter(f.id)}
             >
               {f.label}
             </button>
           ))}
         </div>
-        <div className="shop-page__controls">
+        <div className="shop-catalog-tools">
           <input
             type="search"
-            className="shop-search"
-            placeholder="Rechercher une pièce, un personnage…"
+            className="shop-catalog-search"
+            placeholder="Rechercher…"
             value={search}
             onChange={(e) => updateParam({ q: e.target.value || null, page: null })}
-            aria-label="Recherche dans la boutique"
+            aria-label="Recherche"
           />
-          <select
-            className="shop-sort"
+          <ShopSortSelect
             value={sort}
-            onChange={(e) => updateParam({ tri: e.target.value === "default" ? null : e.target.value, page: null })}
-            aria-label="Trier les pièces"
-          >
-            {SORT_OPTIONS.map((o) => (
-              <option key={o.id} value={o.id}>
-                {o.label}
-              </option>
-            ))}
-          </select>
+            options={SORT_OPTIONS}
+            aria-label="Trier"
+            onChange={(next) =>
+              updateParam({ tri: next === "default" ? null : next, page: null })
+            }
+          />
         </div>
-        <p className="shop-page__count" aria-live="polite">
-          {filtered.length} pièce{filtered.length > 1 ? "s" : ""}
-          {activeChapterName ? ` — ${activeChapterName}` : ""}
-          {search ? ` · « ${search} »` : ""}
-        </p>
-      </div>
-
-      <div className="shop-page__grid shop-page__grid--premium">
-        {paged.map((p, i) => (
-          <div
-            key={`${filter}-${p.id}-${safePage}`}
-            className="shop-grid-item"
-            style={{ "--stagger-delay": `${(i % 8) * 0.07}s` } as CSSProperties}
-          >
-            <ProductCard product={p} />
-          </div>
-        ))}
       </div>
 
       {filtered.length === 0 ? (
-        <p className="shop-page__empty">
+        <p className="shop-catalog-empty">
           {search ? "Aucune pièce ne correspond à votre recherche." : copy.collectionEmptyChapter}
         </p>
-      ) : null}
+      ) : (
+        <div className="shop-catalog-grid">
+          {paged.map((p, i) => (
+            <div
+              key={`${filter}-${p.id}-${safePage}`}
+              className="shop-catalog-item"
+              style={{ "--stagger-delay": `${(i % 8) * 0.05}s` } as CSSProperties}
+            >
+              <ProductCard product={p} variant="catalog" />
+            </div>
+          ))}
+        </div>
+      )}
 
       {totalPages > 1 ? (
-        <nav className="shop-pagination" aria-label="Pagination">
+        <nav className="shop-catalog-pagination" aria-label="Pagination">
           <button
             type="button"
             disabled={safePage <= 1}
             onClick={() => updateParam({ page: String(safePage - 1) })}
+            aria-label="Page précédente"
           >
-            ← Précédent
+            ←
           </button>
           <span>
-            Page {safePage} / {totalPages}
+            {safePage} / {totalPages}
           </span>
           <button
             type="button"
             disabled={safePage >= totalPages}
             onClick={() => updateParam({ page: String(safePage + 1) })}
+            aria-label="Page suivante"
           >
-            Suivant →
+            →
           </button>
         </nav>
       ) : null}

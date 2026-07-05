@@ -31,7 +31,7 @@ export function getStockQty(
   const entry = stock[productKey];
   if (!entry) return null;
   const v = entry[variationId];
-  if (!v) return 0;
+  if (!v || Object.keys(v).length === 0) return null;
   return Math.max(0, Number(v[size] ?? 0));
 }
 

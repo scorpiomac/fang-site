@@ -86,11 +86,24 @@ const baseCopy = {
   chapterShopCta: "Commander une pièce de ce chapitre",
   narrativeAndShop: "Récit & boutique",
   conversionTagline: "De la collection au vêtement — produit à Dakar, commande en quelques clics.",
+  collectionHeroImage: "collection/s01/hero-premium.jpg",
+  assuranceItems: [
+    "Fabrication locale à Dakar",
+    "Pièces en série limitée",
+    "Paiement sécurisé",
+  ],
 };
+
+const chapterCardHighlightsBase = [
+  { title: "Univers authentique", detail: "Inspiré de la culture" },
+  { title: "Pièces uniques", detail: "Finitions soignées" },
+  { title: "Personnages variés", detail: "Histoires riches" },
+  { title: "Qualité premium", detail: "Conçue pour durer" },
+];
 
 const trustItemsBase = [
   { title: "Atelier Dakar", detail: "Coupe & finitions à la main" },
-  { title: "2–6 semaines", detail: "Production lente, qualité durable" },
+  { title: "2-6 semaines", detail: "Production lente, qualité durable" },
   { title: "Sur mesure", detail: "Morphologies atypiques bienvenues" },
   { title: "WhatsApp", detail: "Paiement & livraison avec l'atelier" },
 ];
@@ -98,26 +111,77 @@ const trustItemsBase = [
 type SiteOverrides = {
   copy?: Partial<Record<keyof typeof baseCopy, string>> & {
     trustItems?: { title: string; detail: string }[];
+    assuranceItems?: string[];
+    chapterCardHighlights?: { title: string; detail: string }[];
   };
 };
 
 const overrides = (siteOverridesJson as SiteOverrides).copy ?? {};
-const { trustItems: trustItemsOverride, ...textOverrides } = overrides;
+const {
+  trustItems: trustItemsOverride,
+  assuranceItems: assuranceItemsOverride,
+  chapterCardHighlights: chapterCardHighlightsOverride,
+  ...textOverrides
+} = overrides;
 
 export const copy = {
   ...baseCopy,
   ...textOverrides,
   trustItems:
     trustItemsOverride && trustItemsOverride.length > 0 ? trustItemsOverride : trustItemsBase,
+  assuranceItems:
+    assuranceItemsOverride && assuranceItemsOverride.length > 0
+      ? assuranceItemsOverride
+      : baseCopy.assuranceItems,
+  chapterCardHighlights:
+    chapterCardHighlightsOverride && chapterCardHighlightsOverride.length > 0
+      ? chapterCardHighlightsOverride
+      : chapterCardHighlightsBase,
 };
 
 export const editableCopyKeys = Object.keys(baseCopy) as (keyof typeof baseCopy)[];
 export const editableCopyDefaults = baseCopy;
 
-export const storyFragments = [
-  "FANG, en wolof, signifie exposition.",
-  "Mais pour nous, c’est une philosophie.",
-  "Peu importe ta morphologie. Ton genre. Ta culture.",
-  "Ose t’exposer.",
-  "Tu es beau. Tu es toi. C’est suffisant.",
-] as const;
+export const storyIntro =
+  "Plus qu'un espace d'exposition, FANG est une philosophie. Un appel à l'expression de soi, à l'audace et à la célébration de notre identité.";
+
+export const storyFooterQuote = "FANG, ce n'est pas une norme. C'est une liberté.";
+
+export type StoryPillarIcon = "eye" | "branch" | "mask" | "sun" | "heart";
+
+export type StoryPillar = {
+  icon: StoryPillarIcon;
+  title: string;
+  description: string;
+};
+
+export const storyPillars: StoryPillar[] = [
+  {
+    icon: "eye",
+    title: "FANG, en wolof, signifie exposition.",
+    description: "Se montrer au monde, partager sa vision, et affirmer son existence.",
+  },
+  {
+    icon: "branch",
+    title: "Mais pour nous, c'est une philosophie.",
+    description: "Une manière d'habiter le monde avec fierté, créativité et authenticité.",
+  },
+  {
+    icon: "mask",
+    title: "Peu importe ta morphologie.",
+    description: "Ton genre. Ta culture. Ce qui compte, c'est ton identité, ta lumière.",
+  },
+  {
+    icon: "sun",
+    title: "Ose t'exposer.",
+    description: "Montre qui tu es, ce que tu fais, ce qui te rend unique.",
+  },
+  {
+    icon: "heart",
+    title: "Tu es beau. Tu es toi. C'est suffisant.",
+    description: "L'important, c'est d'être vrai, pleinement et sans compromis.",
+  },
+];
+
+/** @deprecated Utiliser storyPillars — conservé pour le CMS (titres). */
+export const storyFragments = storyPillars.map((p) => p.title) as readonly string[];

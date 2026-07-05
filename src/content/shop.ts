@@ -33,11 +33,12 @@ export type ShopProduct = {
   characterId: string;
   characterSlug: string;
   characterName: string;
-  /** Clé partagée avec l'admin stock (chapterId/characterSlug) */
+  pieceId: string;
+  pieceIndex: number;
+  pieceLabel: string;
+  /** Clé stock admin : chapterId/characterSlug/pieceId */
   productKey: string;
-  /** Prix affiché (variation par défaut ou minimum) */
   priceXof: number;
-  /** Variations de pièce / prix — style WooCommerce */
   variations: readonly ProductVariation[];
   material: string;
   excerpt: string;
@@ -65,70 +66,152 @@ const overrides = productOverrides as Record<string, ProductOverride>;
 const DEFAULT_PRICE = 125000;
 const DEFAULT_SIZES = ["XS", "S", "M", "L", "XL"] as const;
 
-function getOverride(chapterId: string, slug: string): ProductOverride {
-  return overrides[`${chapterId}/${slug}`] ?? {};
+export function pieceIdFromImageUrl(imageUrl: string): string {
+  const filename = imageUrl.split("/").pop() ?? "piece";
+  return filename.replace(/\.[^.]+$/, "");
 }
 
-function productFromCharacter(character: CollectionCharacter): ShopProduct | null {
-  if (character.images.length === 0) return null;
+export function productOverrideKey(
+  chapterId: string,
+  characterSlug: string,
+  pieceId?: string
+): string {
+  return pieceId ? `${chapterId}/${characterSlug}/${pieceId}` : `${chapterId}/${characterSlug}`;
+}
+
+function getOverride(
+  chapterId: string,
+  characterSlug: string,
+  pieceId: string
+): ProductOverride {
+  const charKey = productOverrideKey(chapterId, characterSlug);
+  const pieceKey = productOverrideKey(chapterId, characterSlug, pieceId);
+  return { ...(overrides[charKey] ?? {}), ...(overrides[pieceKey] ?? {}) };
+}
+
+function formatPieceLabel(pieceId: string, pieceIndex: number): string {
+  if (pieceId === "cover") return "Cover";
+  const match = pieceId.match(/produit-(\d+)/i);
+  if (match) return `Pièce ${Number(match[1])}`;
+  return `Pièce ${pieceIndex + 1}`;
+}
+
+function productFromCharacterImage(
+  character: CollectionCharacter,
+  imageUrl: string,
+  pieceIndex: number
+): ShopProduct | null {
   const chapter = getChapterById(character.chapterId);
   if (!chapter) return null;
 
-  const ov = getOverride(chapter.id, character.slug);
+  const pieceId = pieceIdFromImageUrl(imageUrl);
+  const ov = getOverride(chapter.id, character.slug, pieceId);
   const basePrice = typeof ov.priceXof === "number" ? ov.priceXof : DEFAULT_PRICE;
   const variations = resolveVariations(basePrice, ov.variations);
   const priceXof = displayPriceXof({ priceXof: basePrice, variations });
-
-  const overrideImages =
-    ov.images && ov.images.length > 0
-      ? ov.images.map((p) => publicUrl(p))
-      : null;
-  const images = overrideImages ?? character.images;
   const coverImage =
-    (ov.coverImage ? publicUrl(ov.coverImage) : null) ??
-    character.coverImage ??
-    images[0] ??
-    character.cover;
+    (ov.coverImage ? publicUrl(ov.coverImage) : null) ?? publicUrl(imageUrl);
+
+  const pieceLabel = formatPieceLabel(pieceId, pieceIndex);
+  const defaultName =
+    character.images.length > 1
+      ? `${character.name} — ${pieceLabel}`
+      : `${character.name} — ${chapter.name}`;
 
   return {
-    id: character.id,
-    slug: `${chapter.slug}-${character.slug}`,
-    name: ov.name ?? `${character.name} — ${chapter.name}`,
+    id: `${character.id}-${pieceId}`,
+    slug: `${chapter.slug}-${character.slug}-${pieceId}`,
+    name: ov.name ?? defaultName,
     kind: ov.kind ?? "Silhouette",
     chapterId: chapter.id,
     chapterLabel: `${chapter.name} · ${character.name}`,
     characterId: character.id,
     characterSlug: character.slug,
     characterName: character.name,
-    productKey: `${chapter.id}/${character.slug}`,
+    pieceId,
+    pieceIndex,
+    pieceLabel,
+    productKey: `${chapter.id}/${character.slug}/${pieceId}`,
     priceXof,
     variations,
     material: ov.material ?? "Tissus locaux, confection à Dakar",
-    excerpt: ov.excerpt ?? `Pièce du chapitre ${chapter.name}, portée par ${character.name}.`,
+    excerpt:
+      ov.excerpt ??
+      `Pièce du chapitre ${chapter.name}, portée par ${character.name}.`,
     description:
       ov.description ??
-      `${character.name} dans la collection ${chapter.name} — Nel Fang Te Dundu. Chaque photo correspond à une pièce produite à l’atelier FANG.`,
+      `${character.name} — ${pieceLabel}. Pièce produite à l'atelier FANG, collection ${chapter.name}.`,
     coverImage,
-    images,
+    images: [coverImage],
     sizes: ov.sizes && ov.sizes.length > 0 ? ov.sizes : DEFAULT_SIZES,
   };
 }
 
-/** Produits générés uniquement depuis les personnages présents dans l’atelier. */
-export const shopProducts: ShopProduct[] = allCharacters()
-  .map(productFromCharacter)
-  .filter((p): p is ShopProduct => p !== null);
+function productsFromCharacter(character: CollectionCharacter): ShopProduct[] {
+  if (character.images.length === 0) return [];
+  return character.images
+    .map((imageUrl, pieceIndex) => productFromCharacterImage(character, imageUrl, pieceIndex))
+    .filter((p): p is ShopProduct => p !== null);
+}
+
+/** Une image atelier = une fiche produit distincte. */
+export const shopProducts: ShopProduct[] = allCharacters().flatMap(productsFromCharacter);
 
 export function getProductBySlug(slug: string): ShopProduct | undefined {
   return shopProducts.find((p) => p.slug === slug);
 }
 
-export function getProductByCharacter(chapterId: string, characterSlug: string): ShopProduct | undefined {
-  return shopProducts.find((p) => p.chapterId === chapterId && p.characterSlug === characterSlug);
+/** Anciens slugs `chapitre-personnage` → première pièce. */
+export function resolveProductSlug(slug: string): ShopProduct | undefined {
+  const direct = getProductBySlug(slug);
+  if (direct) return direct;
+  const legacy = shopProducts.filter((p) => {
+    const chapter = getChapterById(p.chapterId);
+    return chapter && `${chapter.slug}-${p.characterSlug}` === slug;
+  });
+  return legacy[0];
+}
+
+export function getLegacyProductRedirect(slug: string): string | null {
+  if (getProductBySlug(slug)) return null;
+  const first = resolveProductSlug(slug);
+  if (first && first.slug !== slug) return first.slug;
+  return null;
+}
+
+export function getProductsForCharacter(
+  chapterId: string,
+  characterSlug: string
+): ShopProduct[] {
+  return shopProducts.filter(
+    (p) => p.chapterId === chapterId && p.characterSlug === characterSlug
+  );
+}
+
+export function getProductByCharacter(
+  chapterId: string,
+  characterSlug: string
+): ShopProduct | undefined {
+  return getProductsForCharacter(chapterId, characterSlug)[0];
 }
 
 export function getProductsForChapter(chapterId: string): ShopProduct[] {
   return shopProducts.filter((p) => p.chapterId === chapterId);
+}
+
+export function getCharacterPriceRange(
+  chapterId: string,
+  characterSlug: string
+): { min: number; max: number } | null {
+  const products = getProductsForCharacter(chapterId, characterSlug);
+  if (products.length === 0) return null;
+  const prices = products.map((p) => p.priceXof);
+  return { min: Math.min(...prices), max: Math.max(...prices) };
+}
+
+export function formatPriceRange(min: number, max: number): string {
+  if (min === max) return `${formatPriceXof(min)} FCFA`;
+  return `${formatPriceXof(min)} – ${formatPriceXof(max)} FCFA`;
 }
 
 export function formatPriceXof(value: number): string {
@@ -141,7 +224,6 @@ export function formatPriceXof(value: number): string {
 export const whatsappOrderNumber =
   import.meta.env.VITE_WHATSAPP_ORDER ?? "221000000000";
 
-/** Images de repli si le catalogue est vide (dev) */
 export const placeholderChapterImage = publicUrl("chapters/ch1/img1.jpg");
 
 export { collectionChapters };

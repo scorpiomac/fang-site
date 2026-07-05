@@ -9,7 +9,10 @@ const SDK_URL = "https://paytech.sn/cdn/paytech.min.js";
 
 declare global {
   interface Window {
-    paytech?: any;
+    paytech?: {
+      withOption: (config: Record<string, unknown>) => { send?: () => void };
+      send?: (config: Record<string, unknown>) => void;
+    };
   }
 }
 

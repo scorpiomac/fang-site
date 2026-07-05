@@ -95,7 +95,11 @@ export const DEFAULT_PUBLIC_SETTINGS: PublicSettings = {
     showLeadTime: true,
   },
   payments: {
-    methods: [{ id: "whatsapp", label: "WhatsApp atelier", instructions: "" }],
+    methods: [
+      { id: "wave", label: "Wave", instructions: "Paiement mobile sécurisé via Wave." },
+      { id: "orange_money", label: "Orange Money", instructions: "Paiement mobile sécurisé via Orange Money." },
+      { id: "card", label: "Carte bancaire", instructions: "Visa, Mastercard et cartes internationales." },
+    ],
   },
   maintenance: {
     enabled: false,

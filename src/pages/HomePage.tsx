@@ -9,7 +9,6 @@ import { FeaturedPiecesSection } from "@/sections/FeaturedPiecesSection";
 import { CreatorSection } from "@/sections/CreatorSection";
 import { RecognitionSection } from "@/sections/RecognitionSection";
 import { ManifestSection } from "@/sections/ManifestSection";
-import { FooterSection } from "@/sections/FooterSection";
 import { MarqueeStrip } from "@/components/ui/MarqueeStrip";
 import { useScenePhase } from "@/context/useScenePhase";
 import { useLenisGsap } from "@/hooks/useLenisGsap";
@@ -87,23 +86,6 @@ export function HomePage() {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 769px)", () => {
-        const storyEl = storyRef.current;
-        if (storyEl) {
-          gsap.from(".story-fragment", {
-            opacity: 0,
-            y: 50,
-            ease: "none",
-            stagger: 0.3,
-            scrollTrigger: {
-              trigger: storyEl,
-              start: "top top",
-              end: "+=240%",
-              pin: true,
-              scrub: 0.7,
-            },
-          });
-        }
-
         const pin = document.querySelector<HTMLElement>("[data-chapters-pin]");
         const track = document.querySelector<HTMLElement>("[data-chapters-track]");
         const progress = document.querySelector<HTMLElement>("[data-chapters-progress]");
@@ -111,7 +93,9 @@ export function HomePage() {
 
         if (pin && track) {
           const panelCount = chapters.length;
-          const distance = () => track.scrollWidth - window.innerWidth;
+          const viewport = pin.querySelector<HTMLElement>(".chapters__viewport");
+          const distance = () =>
+            track.scrollWidth - (viewport?.clientWidth ?? window.innerWidth);
 
           const horizontalTween = gsap.to(track, {
             x: () => -distance(),
@@ -185,28 +169,17 @@ export function HomePage() {
               toggleActions: "play none none reverse",
             },
           });
-          gsap.from(".creator__portrait-frame", {
-            opacity: 0,
-            scale: 0.9,
-            ease: "power3.out",
-            duration: 1.2,
-            scrollTrigger: {
-              trigger: creatorEl,
-              start: "top 75%",
-            },
-          });
-        }
-
-        gsap.from(".recognition-item", {
+        gsap.from(".creator__portrait-frame", {
           opacity: 0,
-          x: -30,
-          stagger: 0.15,
+          scale: 0.9,
           ease: "power3.out",
+          duration: 1.2,
           scrollTrigger: {
-            trigger: ".recognition__timeline",
+            trigger: creatorEl,
             start: "top 75%",
           },
         });
+        }
 
         const manifestEl = manifestRef.current;
         if (manifestEl) {
@@ -224,16 +197,6 @@ export function HomePage() {
       });
 
       mm.add("(max-width: 768px)", () => {
-        gsap.utils.toArray<HTMLElement>(".story-fragment").forEach((el, i) => {
-          gsap.from(el, {
-            opacity: 0,
-            y: 24,
-            duration: 0.8,
-            delay: i * 0.06,
-            ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 88%" },
-          });
-        });
         gsap.utils.toArray<HTMLElement>(".chapter-panel").forEach((el, i) => {
           gsap.from(el, {
             opacity: 0,
@@ -320,7 +283,6 @@ export function HomePage() {
           <CreatorSection ref={creatorRef} />
           <RecognitionSection />
           <ManifestSection ref={manifestRef} />
-          <FooterSection />
         </main>
       </div>
     </div>

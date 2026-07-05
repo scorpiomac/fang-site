@@ -174,6 +174,40 @@ export function allCharacters(): CollectionCharacter[] {
   return collectionChapters.flatMap((c) => c.characters);
 }
 
+const DEFAULT_CHAPTER_IMAGE = publicUrl("chapters/ch1/img1.jpg");
+
+/** Image héro d'un chapitre — priorise l'atelier, puis overrides, puis récit. */
+export function getChapterHeroImage(
+  chapter: CollectionChapter,
+  heroCharacter?: CollectionCharacter,
+  narrativeFallback?: string
+): string {
+  return (
+    heroCharacter?.cover ||
+    chapter.characters[0]?.cover ||
+    chapter.posterImage ||
+    chapter.coverImage ||
+    narrativeFallback ||
+    DEFAULT_CHAPTER_IMAGE
+  );
+}
+
+/** Image d'une vignette de galerie chapitre. */
+export function getChapterGalleryImage(
+  chapter: CollectionChapter,
+  character: CollectionCharacter | undefined,
+  fallbackIndex: number,
+  narrativeFallbacks: readonly string[]
+): string {
+  if (character?.cover) return character.cover;
+  return (
+    narrativeFallbacks[fallbackIndex] ??
+    narrativeFallbacks[0] ??
+    chapter.characters[0]?.cover ??
+    DEFAULT_CHAPTER_IMAGE
+  );
+}
+
 /** @deprecated alias migration */
 export type CastMember = CollectionCharacter;
 export const getCastForChapterResolved = getCharactersForChapter;

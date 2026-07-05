@@ -1,11 +1,12 @@
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { chapters as narrativeChapters } from "@/content/chapters";
-import { getCharactersForChapter, collectionChapters } from "@/content/collectionCatalog";
-import { getProductByCharacter } from "@/content/shop";
+import { getCharactersForChapter, collectionChapters, getChapterGalleryImage, getChapterHeroImage } from "@/content/collectionCatalog";
+import { getProductsForCharacter } from "@/content/shop";
 import { copy } from "@/content/copy";
 import { formatPriceXof } from "@/content/shop";
 import { useCmsText } from "@/context/CmsContext";
+import { MediaImage } from "@/components/ui/MediaImage";
 
 export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(_, ref) {
   const eyebrow = useCmsText("home.chapters.eyebrow", copy.chaptersEyebrow);
@@ -26,7 +27,7 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
         <h2 className="chapters__title" id="collections-title">
           {title.split("\n").map((s, i) => (
             <span key={i} className="chapters__title-line">
-              {s}
+              {s.trim().replace(/\s+/g, " ")}
             </span>
           ))}
         </h2>
@@ -42,7 +43,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
               const lore = narrativeChapters.find((n) => n.id === c.id);
               const fallbackImages = lore?.images ?? [];
               const heroChar = characters[0];
-              const heroProduct = heroChar ? getProductByCharacter(c.id, heroChar.slug) : undefined;
+              const heroProduct = heroChar
+                ? getProductsForCharacter(c.id, heroChar.slug)[0]
+                : undefined;
               return (
                 <article
                   key={c.id}
@@ -111,8 +114,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                           tabIndex={-1}
                           aria-label={`Voir ${heroChar.name}`}
                         >
-                          <img
-                            src={c.coverImage || c.posterImage || heroChar.cover}
+                          <MediaImage
+                            src={getChapterHeroImage(c, heroChar, fallbackImages[0])}
+                            fallbacks={[heroChar?.cover, c.characters[0]?.cover, ...fallbackImages]}
                             alt={`${heroChar.name} — ${c.name}`}
                             loading="lazy"
                             decoding="async"
@@ -136,8 +140,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                         </Link>
                       ) : (
                         <>
-                          <img
+                          <MediaImage
                             src={fallbackImages[0]}
+                            fallbacks={fallbackImages.slice(1)}
                             alt={`${c.name} — chapitre`}
                             loading="lazy"
                             decoding="async"
@@ -164,10 +169,22 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                             tabIndex={-1}
                             aria-hidden="true"
                           >
-                            <img src={characters[idx + 1].cover} alt="" loading="lazy" decoding="async" />
+                            <MediaImage
+                              src={getChapterGalleryImage(c, characters[idx + 1], idx, fallbackImages)}
+                              fallbacks={fallbackImages}
+                              alt=""
+                              loading="lazy"
+                              decoding="async"
+                            />
                           </Link>
                         ) : (
-                          <img src={fallbackImages[idx]} alt="" loading="lazy" decoding="async" />
+                          <MediaImage
+                            src={getChapterGalleryImage(c, undefined, idx, fallbackImages)}
+                            fallbacks={fallbackImages}
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                          />
                         )}
                       </figure>
                     ))}
@@ -178,13 +195,17 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
           </div>
         </div>
 
-        <div className="chapters__progress" aria-hidden="true">
+        <div
+          className="chapters__progress"
+          style={{ "--chapter-count": collectionChapters.length } as React.CSSProperties}
+          aria-hidden="true"
+        >
           <div className="chapters__progress-track">
             <div className="chapters__progress-bar" data-chapters-progress />
           </div>
           <ul className="chapters__progress-list">
             {collectionChapters.map((c, i) => (
-              <li key={c.id} data-chapter-dot={i}>
+              <li key={c.id} data-chapter-dot={i} title={c.name}>
                 <span>{c.index}</span>
                 <em>
                   <span className="chapters__progress-name">{c.name}</span>

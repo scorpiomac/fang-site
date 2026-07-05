@@ -3,6 +3,7 @@ import { creator } from "@/content/creator";
 import { copy } from "@/content/copy";
 import { publicUrl } from "@/lib/publicUrl";
 import { useCmsText } from "@/context/CmsContext";
+import { MediaImage } from "@/components/ui/MediaImage";
 
 export const CreatorSection = forwardRef<HTMLElement>(function CreatorSection(_, ref) {
   const eyebrow = useCmsText("home.creator.eyebrow", copy.creatorEyebrow);
@@ -19,7 +20,15 @@ export const CreatorSection = forwardRef<HTMLElement>(function CreatorSection(_,
       <div className="creator__grid">
         <aside className="creator__portrait" aria-hidden="true">
           <div className="creator__portrait-frame">
-            <img src={publicUrl("chapters/ch6/img1.jpg")} alt="" loading="lazy" />
+            <MediaImage
+              src={publicUrl("chapters/ch6/img1.jpg")}
+              fallbacks={[
+                publicUrl("chapters/ch6/img2.jpg"),
+                publicUrl("chapters/ch1/img1.jpg"),
+              ]}
+              alt=""
+              loading="lazy"
+            />
           </div>
           <p className="creator__portrait-caption">
             Atelier — Dakar, Sénégal

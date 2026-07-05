@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { pieceIdFromImageUrl } from "@/content/shop";
 import { adminApi, type StockEntry, type StockSummary } from "../api";
 import { useAdmin } from "../AdminContext";
 
@@ -8,9 +9,18 @@ type ProductInfo = {
   chapterName: string;
   characterSlug: string;
   characterName: string;
+  pieceId: string;
+  pieceLabel: string;
   sizes: string[];
   variations: { id: string; label: string }[];
 };
+
+function pieceLabel(pieceId: string, index: number): string {
+  if (pieceId === "cover") return "Cover";
+  const match = pieceId.match(/produit-(\d+)/i);
+  if (match) return `Pièce ${Number(match[1])}`;
+  return `Pièce ${index + 1}`;
+}
 
 export function StockAdmin() {
   const { bundle, setToast } = useAdmin();
@@ -25,22 +35,29 @@ export function StockAdmin() {
     const out: ProductInfo[] = [];
     for (const c of bundle.catalog.chapters) {
       for (const ch of c.characters) {
-        const ov = bundle.productsOverrides?.[`${c.id}/${ch.slug}`];
-        const sizes = ov?.sizes && ov.sizes.length > 0 ? ov.sizes : ["XS", "S", "M", "L", "XL"];
-        const variations =
-          ov?.variations && ov.variations.length > 0
-            ? ov.variations
-                .filter((v) => v.label?.trim())
-                .map((v) => ({ id: v.id, label: v.label }))
-            : [{ id: "default", label: "Pièce" }];
-        out.push({
-          productKey: `${c.id}/${ch.slug}`,
-          chapterId: c.id,
-          chapterName: c.name,
-          characterSlug: ch.slug,
-          characterName: ch.name,
-          sizes,
-          variations,
+        ch.images.forEach((imagePath, index) => {
+          const pieceId = pieceIdFromImageUrl(imagePath);
+          const charOv = bundle.productsOverrides?.[`${c.id}/${ch.slug}`];
+          const pieceOv = bundle.productsOverrides?.[`${c.id}/${ch.slug}/${pieceId}`];
+          const ov = { ...charOv, ...pieceOv };
+          const sizes = ov?.sizes && ov.sizes.length > 0 ? ov.sizes : ["XS", "S", "M", "L", "XL"];
+          const variations =
+            ov?.variations && ov.variations.length > 0
+              ? ov.variations
+                  .filter((v) => v.label?.trim())
+                  .map((v) => ({ id: v.id, label: v.label }))
+              : [{ id: "default", label: "Pièce" }];
+          out.push({
+            productKey: `${c.id}/${ch.slug}/${pieceId}`,
+            chapterId: c.id,
+            chapterName: c.name,
+            characterSlug: ch.slug,
+            characterName: ch.name,
+            pieceId,
+            pieceLabel: pieceLabel(pieceId, index),
+            sizes,
+            variations,
+          });
         });
       }
     }
@@ -69,7 +86,8 @@ export function StockAdmin() {
     const q = search.toLowerCase();
     return (
       p.characterName.toLowerCase().includes(q) ||
-      p.chapterName.toLowerCase().includes(q)
+      p.chapterName.toLowerCase().includes(q) ||
+      p.pieceLabel.toLowerCase().includes(q)
     );
   });
 
@@ -129,8 +147,8 @@ export function StockAdmin() {
           <p className="admin-eyebrow">Inventaire</p>
           <h1>Stock</h1>
           <p className="admin-page__lede">
-            Activez le suivi de stock par produit. Le stock est décrémenté automatiquement à
-            chaque commande validée.
+            Une ligne par pièce (chaque photo atelier). Le stock est décrémenté à chaque
+            commande validée.
           </p>
         </div>
         <button type="button" className="admin-cta admin-cta--ghost" onClick={refresh}>
@@ -141,7 +159,7 @@ export function StockAdmin() {
       <div className="admin-toolbar">
         <input
           className="admin-search"
-          placeholder="Rechercher un produit…"
+          placeholder="Rechercher une pièce…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -157,22 +175,24 @@ export function StockAdmin() {
           return (
             <li key={p.productKey} className="admin-product-row">
               <div className="admin-product-row__main">
-                <strong>{p.characterName}</strong>
+                <strong>
+                  {p.characterName} · {p.pieceLabel}
+                </strong>
                 <span>{p.chapterName}</span>
               </div>
               <div className="admin-product-row__meta">
                 {tracking ? (
                   <>
-                    <span>Total : <strong>{sum?.total ?? 0}</strong></span>
+                    <span>
+                      Total : <strong>{sum?.total ?? 0}</strong>
+                    </span>
                     {sum && sum.outOfStock > 0 ? (
                       <span className="admin-tag admin-tag--warning">
                         {sum.outOfStock} en rupture
                       </span>
                     ) : null}
                     {sum && sum.low > 0 ? (
-                      <span className="admin-tag admin-tag--accent">
-                        {sum.low} stock faible
-                      </span>
+                      <span className="admin-tag admin-tag--accent">{sum.low} stock faible</span>
                     ) : null}
                   </>
                 ) : (
@@ -199,7 +219,9 @@ export function StockAdmin() {
           <article className="admin-modal__panel admin-modal__panel--wide">
             <header className="admin-modal__head">
               <div>
-                <h2>{editing.characterName}</h2>
+                <h2>
+                  {editing.characterName} · {editing.pieceLabel}
+                </h2>
                 <p className="admin-help">{editing.chapterName}</p>
               </div>
               <button type="button" className="admin-icon-btn" onClick={() => setEditing(null)}>
@@ -213,7 +235,7 @@ export function StockAdmin() {
                 checked={stock[editing.productKey]?.trackInventory ?? false}
                 onChange={(e) => setTracking(editing.productKey, e.target.checked)}
               />
-              <span>Suivre le stock pour ce produit</span>
+              <span>Suivre le stock pour cette pièce</span>
             </label>
 
             {stock[editing.productKey]?.trackInventory ? (
@@ -262,8 +284,8 @@ export function StockAdmin() {
               </div>
             ) : (
               <p className="admin-help">
-                Activez le suivi pour saisir les quantités. Sans suivi, le produit est
-                considéré comme disponible (sur commande).
+                Activez le suivi pour saisir les quantités. Sans suivi, la pièce est considérée
+                comme disponible (sur commande).
               </p>
             )}
 

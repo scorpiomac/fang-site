@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getChapterBySlug } from "@/content/chapters";
 import { resolveChapterNarrative } from "@/content/chapterNarrative";
-import { shopProducts, formatPriceXof } from "@/content/shop";
+import { formatPriceXof, getProductsForChapter } from "@/content/shop";
 import { copy } from "@/content/copy";
 import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -48,7 +48,8 @@ function ChapterMark({ n }: { n: string }) {
 export function PersonnagePage() {
   const { slug } = useParams<{ slug: string }>();
   const chapter = slug ? getChapterBySlug(slug) : undefined;
-  const product = chapter ? shopProducts.find((p) => p.chapterId === chapter.id) : undefined;
+  const chapterProducts = chapter ? getProductsForChapter(chapter.id) : [];
+  const product = chapterProducts[0];
   const webgl = useWebGLSupport();
   const reduced = useReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);

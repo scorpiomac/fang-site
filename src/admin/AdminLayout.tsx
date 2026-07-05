@@ -21,7 +21,6 @@ export function AdminLayout({ children, onLogout, unsavedHint }: Props) {
   useEffect(() => {
     if (!commerce) return;
     let cancelled = false;
-    let timer: number | undefined;
 
     const tick = async () => {
       try {
@@ -50,11 +49,11 @@ export function AdminLayout({ children, onLogout, unsavedHint }: Props) {
     };
 
     void tick();
-    timer = window.setInterval(tick, 30_000);
+    const timer = window.setInterval(tick, 30_000);
 
     return () => {
       cancelled = true;
-      if (timer) window.clearInterval(timer);
+      window.clearInterval(timer);
     };
   }, [commerce, setToast]);
 
