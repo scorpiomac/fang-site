@@ -597,6 +597,12 @@ img {
   pointer-events: none;
 }
 
+.cta--small {
+  padding: 0.6rem 1rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+}
+
 /* ───── MARQUEE STRIP ───── */
 .marquee-strip {
   overflow: hidden;
@@ -4629,6 +4635,193 @@ img {
 /* Add-to-cart feedback */
 .product-page__add-btn--done {
   background: linear-gradient(120deg, var(--color-rust), var(--color-bronze)) !important;
+}
+
+/* ───── Avis produit ───── */
+.product-reviews {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid rgba(242, 235, 227, 0.08);
+}
+
+.product-reviews__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.product-reviews__head h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin: 0 0 0.35rem;
+}
+
+.product-reviews__head > div > p {
+  margin: 0;
+  color: rgba(242, 235, 227, 0.65);
+  font-size: 0.92rem;
+}
+
+.product-reviews__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.product-reviews__thanks {
+  margin: 0 0 var(--space-lg);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(201, 166, 107, 0.35);
+  background: rgba(201, 166, 107, 0.08);
+  color: var(--color-copper);
+  font-size: 0.9rem;
+}
+
+.product-reviews__form {
+  display: grid;
+  gap: var(--space-md);
+  max-width: 36rem;
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(242, 235, 227, 0.1);
+  background: rgba(242, 235, 227, 0.03);
+}
+
+.product-reviews__form label,
+.product-reviews__field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.product-reviews__field-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-sand);
+}
+
+.product-reviews__form input,
+.product-reviews__form textarea {
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(242, 235, 227, 0.12);
+  background: rgba(8, 7, 6, 0.55);
+  color: var(--color-ivory);
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: normal;
+  text-transform: none;
+  resize: vertical;
+}
+
+.product-reviews__form input:focus,
+.product-reviews__form textarea:focus {
+  outline: none;
+  border-color: rgba(201, 166, 107, 0.45);
+}
+
+.product-reviews__form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding-top: 0.25rem;
+}
+
+.product-reviews__error {
+  margin: 0;
+  color: #d36a4a;
+  font-size: 0.88rem;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.product-reviews__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-md);
+}
+
+.product-review {
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(242, 235, 227, 0.08);
+  background: rgba(242, 235, 227, 0.02);
+}
+
+.product-review__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-review__head strong {
+  font-weight: 500;
+}
+
+.product-review__date {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: rgba(242, 235, 227, 0.45);
+}
+
+.product-review__title {
+  margin: 0 0 0.35rem;
+  font-weight: 500;
+  color: var(--color-ivory);
+}
+
+.product-review__body {
+  margin: 0;
+  color: rgba(242, 235, 227, 0.72);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.rating-stars {
+  display: inline-flex;
+  gap: 0.1rem;
+  line-height: 1;
+  color: rgba(242, 235, 227, 0.25);
+}
+
+.rating-stars__star.is-on {
+  color: var(--color-copper);
+}
+
+.rating-input {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.rating-input__star {
+  padding: 0.15rem 0.25rem;
+  border: none;
+  background: transparent;
+  color: rgba(242, 235, 227, 0.25);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+
+.rating-input__star:hover,
+.rating-input__star.is-on {
+  color: var(--color-copper);
+}
+
+.rating-input__star:hover {
+  transform: scale(1.08);
 }
 
 /* Product lightbox */
@@ -8743,6 +8936,7 @@ img {
 .chapter-showcase__cta--solid:hover {
   transform: translateY(-2px);
   background: linear-gradient(120deg, #d9b676, var(--color-copper));
+  color: var(--color-void);
 }
 
 .chapter-showcase__cta-copy {

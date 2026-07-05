@@ -8,7 +8,6 @@ import {
   getProductBySlug,
   getProductsForCharacter,
   formatPriceXof,
-  shopProducts,
   type ShopProduct,
 } from "@/content/shop";
 import { useProductPurchase } from "@/hooks/useProductPurchase";
@@ -21,7 +20,6 @@ import {
 } from "@/components/shop/ProductVariationSelect";
 import { WishlistButton } from "@/components/shop/WishlistButton";
 import { ProductReviews } from "@/components/shop/ProductReviews";
-import { trackProductView, getRecentlyViewed } from "@/lib/recentlyViewed";
 import { Seo } from "@/components/Seo";
 
 export function ProductPage() {
@@ -79,30 +77,9 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
     [product]
   );
 
-  const related = useMemo(() => {
-    const others = shopProducts.filter((p) => p.id !== product.id);
-    const sameCharacter = others.filter(
-      (p) => p.chapterId === product.chapterId && p.characterSlug === product.characterSlug
-    );
-    const sameChapter = others.filter(
-      (p) => p.chapterId === product.chapterId && p.characterSlug !== product.characterSlug
-    );
-    const otherChapters = others.filter((p) => p.chapterId !== product.chapterId);
-    return [...sameCharacter, ...sameChapter, ...otherChapters].slice(0, 3);
-  }, [product]);
-
   useEffect(() => {
     setLightboxOpen(false);
-    if (product.slug) trackProductView(product.slug);
   }, [slug, product.slug]);
-
-  const recentlyViewed = useMemo(() => {
-    const recent = getRecentlyViewed().filter((s) => s !== product.slug);
-    return recent
-      .map((s) => shopProducts.find((p) => p.slug === s))
-      .filter((p): p is ShopProduct => Boolean(p))
-      .slice(0, 4);
-  }, [product.slug]);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -324,46 +301,6 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
                 </div>
                 <div className="product-related-card__body">
                   <p className="product-related-card__chapter">{p.pieceLabel}</p>
-                  <p className="product-related-card__name">{p.name}</p>
-                  <p className="product-related-card__price">{formatPriceXof(p.priceXof)} FCFA</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {recentlyViewed.length > 0 && (
-        <section className="product-page__related">
-          <p className="product-page__related-label">Récemment consultées</p>
-          <div className="product-page__related-grid">
-            {recentlyViewed.map((p) => (
-              <Link key={p.id} to={`/boutique/${p.slug}`} className="product-related-card">
-                <div className="product-related-card__media">
-                  <img src={p.coverImage || p.images[0]} alt="" loading="lazy" />
-                </div>
-                <div className="product-related-card__body">
-                  <p className="product-related-card__chapter">{p.chapterLabel}</p>
-                  <p className="product-related-card__name">{p.name}</p>
-                  <p className="product-related-card__price">{formatPriceXof(p.priceXof)} FCFA</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {related.length > 0 && (
-        <section className="product-page__related">
-          <p className="product-page__related-label">De la même collection</p>
-          <div className="product-page__related-grid">
-            {related.map((p) => (
-              <Link key={p.id} to={`/boutique/${p.slug}`} className="product-related-card">
-                <div className="product-related-card__media">
-                  <img src={p.coverImage || p.images[0]} alt="" loading="lazy" />
-                </div>
-                <div className="product-related-card__body">
-                  <p className="product-related-card__chapter">{p.chapterLabel}</p>
                   <p className="product-related-card__name">{p.name}</p>
                   <p className="product-related-card__price">{formatPriceXof(p.priceXof)} FCFA</p>
                 </div>

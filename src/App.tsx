@@ -24,6 +24,7 @@ import { NotFoundPage } from "@/pages/NotFoundPage";
 import { StaticPage } from "@/pages/StaticPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { CmsProvider } from "@/context/CmsContext";
+import { FooterSection } from "@/sections/FooterSection";
 
 function CastLegacyRedirect() {
   const { chapterSlug, castSlug } = useParams<{ chapterSlug: string; castSlug: string }>();
@@ -79,6 +80,7 @@ function MainSite() {
                 <Route path="/compte/*" element={<AccountApp />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
+              <FooterSection />
             </MaintenanceGate>
           </CartProvider>
         </StockProvider>

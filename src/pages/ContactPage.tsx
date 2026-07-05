@@ -2,7 +2,6 @@ import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { submitContactMessage } from "@/lib/storeApi";
 import { useSiteSettings } from "@/context/siteSettingsContext";
-import { FooterSection } from "@/sections/FooterSection";
 
 export function ContactPage() {
   const { settings } = useSiteSettings();
@@ -142,7 +141,6 @@ export function ContactPage() {
           </div>
         </div>
       </main>
-      <FooterSection />
     </>
   );
 }

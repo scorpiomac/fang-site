@@ -66,6 +66,18 @@ export function ProductReviews({ productSlug }: { productSlug: string }) {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    const name = form.customerName.trim();
+    const text = form.body.trim();
+    if (!name) {
+      setError("Indiquez un nom à afficher.");
+      return;
+    }
+    if (text.length < 5) {
+      setError("L'avis doit contenir au moins 5 caractères.");
+      return;
+    }
+
     setSubmitting(true);
     try {
       const res = await fetch(
@@ -73,15 +85,32 @@ export function ProductReviews({ productSlug }: { productSlug: string }) {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify({
+            customerName: name,
+            rating: form.rating,
+            title: form.title.trim(),
+            body: text,
+          }),
         }
       );
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(body.error ?? "Erreur");
+      const body = (await res.json().catch(() => ({}))) as { error?: string; message?: string };
+      if (!res.ok) {
+        throw new Error(
+          body.error ??
+            (res.status === 429
+              ? "Trop de tentatives. Réessayez dans un instant."
+              : "Impossible d'envoyer l'avis.")
+        );
+      }
       setSubmitted(true);
       setShowForm(false);
+      setForm((prev) => ({ ...prev, body: "", title: "" }));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur");
+      if (err instanceof TypeError) {
+        setError("Serveur indisponible. Relancez le site avec npm run dev.");
+      } else {
+        setError(err instanceof Error ? err.message : "Erreur lors de l'envoi.");
+      }
     } finally {
       setSubmitting(false);
     }
@@ -119,56 +148,70 @@ export function ProductReviews({ productSlug }: { productSlug: string }) {
       ) : null}
 
       {showForm ? (
-        <form className="product-reviews__form" onSubmit={onSubmit}>
-          <label>
-            Nom (affiché)
+        <form className="product-reviews__form" onSubmit={onSubmit} noValidate>
+          <label className="product-reviews__field">
+            <span className="product-reviews__field-label">Nom (affiché)</span>
             <input
               required
+              name="customerName"
+              autoComplete="name"
               value={form.customerName}
               onChange={(e) => setForm({ ...form, customerName: e.target.value })}
             />
           </label>
-          <label>
-            Note
-            <div className="rating-input">
+          <div className="product-reviews__field">
+            <span className="product-reviews__field-label">Note</span>
+            <div className="rating-input" role="radiogroup" aria-label="Note sur 5">
               {[1, 2, 3, 4, 5].map((n) => (
                 <button
                   key={n}
                   type="button"
                   className={n <= form.rating ? "rating-input__star is-on" : "rating-input__star"}
                   onClick={() => setForm({ ...form, rating: n })}
-                  aria-label={`${n} étoiles`}
+                  aria-label={`${n} étoile${n > 1 ? "s" : ""}`}
+                  aria-pressed={n <= form.rating}
                 >
                   ★
                 </button>
               ))}
             </div>
-          </label>
-          <label>
-            Titre (optionnel)
+          </div>
+          <label className="product-reviews__field">
+            <span className="product-reviews__field-label">Titre (optionnel)</span>
             <input
+              name="title"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               maxLength={100}
+              placeholder="Ex. Magnifique pièce"
             />
           </label>
-          <label>
-            Votre avis
+          <label className="product-reviews__field">
+            <span className="product-reviews__field-label">Votre avis</span>
             <textarea
               required
+              name="body"
               minLength={5}
               rows={4}
               value={form.body}
               onChange={(e) => setForm({ ...form, body: e.target.value })}
+              placeholder="Partagez votre expérience avec cette pièce…"
             />
           </label>
-          {error ? <p className="product-reviews__error">{error}</p> : null}
+          {error ? <p className="product-reviews__error" role="alert">{error}</p> : null}
           <div className="product-reviews__form-actions">
-            <button type="button" className="cta cta--ghost cta--small" onClick={() => setShowForm(false)}>
+            <button
+              type="button"
+              className="cta cta--ghost cta--small"
+              onClick={() => {
+                setShowForm(false);
+                setError(null);
+              }}
+            >
               Annuler
             </button>
             <button type="submit" className="cta cta--solid cta--small" disabled={submitting}>
-              {submitting ? "Envoi…" : "Envoyer"}
+              {submitting ? "Envoi…" : "Envoyer l'avis"}
             </button>
           </div>
         </form>

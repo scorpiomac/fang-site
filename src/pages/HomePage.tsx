@@ -9,7 +9,6 @@ import { FeaturedPiecesSection } from "@/sections/FeaturedPiecesSection";
 import { CreatorSection } from "@/sections/CreatorSection";
 import { RecognitionSection } from "@/sections/RecognitionSection";
 import { ManifestSection } from "@/sections/ManifestSection";
-import { FooterSection } from "@/sections/FooterSection";
 import { MarqueeStrip } from "@/components/ui/MarqueeStrip";
 import { useScenePhase } from "@/context/useScenePhase";
 import { useLenisGsap } from "@/hooks/useLenisGsap";
@@ -284,7 +283,6 @@ export function HomePage() {
           <CreatorSection ref={creatorRef} />
           <RecognitionSection />
           <ManifestSection ref={manifestRef} />
-          <FooterSection />
         </main>
       </div>
     </div>
