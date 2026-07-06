@@ -1,12 +1,40 @@
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { chapters as narrativeChapters } from "@/content/chapters";
-import { getCharactersForChapter, collectionChapters, getChapterGalleryImage, getChapterHeroImage } from "@/content/collectionCatalog";
-import { getProductsForCharacter } from "@/content/shop";
+import {
+  getCharactersForChapter,
+  collectionChapters,
+  getChapterGalleryImage,
+  getChapterHeroImage,
+  getChapterVisualFallbacks,
+  type CollectionChapter,
+} from "@/content/collectionCatalog";
+import { getProductsForChapter, formatPriceXof, type ShopProduct } from "@/content/shop";
 import { copy } from "@/content/copy";
-import { formatPriceXof } from "@/content/shop";
 import { useCmsText } from "@/context/CmsContext";
 import { MediaImage } from "@/components/ui/MediaImage";
+import type { Chapter } from "@/content/chapters";
+
+const narrativeById = new Map(narrativeChapters.map((n) => [n.id, n]));
+
+type ChapterPanelData = {
+  chapter: CollectionChapter;
+  characters: ReturnType<typeof getCharactersForChapter>;
+  lore: Chapter | undefined;
+  visualImages: string[];
+  chapterProducts: ShopProduct[];
+};
+
+const chapterPanelData: ChapterPanelData[] = collectionChapters.map((c) => {
+  const lore = narrativeById.get(c.id);
+  return {
+    chapter: c,
+    characters: getCharactersForChapter(c.id),
+    lore,
+    visualImages: getChapterVisualFallbacks(c, lore?.images ?? []),
+    chapterProducts: getProductsForChapter(c.id),
+  };
+});
 
 export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(_, ref) {
   const eyebrow = useCmsText("home.chapters.eyebrow", copy.chaptersEyebrow);
@@ -37,15 +65,12 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
       <div className="chapters__pin" data-chapters-pin>
         <div className="chapters__viewport">
           <div className="chapters__track" data-chapters-track>
-            {collectionChapters.map((c, i) => {
-              const characters = getCharactersForChapter(c.id);
+            {chapterPanelData.map(({ chapter: c, characters, visualImages, chapterProducts }, i) => {
               const isActive = characters.length > 0;
-              const lore = narrativeChapters.find((n) => n.id === c.id);
-              const fallbackImages = lore?.images ?? [];
-              const heroChar = characters[0];
-              const heroProduct = heroChar
-                ? getProductsForCharacter(c.id, heroChar.slug)[0]
-                : undefined;
+              const heroProduct = chapterProducts[0];
+              const heroChar = heroProduct
+                ? characters.find((ch) => ch.slug === heroProduct.characterSlug) ?? characters[0]
+                : characters[0];
               return (
                 <article
                   key={c.id}
@@ -115,8 +140,8 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                           aria-label={`Voir ${heroChar.name}`}
                         >
                           <MediaImage
-                            src={getChapterHeroImage(c, heroChar, fallbackImages[0])}
-                            fallbacks={[heroChar?.cover, c.characters[0]?.cover, ...fallbackImages]}
+                            src={heroProduct.coverImage || getChapterHeroImage(c, heroChar, visualImages[0])}
+                            fallbacks={[heroProduct.coverImage, heroChar?.cover, ...visualImages]}
                             alt={`${heroChar.name} — ${c.name}`}
                             loading="lazy"
                             decoding="async"
@@ -141,15 +166,15 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                       ) : (
                         <>
                           <MediaImage
-                            src={fallbackImages[0]}
-                            fallbacks={fallbackImages.slice(1)}
+                            src={visualImages[0]}
+                            fallbacks={visualImages.slice(1)}
                             alt={`${c.name} — chapitre`}
                             loading="lazy"
                             decoding="async"
                           />
                           <div className="chapter-panel__poster-bar" aria-hidden="true">
-                            <span className="chapter-panel__poster-name">{c.name}</span>
-                            <span className="chapter-panel__poster-role">{c.role}</span>
+                            <span className="chapter-panel__poster-name">{heroChar?.name ?? c.name}</span>
+                            <span className="chapter-panel__poster-role">{heroChar ? c.name : c.role}</span>
                           </div>
                         </>
                       )}
@@ -160,34 +185,61 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                       { cls: "chapter-panel__detail--b", idx: 2 },
                       { cls: "chapter-panel__detail--c", idx: 3 },
                       { cls: "chapter-panel__detail--d", idx: 4 },
-                    ].map(({ cls, idx }) => (
+                    ].map(({ cls, idx }) => {
+                      const detailProduct = chapterProducts[idx];
+                      const detailChar = detailProduct
+                        ? characters.find((ch) => ch.slug === detailProduct.characterSlug)
+                        : characters[idx];
+                      return (
                       <figure key={cls} className={`chapter-panel__detail ${cls}`}>
-                        {heroChar && characters[idx + 1] ? (
+                        {detailProduct ? (
                           <Link
-                            to={`/collection/${c.slug}/${characters[idx + 1].slug}`}
+                            to={`/boutique/${detailProduct.slug}`}
                             className="chapter-panel__img-link"
-                            tabIndex={-1}
-                            aria-hidden="true"
+                            aria-label={`Voir ${detailProduct.name}`}
                           >
                             <MediaImage
-                              src={getChapterGalleryImage(c, characters[idx + 1], idx, fallbackImages)}
-                              fallbacks={fallbackImages}
-                              alt=""
+                              src={detailProduct.coverImage}
+                              fallbacks={visualImages}
+                              alt={`${detailProduct.name} — ${c.name}`}
                               loading="lazy"
                               decoding="async"
                             />
+                            <div className="chapter-panel__poster-bar" aria-hidden="true">
+                              <span className="chapter-panel__poster-name">{detailProduct.name}</span>
+                              <span className="chapter-panel__poster-role">{detailChar?.name ?? c.name}</span>
+                            </div>
+                          </Link>
+                        ) : detailChar ? (
+                          <Link
+                            to={`/collection/${c.slug}/${detailChar.slug}`}
+                            className="chapter-panel__img-link"
+                            aria-label={`Voir ${detailChar.name}`}
+                          >
+                            <MediaImage
+                              src={getChapterGalleryImage(c, detailChar, idx - 1, visualImages)}
+                              fallbacks={visualImages}
+                              alt={`${detailChar.name} — ${c.name}`}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            <div className="chapter-panel__poster-bar" aria-hidden="true">
+                              <span className="chapter-panel__poster-name">{detailChar.name}</span>
+                              <span className="chapter-panel__poster-role">{c.name}</span>
+                            </div>
                           </Link>
                         ) : (
                           <MediaImage
-                            src={getChapterGalleryImage(c, undefined, idx, fallbackImages)}
-                            fallbacks={fallbackImages}
+                            src={getChapterGalleryImage(c, undefined, idx - 1, visualImages)}
+                            fallbacks={visualImages}
                             alt=""
                             loading="lazy"
                             decoding="async"
                           />
                         )}
                       </figure>
-                    ))}
+                    );
+                    })}
                   </div>
                 </article>
               );

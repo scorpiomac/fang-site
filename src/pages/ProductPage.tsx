@@ -66,8 +66,11 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
     sizeState,
   } = useProductPurchase(product);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
 
-  const mainImg = product.coverImage || product.images[0] || "";
+  const galleryImages =
+    product.images.length > 0 ? product.images : [product.coverImage].filter(Boolean);
+  const mainImg = galleryImages[activeImage] ?? product.coverImage ?? "";
 
   const siblingPieces = useMemo(
     () =>
@@ -79,6 +82,7 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
 
   useEffect(() => {
     setLightboxOpen(false);
+    setActiveImage(0);
   }, [slug, product.slug]);
 
   useEffect(() => {
@@ -151,6 +155,23 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
             <img src={mainImg} alt={product.name} />
             <span className="product-page__zoom-hint" aria-hidden="true">⊕ Agrandir</span>
           </div>
+          {galleryImages.length > 1 ? (
+            <ul className="product-page__thumbs" aria-label="Autres vues">
+              {galleryImages.map((img, index) => (
+                <li key={img}>
+                  <button
+                    type="button"
+                    className={index === activeImage ? "is-active" : ""}
+                    onClick={() => setActiveImage(index)}
+                    aria-label={`Vue ${index + 1}`}
+                    aria-current={index === activeImage ? "true" : undefined}
+                  >
+                    <img src={img} alt="" loading="lazy" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
 
         <div className="product-page__detail">

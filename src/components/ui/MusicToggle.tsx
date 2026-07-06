@@ -10,12 +10,9 @@ export function MusicToggle() {
     const el = new Audio(publicUrl("audio/santtana.mp3"));
     el.loop = true;
     el.volume = 0.0;
-    el.preload = "auto";
+    el.preload = "none";
     audioRef.current = el;
-    const onReady = () => setReady(true);
-    el.addEventListener("canplaythrough", onReady, { once: true });
     return () => {
-      el.removeEventListener("canplaythrough", onReady);
       el.pause();
       audioRef.current = null;
     };
@@ -37,6 +34,7 @@ export function MusicToggle() {
   const toggle = async () => {
     const el = audioRef.current;
     if (!el) return;
+    if (!ready) setReady(true);
     if (playing) {
       fadeTo(0, 500);
       window.setTimeout(() => el.pause(), 500);
@@ -60,7 +58,7 @@ export function MusicToggle() {
       aria-pressed={playing}
       aria-label={playing ? "Couper la bande-son" : "Activer la bande-son"}
       title="Bande-son — Santtana"
-      disabled={!ready}
+      disabled={false}
     >
       <span className="music-toggle__bars" aria-hidden="true">
         <span /><span /><span /><span />

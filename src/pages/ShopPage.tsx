@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import type { CSSProperties } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { shopProducts } from "@/content/shop";
+import { getProductsForChapter, getShopProducts } from "@/content/shop";
 import { activeChapters, collectionChapters } from "@/content/collectionCatalog";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { ShopSortSelect } from "@/components/shop/ShopSortSelect";
@@ -66,7 +66,8 @@ export function ShopPage() {
   }, [searchParams]);
 
   const filtered = useMemo(() => {
-    let list = filter === "all" ? shopProducts : shopProducts.filter((p) => p.chapterId === filter);
+    let list =
+      filter === "all" ? [...getShopProducts()] : getProductsForChapter(filter);
     if (search.trim()) {
       const q = search.trim().toLowerCase();
       list = list.filter(

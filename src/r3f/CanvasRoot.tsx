@@ -20,12 +20,14 @@ export function CanvasRoot() {
   const useHero = phase === "hero" || phase === "story";
   const useGarment = phase === "chapters" || phase === "creator";
   const useQuiet = phase === "manifest" || phase === "idle";
+  const animating = phase !== "idle";
 
   return (
     <Canvas
       className="r3f-canvas"
       gl={{ antialias: !isMobile, alpha: false, powerPreference: "high-performance" }}
       dpr={dpr}
+      frameloop={animating ? "always" : "never"}
       camera={{ position: [0, 0.42, 4.1], fov: 42, near: 0.1, far: 60 }}
       onCreated={({ gl }) => {
         gl.setClearColor("#0d0b09", 1);

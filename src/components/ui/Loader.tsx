@@ -22,7 +22,7 @@ export function Loader({ onDone }: Props) {
     const id = window.setInterval(tick, 110);
 
     const fonts = document.fonts?.ready ?? Promise.resolve();
-    const min = new Promise<void>((r) => window.setTimeout(r, 1200));
+    const min = new Promise<void>((r) => window.setTimeout(r, 400));
 
     void Promise.all([fonts, min]).then(() => {
       if (!mounted) return;
@@ -30,8 +30,8 @@ export function Loader({ onDone }: Props) {
       setProgress(1);
       window.setTimeout(() => {
         setHidden(true);
-        window.setTimeout(onDone, 750);
-      }, 460);
+        window.setTimeout(onDone, 400);
+      }, 280);
     });
 
     return () => {

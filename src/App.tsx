@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
 import { CartProvider } from "@/context/cartContext";
 import { ScenePhaseProvider } from "@/context/ScenePhaseProvider";
@@ -7,14 +8,10 @@ import { MusicToggle } from "@/components/ui/MusicToggle";
 import { CartDrawer } from "@/components/shop/CartDrawer";
 import { CartToast } from "@/components/ui/CartToast";
 import { HomePage } from "@/pages/HomePage";
-import { ShopPage } from "@/pages/ShopPage";
 import { ProductPage } from "@/pages/ProductPage";
 import { CollectionPage } from "@/pages/CollectionPage";
 import { ChapterHubPage } from "@/pages/ChapterHubPage";
 import { CharacterPage } from "@/pages/CharacterPage";
-import { CheckoutPage } from "@/pages/CheckoutPage";
-import { AccountApp } from "@/pages/account/AccountApp";
-import { AdminApp } from "@/admin/AdminApp";
 import { CustomerProvider } from "@/context/customerContext";
 import { SiteSettingsProvider } from "@/context/siteSettingsContext";
 import { StockProvider } from "@/context/stockContext";
@@ -25,6 +22,24 @@ import { StaticPage } from "@/pages/StaticPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { CmsProvider } from "@/context/CmsContext";
 import { FooterSection } from "@/sections/FooterSection";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
+
+const ShopPage = lazy(() =>
+  import("@/pages/ShopPage").then((m) => ({ default: m.ShopPage }))
+);
+const CheckoutPage = lazy(() =>
+  import("@/pages/CheckoutPage").then((m) => ({ default: m.CheckoutPage }))
+);
+const AccountApp = lazy(() =>
+  import("@/pages/account/AccountApp").then((m) => ({ default: m.AccountApp }))
+);
+const AdminApp = lazy(() =>
+  import("@/admin/AdminApp").then((m) => ({ default: m.AdminApp }))
+);
+
+function RouteFallback() {
+  return <div className="route-fallback" aria-hidden="true" />;
+}
 
 function CastLegacyRedirect() {
   const { chapterSlug, castSlug } = useParams<{ chapterSlug: string; castSlug: string }>();
@@ -64,7 +79,14 @@ function MainSite() {
                     </ScenePhaseProvider>
                   }
                 />
-                <Route path="/boutique" element={<ShopPage />} />
+                <Route
+                  path="/boutique"
+                  element={
+                    <Suspense fallback={<RouteFallback />}>
+                      <ShopPage />
+                    </Suspense>
+                  }
+                />
                 <Route path="/boutique/:slug" element={<ProductPage />} />
                 <Route path="/collection" element={<CollectionPage />} />
                 <Route path="/collection/:chapterSlug" element={<ChapterHubPage />} />
@@ -74,10 +96,24 @@ function MainSite() {
                   element={<CastLegacyRedirect />}
                 />
                 <Route path="/personnages/:slug" element={<PersonnageLegacyRedirect />} />
-                <Route path="/commande" element={<CheckoutPage />} />
+                <Route
+                  path="/commande"
+                  element={
+                    <Suspense fallback={<RouteFallback />}>
+                      <CheckoutPage />
+                    </Suspense>
+                  }
+                />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/pages/:slug" element={<StaticPage />} />
-                <Route path="/compte/*" element={<AccountApp />} />
+                <Route
+                  path="/compte/*"
+                  element={
+                    <Suspense fallback={<RouteFallback />}>
+                      <AccountApp />
+                    </Suspense>
+                  }
+                />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
               <FooterSection />
@@ -94,8 +130,16 @@ function MainSite() {
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
-        <Route path="/admin/*" element={<AdminApp />} />
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={<RouteFallback />}>
+              <AdminApp />
+            </Suspense>
+          }
+        />
         <Route path="/*" element={<MainSite />} />
       </Routes>
     </BrowserRouter>

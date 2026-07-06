@@ -1,4 +1,4 @@
-import { useLayoutEffect, type RefObject } from "react";
+import { useLayoutEffect, useRef, type RefObject } from "react";
 import type { ScenePhase } from "@/context/scenePhaseTypes";
 
 type Binding = { ref: RefObject<HTMLElement | null>; phase: Exclude<ScenePhase, "idle"> };
@@ -7,6 +7,8 @@ export function useSectionSceneBindings(
   bindings: Binding[],
   setPhase: (p: ScenePhase) => void
 ) {
+  const lastPhase = useRef<ScenePhase>("idle");
+
   useLayoutEffect(() => {
     let io: IntersectionObserver | null = null;
     let raf = 0;
@@ -24,7 +26,11 @@ export function useSectionSceneBindings(
           bestPhase = phase;
         }
       }
-      setPhase(best > 0.18 ? bestPhase : "idle");
+      const next = best > 0.18 ? bestPhase : "idle";
+      if (next !== lastPhase.current) {
+        lastPhase.current = next;
+        setPhase(next);
+      }
     };
 
     const setup = () => {
@@ -38,7 +44,6 @@ export function useSectionSceneBindings(
         }
         els.push({ el, phase: b.phase });
       }
-      const thresholds = Array.from({ length: 21 }, (_, i) => i / 20);
       io = new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
@@ -46,7 +51,7 @@ export function useSectionSceneBindings(
           }
           apply(els);
         },
-        { threshold: thresholds }
+        { threshold: [0, 0.25, 0.5, 0.75, 1] }
       );
       for (const { el } of els) io.observe(el);
     };

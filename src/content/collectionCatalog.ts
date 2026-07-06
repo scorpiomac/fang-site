@@ -176,6 +176,21 @@ export function allCharacters(): CollectionCharacter[] {
 
 const DEFAULT_CHAPTER_IMAGE = publicUrl("chapters/ch1/img1.jpg");
 
+/** Images visuelles d'un chapitre — atelier d'abord, puis récit. */
+export function getChapterVisualFallbacks(
+  chapter: CollectionChapter,
+  narrativeFallbacks: readonly string[]
+): string[] {
+  const fromCharacters = chapter.characters.flatMap((c) => [c.cover, ...c.images]);
+  const unique = [...new Set(fromCharacters.filter(Boolean))];
+  if (unique.length > 0) {
+    const padded = [...unique];
+    while (padded.length < 5) padded.push(padded[padded.length - 1]!);
+    return padded;
+  }
+  return [...narrativeFallbacks];
+}
+
 /** Image héro d'un chapitre — priorise l'atelier, puis overrides, puis récit. */
 export function getChapterHeroImage(
   chapter: CollectionChapter,
@@ -200,10 +215,12 @@ export function getChapterGalleryImage(
   narrativeFallbacks: readonly string[]
 ): string {
   if (character?.cover) return character.cover;
+  const visualFallbacks = getChapterVisualFallbacks(chapter, narrativeFallbacks);
   return (
+    visualFallbacks[fallbackIndex + 1] ??
+    visualFallbacks[0] ??
     narrativeFallbacks[fallbackIndex] ??
     narrativeFallbacks[0] ??
-    chapter.characters[0]?.cover ??
     DEFAULT_CHAPTER_IMAGE
   );
 }

@@ -20,10 +20,10 @@
 
   --color-mist: rgba(242, 235, 227, 0.08);
 
-  --font-display: "Cormorant Garamond", "Times New Roman", serif;
-  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-display: "Messapia", "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Messapia", "Outfit", system-ui, sans-serif;
   /** Écriture manuscrite du fondateur (Fallou Ngom) — pour signature, citation et note. */
-  --font-hand: "Ohasso", "Cormorant Garamond", "Brush Script MT", cursive;
+  --font-hand: "Ohasso", "Messapia", "Brush Script MT", cursive;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
@@ -42,4 +42,7 @@
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
+
+  /* Hauteur utile sous le header fixe (barres sticky boutique / produit) */
+  --header-offset: 4.25rem;
 }

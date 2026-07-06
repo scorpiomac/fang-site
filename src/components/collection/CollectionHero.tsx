@@ -52,8 +52,7 @@ export function CollectionHero() {
             <MediaImage
               src={publicUrl(copy.collectionHeroImage)}
               fallbacks={[
-                publicUrl("collection/s01/tambali/personnages/jant/cover.jpg"),
-                publicUrl("collection/s01/tambali/personnages/miik/cover.jpg"),
+                publicUrl("collection/s01/tambali/personnages/jant/produit-09.jpg"),
               ]}
               alt="Pièce FANG — collection Saison 01"
               loading="eager"

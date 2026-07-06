@@ -1,1 +1,211 @@
-{}
+{
+  "tambali/jant/produit-09": {
+    "name": "Jant 1",
+    "priceXof": 40000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "tambali/jant/produit-02": {
+    "name": "Jant 2",
+    "priceXof": 35000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "tambali/fod/produit-01": {
+    "name": "Fod 1",
+    "priceXof": 40000,
+    "excerpt": "FOD — Le Sage / Le Griot",
+    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti."
+  },
+  "tambali/fod/produit-02": {
+    "name": "Fod 2",
+    "priceXof": 41000,
+    "excerpt": "FOD — Le Sage / Le Griot",
+    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti."
+  },
+  "tambali/mossane/produit-01": {
+    "name": "Mossane 1",
+    "priceXof": 40000,
+    "excerpt": "MOSSANE — Celle qui sort du lot",
+    "description": "Elle a grandi entre plusieurs mondes. Et elle voit des choses que les autres ne voient pas encore."
+  },
+  "tambali/gue-am/produit-01": {
+    "name": "Gé Am 1",
+    "priceXof": 40000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "tambali/gue-am/produit-02": {
+    "name": "Gé Am 2",
+    "priceXof": 40000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "tambali/gue-am/produit-03": {
+    "name": "Gé Am 3",
+    "priceXof": 40000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "tambali/diaak/produit-01": {
+    "name": "Diaak 1",
+    "priceXof": 39000,
+    "excerpt": "DIAAK — Grand (double sens)",
+    "description": "Le corps qu'on t'a reproché porte un nom. Ce nom veut dire grandeur."
+  },
+  "tambali/diaak/produit-02": {
+    "name": "Diaak 2",
+    "priceXof": 40000
+  },
+  "tambali/racine/produit-01": {
+    "name": "Racine 1",
+    "priceXof": 40000,
+    "excerpt": "RACINE — Mode de vie urbain",
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+  },
+  "tambali/racine/produit-02": {
+    "name": "Racine 2",
+    "priceXof": 40000,
+    "excerpt": "RACINE — Mode de vie urbain",
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+  },
+  "tambali/sukox/produit-01": {
+    "name": "Sukox 1",
+    "priceXof": 40000,
+    "excerpt": "SUKOX — Se cacher (Sérère)",
+    "description": "Le détail si précis qu'il brille malgré lui."
+  },
+  "passage/miik/produit-01": {
+    "name": "Miik 1",
+    "priceXof": 45000,
+    "excerpt": "MIIK — Silencieuse (Sérère)",
+    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi."
+  },
+  "passage/miik/produit-02": {
+    "name": "Miik 2",
+    "priceXof": 33000,
+    "excerpt": "MIIK — Silencieuse (Sérère)",
+    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi."
+  },
+  "passage/miik/produit-03": {
+    "name": "Miik 3",
+    "priceXof": 32000,
+    "excerpt": "MIIK — Silencieuse (Sérère)",
+    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi."
+  },
+  "passage/miik/produit-04": {
+    "name": "Miik 4",
+    "priceXof": 35000,
+    "excerpt": "MIIK — Silencieuse (Sérère)",
+    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi."
+  },
+  "passage/gue-am/produit-04": {
+    "name": "Gé Am 4",
+    "priceXof": 45000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "passage/gue-am/produit-05": {
+    "name": "Gé Am 4",
+    "priceXof": 48000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "passage/gue-am/produit-06": {
+    "name": "Gé Am 5",
+    "priceXof": 60000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "passage/gue-am/produit-07": {
+    "name": "Gé Am 6",
+    "priceXof": 25000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "passage/jant/produit-03": {
+    "name": "Jant 3",
+    "priceXof": 65000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "passage/jant/produit-04": {
+    "name": "Jant 4",
+    "priceXof": 50000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "passage/djalann/produit-01": {
+    "name": "Djaalann 1",
+    "priceXof": 47000
+  },
+  "passage/racine/produit-03": {
+    "name": "Racine 3",
+    "priceXof": 45000,
+    "excerpt": "RACINE — Mode de vie urbain",
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+  },
+  "passage/fod/produit-02": {
+    "name": "Fod 2",
+    "priceXof": 55000,
+    "excerpt": "FOD — Le Sage / Le Griot",
+    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti."
+  },
+  "exposition/jant/produit-05": {
+    "name": "Jant 5 (tshirts)",
+    "priceXof": 15000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "images": [
+      "collection/s01/exposition/personnages/jant/produit-05.png",
+      "collection/s01/exposition/personnages/jant/produit-06.png"
+    ]
+  },
+  "exposition/jant/produit-07": {
+    "name": "Jant 6",
+    "priceXof": 55000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "exposition/jant/produit-08": {
+    "name": "Jant 7 (édition spéciale pièce de collection)",
+    "priceXof": 75000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "exposition/gue-am/produit-08": {
+    "name": "Gé Am 8 (pants)",
+    "priceXof": 25000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "images": [
+      "collection/s01/exposition/personnages/gue-am/produit-08.png",
+      "collection/s01/exposition/personnages/gue-am/produit-09.png",
+      "collection/s01/exposition/personnages/gue-am/produit-10.png"
+    ]
+  },
+  "exposition/gue-am/produit-11": {
+    "name": "Gé Am 9",
+    "priceXof": 60000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "exposition/gue-am/produit-12": {
+    "name": "Gé Am 10 (édition spéciale pièce de collection)",
+    "priceXof": 50000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "feu/yaranka/produit-01": {
+    "name": "Yaranka 1",
+    "priceXof": 55000,
+    "excerpt": "YARANKA — Sans frontière de genre",
+    "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne."
+  },
+  "feu/yaranka/produit-02": {
+    "name": "Yaranka 2",
+    "priceXof": 55000,
+    "excerpt": "YARANKA — Sans frontière de genre",
+    "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne."
+  }
+}

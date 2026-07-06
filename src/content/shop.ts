@@ -66,6 +66,15 @@ const overrides = productOverrides as Record<string, ProductOverride>;
 const DEFAULT_PRICE = 125000;
 const DEFAULT_SIZES = ["XS", "S", "M", "L", "XL"] as const;
 
+type ShopIndexes = {
+  products: ShopProduct[];
+  bySlug: Map<string, ShopProduct>;
+  byChapterId: Map<string, ShopProduct[]>;
+  byCharacterKey: Map<string, ShopProduct[]>;
+};
+
+let shopIndexes: ShopIndexes | null = null;
+
 export function pieceIdFromImageUrl(imageUrl: string): string {
   const filename = imageUrl.split("/").pop() ?? "piece";
   return filename.replace(/\.[^.]+$/, "");
@@ -91,9 +100,14 @@ function getOverride(
 
 function formatPieceLabel(pieceId: string, pieceIndex: number): string {
   if (pieceId === "cover") return "Cover";
-  const match = pieceId.match(/produit-(\d+)/i);
-  if (match) return `Pièce ${Number(match[1])}`;
   return `Pièce ${pieceIndex + 1}`;
+}
+
+function resolveProductImages(coverImage: string, ov: ProductOverride): string[] {
+  if (ov.images && ov.images.length > 0) {
+    return ov.images.map((img) => publicUrl(img));
+  }
+  return [coverImage];
 }
 
 function productFromCharacterImage(
@@ -112,10 +126,11 @@ function productFromCharacterImage(
   const coverImage =
     (ov.coverImage ? publicUrl(ov.coverImage) : null) ?? publicUrl(imageUrl);
 
-  const pieceLabel = formatPieceLabel(pieceId, pieceIndex);
+  const autoLabel = formatPieceLabel(pieceId, pieceIndex);
+  const pieceLabel = character.images.length > 1 ? autoLabel : "";
   const defaultName =
     character.images.length > 1
-      ? `${character.name} — ${pieceLabel}`
+      ? `${character.name} — ${autoLabel}`
       : `${character.name} — ${chapter.name}`;
 
   return {
@@ -140,9 +155,9 @@ function productFromCharacterImage(
       `Pièce du chapitre ${chapter.name}, portée par ${character.name}.`,
     description:
       ov.description ??
-      `${character.name} — ${pieceLabel}. Pièce produite à l'atelier FANG, collection ${chapter.name}.`,
+      `${character.name} — ${autoLabel}. Pièce produite à l'atelier FANG, collection ${chapter.name}.`,
     coverImage,
-    images: [coverImage],
+    images: resolveProductImages(coverImage, ov),
     sizes: ov.sizes && ov.sizes.length > 0 ? ov.sizes : DEFAULT_SIZES,
   };
 }
@@ -154,22 +169,60 @@ function productsFromCharacter(character: CollectionCharacter): ShopProduct[] {
     .filter((p): p is ShopProduct => p !== null);
 }
 
-/** Une image atelier = une fiche produit distincte. */
-export const shopProducts: ShopProduct[] = allCharacters().flatMap(productsFromCharacter);
+function buildShopIndexes(): ShopIndexes {
+  const products = allCharacters().flatMap(productsFromCharacter);
+  const bySlug = new Map<string, ShopProduct>();
+  const byChapterId = new Map<string, ShopProduct[]>();
+  const byCharacterKey = new Map<string, ShopProduct[]>();
+
+  for (const product of products) {
+    bySlug.set(product.slug, product);
+
+    const chapterList = byChapterId.get(product.chapterId);
+    if (chapterList) chapterList.push(product);
+    else byChapterId.set(product.chapterId, [product]);
+
+    const characterKey = `${product.chapterId}/${product.characterSlug}`;
+    const characterList = byCharacterKey.get(characterKey);
+    if (characterList) characterList.push(product);
+    else byCharacterKey.set(characterKey, [product]);
+  }
+
+  return { products, bySlug, byChapterId, byCharacterKey };
+}
+
+function getIndexes(): ShopIndexes {
+  if (!shopIndexes) shopIndexes = buildShopIndexes();
+  return shopIndexes;
+}
+
+/** Liste complète des produits (construite une seule fois). */
+export function getShopProducts(): readonly ShopProduct[] {
+  return getIndexes().products;
+}
+
+/** Compatibilité — préférer getShopProducts(). */
+export const shopProducts: readonly ShopProduct[] = new Proxy([] as ShopProduct[], {
+  get(_target, prop, receiver) {
+    const list = getIndexes().products as unknown as ShopProduct[];
+    const value = Reflect.get(list, prop, receiver);
+    return typeof value === "function" ? value.bind(list) : value;
+  },
+});
 
 export function getProductBySlug(slug: string): ShopProduct | undefined {
-  return shopProducts.find((p) => p.slug === slug);
+  return getIndexes().bySlug.get(slug);
 }
 
 /** Anciens slugs `chapitre-personnage` → première pièce. */
 export function resolveProductSlug(slug: string): ShopProduct | undefined {
   const direct = getProductBySlug(slug);
   if (direct) return direct;
-  const legacy = shopProducts.filter((p) => {
-    const chapter = getChapterById(p.chapterId);
-    return chapter && `${chapter.slug}-${p.characterSlug}` === slug;
-  });
-  return legacy[0];
+  for (const product of getIndexes().products) {
+    const chapter = getChapterById(product.chapterId);
+    if (chapter && `${chapter.slug}-${product.characterSlug}` === slug) return product;
+  }
+  return undefined;
 }
 
 export function getLegacyProductRedirect(slug: string): string | null {
@@ -183,9 +236,7 @@ export function getProductsForCharacter(
   chapterId: string,
   characterSlug: string
 ): ShopProduct[] {
-  return shopProducts.filter(
-    (p) => p.chapterId === chapterId && p.characterSlug === characterSlug
-  );
+  return getIndexes().byCharacterKey.get(`${chapterId}/${characterSlug}`) ?? [];
 }
 
 export function getProductByCharacter(
@@ -196,7 +247,7 @@ export function getProductByCharacter(
 }
 
 export function getProductsForChapter(chapterId: string): ShopProduct[] {
-  return shopProducts.filter((p) => p.chapterId === chapterId);
+  return getIndexes().byChapterId.get(chapterId) ?? [];
 }
 
 export function getCharacterPriceRange(

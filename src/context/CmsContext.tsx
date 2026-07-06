@@ -42,7 +42,7 @@ export function CmsProvider({ children }: { children: ReactNode }) {
       const url = previewToken
         ? `/api/store/cms?preview=${encodeURIComponent(previewToken)}`
         : `/api/store/cms`;
-      const res = await fetch(url, { cache: "no-store" });
+      const res = await fetch(url, { cache: previewToken ? "no-store" : "default" });
       if (!res.ok) throw new Error("cms_fetch_failed");
       const json = await res.json();
       setContent(json.content ?? {});

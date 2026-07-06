@@ -52,7 +52,11 @@ export function useLenisGsap(active: boolean) {
       window.removeEventListener("resize", onResize);
       gsap.ticker.remove(ticker);
       lenis.off("scroll", onScroll);
+      lenis.scrollTo(0, { immediate: true });
       lenis.destroy();
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
       ScrollTrigger.scrollerProxy(document.documentElement, {});
       ScrollTrigger.refresh();
     };

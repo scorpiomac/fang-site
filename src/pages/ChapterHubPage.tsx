@@ -16,6 +16,8 @@ import { copy } from "@/content/copy";
 import { CommerceJourney } from "@/components/shop/CommerceJourney";
 import { TrustStrip } from "@/components/shop/TrustStrip";
 
+const CHAPTER_STRIP_LIMIT = 16;
+
 export function ChapterHubPage() {
   const { chapterSlug } = useParams<{ chapterSlug: string }>();
   const chapter = chapterSlug ? getChapterBySlug(chapterSlug) : undefined;
@@ -33,6 +35,7 @@ export function ChapterHubPage() {
 
   const characters = getCharactersForChapter(chapter.id);
   const chapterProducts = getProductsForChapter(chapter.id);
+  const stripProducts = chapterProducts.slice(0, CHAPTER_STRIP_LIMIT);
   const productTotal = totalProductsInChapter(chapter.id);
   const heroImage = chapter.posterImage || chapter.coverImage || characters[0]?.cover;
 
@@ -144,14 +147,14 @@ export function ChapterHubPage() {
         )}
       </section>
 
-      {chapterProducts.length > 0 ? (
+      {stripProducts.length > 0 ? (
         <section className="chapter-shop-strip" aria-label="Pièces du chapitre">
           <h2 className="chapter-shop-strip__title">{copy.chapterShopCta}</h2>
           <ul className="chapter-shop-strip__list">
-            {chapterProducts.map((p) => (
+            {stripProducts.map((p) => (
               <li key={p.id}>
                 <Link to={`/boutique/${p.slug}`} className="chapter-shop-strip__item">
-                  <img src={p.coverImage || p.images[0]} alt="" loading="lazy" />
+                  <img src={p.coverImage || p.images[0]} alt="" loading="lazy" decoding="async" />
                   <span>
                     <b>{p.name}</b>
                     <em>{formatPriceXof(p.priceXof)} FCFA</em>
@@ -160,6 +163,11 @@ export function ChapterHubPage() {
               </li>
             ))}
           </ul>
+          {chapterProducts.length > CHAPTER_STRIP_LIMIT ? (
+            <Link to={`/boutique?chapitre=${chapter.id}`} className="chapter-shop-strip__more cta cta--ghost">
+              Voir les {chapterProducts.length} pièces →
+            </Link>
+          ) : null}
         </section>
       ) : null}
 

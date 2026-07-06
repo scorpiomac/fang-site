@@ -80,9 +80,22 @@ export function initUsers() {
 
   const owner = data.users.find((u) => u.role === "owner");
   if (owner) {
+    let changed = false;
     const expectedHash = hashPassword(envPassword, owner.salt);
     if (owner.passwordHash !== expectedHash) {
       owner.passwordHash = expectedHash;
+      changed = true;
+    }
+    if (owner.email !== envEmail) {
+      owner.email = envEmail;
+      changed = true;
+    }
+    const envName = process.env.FANG_ADMIN_NAME ?? "Administrateur";
+    if (owner.name !== envName) {
+      owner.name = envName;
+      changed = true;
+    }
+    if (changed) {
       owner.updatedAt = new Date().toISOString();
       save(data);
     }

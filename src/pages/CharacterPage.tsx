@@ -76,7 +76,9 @@ export function CharacterPage() {
                   <img src={product.coverImage} alt={product.name} loading="lazy" />
                 </figure>
                 <div className="character-piece-card__body">
-                  <p className="character-piece-card__label">{product.pieceLabel}</p>
+                  {product.pieceLabel ? (
+                    <p className="character-piece-card__label">{product.pieceLabel}</p>
+                  ) : null}
                   <h2 className="character-piece-card__name">{product.name}</h2>
                   <p className="character-piece-card__price">{formatPriceXof(product.priceXof)} FCFA</p>
                   <span className="character-piece-card__cta">Voir la pièce →</span>

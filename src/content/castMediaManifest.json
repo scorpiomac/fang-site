@@ -1,250 +1,126 @@
 {
   "tambali": {
-    "gue-am": {
-      "cover": "collection/s01/tambali/cast/gue-am/cover.jpg",
-      "images": [
-        "collection/s01/tambali/cast/gue-am/cover.jpg",
-        "collection/s01/tambali/cast/gue-am/img-01.jpg",
-        "collection/s01/tambali/cast/gue-am/img-02.jpg",
-        "collection/s01/tambali/cast/gue-am/img-03.jpg",
-        "collection/s01/tambali/cast/gue-am/img-04.jpg",
-        "collection/s01/tambali/cast/gue-am/img-05.jpg",
-        "collection/s01/tambali/cast/gue-am/img-06.jpg",
-        "collection/s01/tambali/cast/gue-am/img-07.jpg",
-        "collection/s01/tambali/cast/gue-am/img-08.jpg"
-      ]
-    },
     "jant": {
-      "cover": "collection/s01/tambali/cast/jant/cover.jpg",
+      "cover": "collection/s01/tambali/personnages/jant/produit-09.jpg",
       "images": [
-        "collection/s01/tambali/cast/jant/cover.jpg",
-        "collection/s01/tambali/cast/jant/img-01.jpg",
-        "collection/s01/tambali/cast/jant/img-02.jpg",
-        "collection/s01/tambali/cast/jant/img-03.jpg",
-        "collection/s01/tambali/cast/jant/img-04.jpg",
-        "collection/s01/tambali/cast/jant/img-05.jpg",
-        "collection/s01/tambali/cast/jant/img-06.jpg",
-        "collection/s01/tambali/cast/jant/img-07.jpg",
-        "collection/s01/tambali/cast/jant/img-08.jpg"
-      ]
-    },
-    "mossann": {
-      "cover": "collection/s01/tambali/cast/mossann/cover.jpg",
-      "images": [
-        "collection/s01/tambali/cast/mossann/cover.jpg",
-        "collection/s01/tambali/cast/mossann/img-01.jpg",
-        "collection/s01/tambali/cast/mossann/img-02.jpg",
-        "collection/s01/tambali/cast/mossann/img-03.jpg",
-        "collection/s01/tambali/cast/mossann/img-04.jpg"
-      ]
-    },
-    "djaak": {
-      "cover": "collection/s01/tambali/cast/djaak/cover.jpg",
-      "images": [
-        "collection/s01/tambali/cast/djaak/cover.jpg",
-        "collection/s01/tambali/cast/djaak/img-01.jpg",
-        "collection/s01/tambali/cast/djaak/img-02.jpg",
-        "collection/s01/tambali/cast/djaak/img-03.jpg",
-        "collection/s01/tambali/cast/djaak/img-04.jpg"
+        "collection/s01/tambali/personnages/jant/produit-09.jpg",
+        "collection/s01/tambali/personnages/jant/produit-02.png"
       ]
     },
     "fod": {
-      "cover": "collection/s01/tambali/cast/fod/cover.jpg",
+      "cover": "collection/s01/tambali/personnages/fod/produit-01.png",
       "images": [
-        "collection/s01/tambali/cast/fod/cover.jpg",
-        "collection/s01/tambali/cast/fod/img-01.jpg"
+        "collection/s01/tambali/personnages/fod/produit-01.png",
+        "collection/s01/tambali/personnages/fod/produit-02.png"
       ]
     },
-    "miik": {
-      "cover": "collection/s01/tambali/cast/miik/cover.jpg",
+    "mossane": {
+      "cover": "collection/s01/tambali/personnages/mossane/produit-01.png",
       "images": [
-        "collection/s01/tambali/cast/miik/cover.jpg",
-        "collection/s01/tambali/cast/miik/img-01.jpg"
+        "collection/s01/tambali/personnages/mossane/produit-01.png"
+      ]
+    },
+    "gue-am": {
+      "cover": "collection/s01/tambali/personnages/gue-am/produit-01.png",
+      "images": [
+        "collection/s01/tambali/personnages/gue-am/produit-01.png",
+        "collection/s01/tambali/personnages/gue-am/produit-02.png",
+        "collection/s01/tambali/personnages/gue-am/produit-03.png"
+      ]
+    },
+    "diaak": {
+      "cover": "collection/s01/tambali/personnages/diaak/produit-01.png",
+      "images": [
+        "collection/s01/tambali/personnages/diaak/produit-01.png",
+        "collection/s01/tambali/personnages/diaak/produit-02.png"
       ]
     },
     "racine": {
-      "cover": "collection/s01/tambali/cast/racine/cover.jpg",
+      "cover": "collection/s01/tambali/personnages/racine/produit-01.png",
       "images": [
-        "collection/s01/tambali/cast/racine/cover.jpg",
-        "collection/s01/tambali/cast/racine/img-01.jpg",
-        "collection/s01/tambali/cast/racine/img-02.jpg"
+        "collection/s01/tambali/personnages/racine/produit-01.png",
+        "collection/s01/tambali/personnages/racine/produit-02.png"
       ]
     },
-    "sukoh": {
-      "cover": "collection/s01/tambali/cast/sukoh/cover.jpg",
+    "sukox": {
+      "cover": "collection/s01/tambali/personnages/sukox/produit-01.png",
       "images": [
-        "collection/s01/tambali/cast/sukoh/cover.jpg"
+        "collection/s01/tambali/personnages/sukox/produit-01.png"
       ]
     }
   },
   "passage": {
-    "gue-am": {
-      "cover": "collection/s01/passage/cast/gue-am/cover.jpg",
+    "miik": {
+      "cover": "collection/s01/passage/personnages/miik/produit-01.png",
       "images": [
-        "collection/s01/passage/cast/gue-am/cover.jpg",
-        "collection/s01/passage/cast/gue-am/img-01.jpg",
-        "collection/s01/passage/cast/gue-am/img-02.jpg",
-        "collection/s01/passage/cast/gue-am/img-03.jpg",
-        "collection/s01/passage/cast/gue-am/img-04.jpg",
-        "collection/s01/passage/cast/gue-am/img-05.jpg",
-        "collection/s01/passage/cast/gue-am/img-06.jpg",
-        "collection/s01/passage/cast/gue-am/img-07.jpg",
-        "collection/s01/passage/cast/gue-am/img-08.jpg",
-        "collection/s01/passage/cast/gue-am/img-09.jpg",
-        "collection/s01/passage/cast/gue-am/img-10.jpg",
-        "collection/s01/passage/cast/gue-am/img-11.jpg"
+        "collection/s01/passage/personnages/miik/produit-01.png",
+        "collection/s01/passage/personnages/miik/produit-02.png",
+        "collection/s01/passage/personnages/miik/produit-03.png",
+        "collection/s01/passage/personnages/miik/produit-04.png"
+      ]
+    },
+    "gue-am": {
+      "cover": "collection/s01/passage/personnages/gue-am/produit-04.png",
+      "images": [
+        "collection/s01/passage/personnages/gue-am/produit-04.png",
+        "collection/s01/passage/personnages/gue-am/produit-05.png",
+        "collection/s01/passage/personnages/gue-am/produit-06.png",
+        "collection/s01/passage/personnages/gue-am/produit-07.png"
       ]
     },
     "jant": {
-      "cover": "collection/s01/passage/cast/jant/cover.jpg",
+      "cover": "collection/s01/passage/personnages/jant/produit-03.png",
       "images": [
-        "collection/s01/passage/cast/jant/cover.jpg",
-        "collection/s01/passage/cast/jant/img-01.jpg",
-        "collection/s01/passage/cast/jant/img-02.jpg",
-        "collection/s01/passage/cast/jant/img-03.jpg",
-        "collection/s01/passage/cast/jant/img-04.jpg",
-        "collection/s01/passage/cast/jant/img-05.jpg",
-        "collection/s01/passage/cast/jant/img-06.jpg",
-        "collection/s01/passage/cast/jant/img-07.jpg",
-        "collection/s01/passage/cast/jant/img-08.jpg",
-        "collection/s01/passage/cast/jant/img-09.jpg"
-      ]
-    },
-    "miiik": {
-      "cover": "collection/s01/passage/cast/miiik/cover.jpg",
-      "images": [
-        "collection/s01/passage/cast/miiik/cover.jpg",
-        "collection/s01/passage/cast/miiik/img-01.jpg",
-        "collection/s01/passage/cast/miiik/img-02.jpg",
-        "collection/s01/passage/cast/miiik/img-03.jpg",
-        "collection/s01/passage/cast/miiik/img-04.jpg",
-        "collection/s01/passage/cast/miiik/img-05.jpg",
-        "collection/s01/passage/cast/miiik/img-06.jpg",
-        "collection/s01/passage/cast/miiik/img-07.jpg",
-        "collection/s01/passage/cast/miiik/img-08.jpg",
-        "collection/s01/passage/cast/miiik/img-09.jpg",
-        "collection/s01/passage/cast/miiik/img-10.jpg",
-        "collection/s01/passage/cast/miiik/img-11.jpg"
+        "collection/s01/passage/personnages/jant/produit-03.png",
+        "collection/s01/passage/personnages/jant/produit-04.png"
       ]
     },
     "djalann": {
-      "cover": "collection/s01/passage/cast/djalann/cover.jpg",
+      "cover": "collection/s01/passage/personnages/djalann/produit-01.png",
       "images": [
-        "collection/s01/passage/cast/djalann/cover.jpg",
-        "collection/s01/passage/cast/djalann/img-01.jpg",
-        "collection/s01/passage/cast/djalann/img-02.jpg"
+        "collection/s01/passage/personnages/djalann/produit-01.png"
       ]
     },
     "racine": {
-      "cover": "collection/s01/passage/cast/racine/cover.jpg",
+      "cover": "collection/s01/passage/personnages/racine/produit-03.png",
       "images": [
-        "collection/s01/passage/cast/racine/cover.jpg",
-        "collection/s01/passage/cast/racine/img-01.jpg"
+        "collection/s01/passage/personnages/racine/produit-03.png"
+      ]
+    },
+    "fod": {
+      "cover": "collection/s01/passage/personnages/fod/produit-02.png",
+      "images": [
+        "collection/s01/passage/personnages/fod/produit-02.png"
       ]
     }
   },
   "exposition": {
-    "gue-am": {
-      "cover": "collection/s01/exposition/cast/gue-am/cover.jpg",
+    "jant": {
+      "cover": "collection/s01/exposition/personnages/jant/produit-05.png",
       "images": [
-        "collection/s01/exposition/cast/gue-am/cover.jpg",
-        "collection/s01/exposition/cast/gue-am/img-01.jpg",
-        "collection/s01/exposition/cast/gue-am/img-02.jpg",
-        "collection/s01/exposition/cast/gue-am/img-03.jpg",
-        "collection/s01/exposition/cast/gue-am/img-04.jpg",
-        "collection/s01/exposition/cast/gue-am/img-05.jpg",
-        "collection/s01/exposition/cast/gue-am/img-06.jpg",
-        "collection/s01/exposition/cast/gue-am/img-07.jpg",
-        "collection/s01/exposition/cast/gue-am/img-08.jpg",
-        "collection/s01/exposition/cast/gue-am/img-09.jpg",
-        "collection/s01/exposition/cast/gue-am/img-10.jpg"
+        "collection/s01/exposition/personnages/jant/produit-05.png",
+        "collection/s01/exposition/personnages/jant/produit-06.png",
+        "collection/s01/exposition/personnages/jant/produit-07.png",
+        "collection/s01/exposition/personnages/jant/produit-08.png"
       ]
     },
-    "jant": {
-      "cover": "collection/s01/exposition/cast/jant/cover.jpg",
+    "gue-am": {
+      "cover": "collection/s01/exposition/personnages/gue-am/produit-08.png",
       "images": [
-        "collection/s01/exposition/cast/jant/cover.jpg",
-        "collection/s01/exposition/cast/jant/img-01.jpg",
-        "collection/s01/exposition/cast/jant/img-02.jpg",
-        "collection/s01/exposition/cast/jant/img-03.jpg",
-        "collection/s01/exposition/cast/jant/img-04.jpg",
-        "collection/s01/exposition/cast/jant/img-05.jpg",
-        "collection/s01/exposition/cast/jant/img-06.jpg",
-        "collection/s01/exposition/cast/jant/img-07.jpg",
-        "collection/s01/exposition/cast/jant/img-08.jpg",
-        "collection/s01/exposition/cast/jant/img-09.jpg",
-        "collection/s01/exposition/cast/jant/img-10.jpg",
-        "collection/s01/exposition/cast/jant/img-11.jpg"
+        "collection/s01/exposition/personnages/gue-am/produit-08.png",
+        "collection/s01/exposition/personnages/gue-am/produit-09.png",
+        "collection/s01/exposition/personnages/gue-am/produit-10.png",
+        "collection/s01/exposition/personnages/gue-am/produit-11.png",
+        "collection/s01/exposition/personnages/gue-am/produit-12.png"
       ]
     }
   },
   "feu": {
-    "gue-am": {
-      "cover": "collection/s01/feu/cast/gue-am/cover.jpg",
-      "images": [
-        "collection/s01/feu/cast/gue-am/cover.jpg",
-        "collection/s01/feu/cast/gue-am/img-01.jpg",
-        "collection/s01/feu/cast/gue-am/img-02.jpg",
-        "collection/s01/feu/cast/gue-am/img-03.jpg",
-        "collection/s01/feu/cast/gue-am/img-04.jpg",
-        "collection/s01/feu/cast/gue-am/img-05.jpg",
-        "collection/s01/feu/cast/gue-am/img-06.jpg",
-        "collection/s01/feu/cast/gue-am/img-07.jpg",
-        "collection/s01/feu/cast/gue-am/img-08.jpg",
-        "collection/s01/feu/cast/gue-am/img-09.jpg",
-        "collection/s01/feu/cast/gue-am/img-10.jpg",
-        "collection/s01/feu/cast/gue-am/img-11.jpg"
-      ]
-    },
-    "jant": {
-      "cover": "collection/s01/feu/cast/jant/cover.jpg",
-      "images": [
-        "collection/s01/feu/cast/jant/cover.jpg",
-        "collection/s01/feu/cast/jant/img-01.jpg",
-        "collection/s01/feu/cast/jant/img-02.jpg",
-        "collection/s01/feu/cast/jant/img-03.jpg",
-        "collection/s01/feu/cast/jant/img-04.jpg",
-        "collection/s01/feu/cast/jant/img-05.jpg",
-        "collection/s01/feu/cast/jant/img-06.jpg",
-        "collection/s01/feu/cast/jant/img-07.jpg",
-        "collection/s01/feu/cast/jant/img-08.jpg",
-        "collection/s01/feu/cast/jant/img-09.jpg",
-        "collection/s01/feu/cast/jant/img-10.jpg",
-        "collection/s01/feu/cast/jant/img-11.jpg"
-      ]
-    },
-    "panda": {
-      "cover": "collection/s01/feu/cast/panda/cover.jpg",
-      "images": [
-        "collection/s01/feu/cast/panda/cover.jpg",
-        "collection/s01/feu/cast/panda/img-01.jpg",
-        "collection/s01/feu/cast/panda/img-02.jpg",
-        "collection/s01/feu/cast/panda/img-03.jpg",
-        "collection/s01/feu/cast/panda/img-04.jpg",
-        "collection/s01/feu/cast/panda/img-05.jpg",
-        "collection/s01/feu/cast/panda/img-06.jpg",
-        "collection/s01/feu/cast/panda/img-07.jpg",
-        "collection/s01/feu/cast/panda/img-08.jpg",
-        "collection/s01/feu/cast/panda/img-09.jpg",
-        "collection/s01/feu/cast/panda/img-10.jpg",
-        "collection/s01/feu/cast/panda/img-11.jpg"
-      ]
-    },
     "yaranka": {
-      "cover": "collection/s01/feu/cast/yaranka/cover.jpg",
+      "cover": "collection/s01/feu/personnages/yaranka/produit-01.png",
       "images": [
-        "collection/s01/feu/cast/yaranka/cover.jpg",
-        "collection/s01/feu/cast/yaranka/img-01.jpg",
-        "collection/s01/feu/cast/yaranka/img-02.jpg",
-        "collection/s01/feu/cast/yaranka/img-03.jpg",
-        "collection/s01/feu/cast/yaranka/img-04.jpg",
-        "collection/s01/feu/cast/yaranka/img-05.jpg",
-        "collection/s01/feu/cast/yaranka/img-06.jpg",
-        "collection/s01/feu/cast/yaranka/img-07.jpg",
-        "collection/s01/feu/cast/yaranka/img-08.jpg",
-        "collection/s01/feu/cast/yaranka/img-09.jpg",
-        "collection/s01/feu/cast/yaranka/img-10.jpg",
-        "collection/s01/feu/cast/yaranka/img-11.jpg"
+        "collection/s01/feu/personnages/yaranka/produit-01.png",
+        "collection/s01/feu/personnages/yaranka/produit-02.png"
       ]
     }
   },

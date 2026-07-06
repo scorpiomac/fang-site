@@ -10,18 +10,13 @@ export function HeroForestScene() {
   const dust = useRef<THREE.Points>(null);
   const reduced = useReducedMotion();
   const { pointer } = useThree();
+  const frame = useRef(0);
 
-  const ribbonGeo = useMemo(() => {
-    const geo = new THREE.PlaneGeometry(7, 1.6, 96, 18);
-    return geo;
-  }, []);
-  const ribbonGeo2 = useMemo(() => {
-    const geo = new THREE.PlaneGeometry(7.5, 1.1, 96, 14);
-    return geo;
-  }, []);
+  const ribbonGeo = useMemo(() => new THREE.PlaneGeometry(7, 1.6, 36, 8), []);
+  const ribbonGeo2 = useMemo(() => new THREE.PlaneGeometry(7.5, 1.1, 36, 6), []);
 
   const dustGeo = useMemo(() => {
-    const count = 1400;
+    const count = 420;
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 16;
@@ -46,7 +41,6 @@ export function HeroForestScene() {
       pos.setZ(i, z);
     }
     pos.needsUpdate = true;
-    geo.computeVertexNormals();
   };
 
   useFrame((state, delta) => {
@@ -54,6 +48,17 @@ export function HeroForestScene() {
     const speed = reduced ? 0.2 : 1;
     wave(ribbon.current, t * 0.9 * speed, 0.7, 0.32);
     wave(ribbon2.current, t * 1.2 * speed + 1.4, 0.55, 0.22);
+
+    frame.current += 1;
+    if (frame.current % 4 === 0) {
+      if (ribbon.current) {
+        (ribbon.current.geometry as THREE.PlaneGeometry).computeVertexNormals();
+      }
+      if (ribbon2.current) {
+        (ribbon2.current.geometry as THREE.PlaneGeometry).computeVertexNormals();
+      }
+    }
+
     if (ribbon.current) ribbon.current.rotation.z = Math.sin(t * 0.18) * 0.06;
     if (ribbon2.current) ribbon2.current.rotation.z = -Math.sin(t * 0.13 + 1) * 0.06;
     if (sun.current) {
@@ -74,7 +79,7 @@ export function HeroForestScene() {
       <fog attach="fog" args={["#1a1612", 4, 18]} />
 
       <mesh ref={sun} position={[0, 0.6, -3.2]}>
-        <circleGeometry args={[1.4, 64]} />
+        <circleGeometry args={[1.4, 32]} />
         <meshBasicMaterial color="#c9a66b" transparent opacity={0.18} />
       </mesh>
 
@@ -84,7 +89,7 @@ export function HeroForestScene() {
           metalness={0.18}
           roughness={0.55}
           side={THREE.DoubleSide}
-          flatShading={false}
+          flatShading
         />
       </mesh>
       <mesh ref={ribbon2} geometry={ribbonGeo2} position={[0.2, -0.55, 0.3]}>
@@ -93,6 +98,7 @@ export function HeroForestScene() {
           metalness={0.32}
           roughness={0.42}
           side={THREE.DoubleSide}
+          flatShading
         />
       </mesh>
 

@@ -85,7 +85,7 @@ export function HomePage() {
 
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 769px)", () => {
+      mm.add("(min-width: 901px)", () => {
         const pin = document.querySelector<HTMLElement>("[data-chapters-pin]");
         const track = document.querySelector<HTMLElement>("[data-chapters-track]");
         const progress = document.querySelector<HTMLElement>("[data-chapters-progress]");
