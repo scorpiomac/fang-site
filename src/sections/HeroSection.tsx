@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from "react";
+import { forwardRef, useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { copy } from "@/content/copy";
 import { publicUrl } from "@/lib/publicUrl";
@@ -18,6 +18,21 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
   const heroPrimary = useCmsText("home.hero.ctaPrimary", copy.heroPrimary);
   const heroSecondary = useCmsText("home.hero.ctaSecondary", "Voir la boutique");
   const tagline = useCmsText("brand.tagline", copy.tagline);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const heroVideoSrc = publicUrl("video/fang-hero.mp4");
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !showVideoFallback) return;
+    video.muted = true;
+    const tryPlay = () => {
+      void video.play().catch(() => {});
+    };
+    tryPlay();
+    video.addEventListener("loadeddata", tryPlay);
+    return () => video.removeEventListener("loadeddata", tryPlay);
+  }, [showVideoFallback, heroVideoSrc]);
+
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
@@ -37,13 +52,15 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
     >
       {showVideoFallback ? (
         <video
+          ref={videoRef}
           className="hero__video"
-          src={publicUrl("video/fang-hero.mp4")}
-          poster={publicUrl("video/fang-hero-poster.jpg")}
+          src={heroVideoSrc}
           muted
           playsInline
           autoPlay
           loop
+          preload="auto"
+          aria-hidden="true"
         />
       ) : null}
       <div className="hero__veil" />

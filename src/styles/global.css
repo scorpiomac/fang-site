@@ -541,6 +541,11 @@ img {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.canvas-layer--hero-video {
+  opacity: 0;
 }
 
 .r3f-canvas {
@@ -672,6 +677,7 @@ img {
   grid-template-rows: auto 1fr auto;
   padding: clamp(5rem, 10vw, 7rem) var(--space-lg) var(--space-xl);
   overflow: hidden;
+  isolation: isolate;
 }
 
 /* Cursor glow — spotlight cuivré qui suit la souris */
@@ -717,20 +723,20 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -2;
-  filter: saturate(0.95) contrast(1.1) brightness(0.85);
+  z-index: 0;
+  filter: saturate(0.95) contrast(1.1) brightness(0.9);
 }
 
 .hero__veil {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
   background: linear-gradient(
       180deg,
-      rgba(13, 11, 9, 0.6) 0%,
-      rgba(13, 11, 9, 0.45) 35%,
-      rgba(13, 11, 9, 0.85) 80%,
-      rgba(13, 11, 9, 0.97) 100%
+      rgba(13, 11, 9, 0.42) 0%,
+      rgba(13, 11, 9, 0.28) 35%,
+      rgba(13, 11, 9, 0.62) 80%,
+      rgba(13, 11, 9, 0.88) 100%
     ),
     radial-gradient(circle at 75% 20%, rgba(201, 166, 107, 0.3), transparent 55%),
     radial-gradient(circle at 15% 85%, rgba(140, 35, 23, 0.18), transparent 55%);
@@ -740,7 +746,7 @@ img {
 .hero__scrim {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
   background: linear-gradient(
     90deg,
     rgba(13, 11, 9, 0.55) 0%,

@@ -122,6 +122,20 @@
         "collection/s01/feu/personnages/yaranka/produit-01.png",
         "collection/s01/feu/personnages/yaranka/produit-02.png"
       ]
+    },
+    "jant": {
+      "cover": "collection/s01/feu/personnages/jant/produit-08.png",
+      "images": [
+        "collection/s01/feu/personnages/jant/produit-08.png",
+        "collection/s01/feu/personnages/jant/produit-09.png",
+        "collection/s01/feu/personnages/jant/produit-10.png"
+      ]
+    },
+    "panda": {
+      "cover": "collection/s01/feu/personnages/panda/produit-11.png",
+      "images": [
+        "collection/s01/feu/personnages/panda/produit-11.png"
+      ]
     }
   },
   "mbougir": {

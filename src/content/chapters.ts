@@ -134,6 +134,10 @@ export const chapters: Chapter[] = [
     images: [
       publicUrl("collection/s01/feu/personnages/yaranka/produit-01.png"),
       publicUrl("collection/s01/feu/personnages/yaranka/produit-02.png"),
+      publicUrl("collection/s01/feu/personnages/jant/produit-08.png"),
+      publicUrl("collection/s01/feu/personnages/jant/produit-09.png"),
+      publicUrl("collection/s01/feu/personnages/jant/produit-10.png"),
+      publicUrl("collection/s01/feu/personnages/panda/produit-11.png"),
       publicUrl("chapters/ch4/img2.jpg"),
       publicUrl("chapters/ch4/img3.jpg"),
       publicUrl("chapters/ch4/img4.jpg"),

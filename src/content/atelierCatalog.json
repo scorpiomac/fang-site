@@ -248,6 +248,30 @@
             "collection/s01/feu/personnages/yaranka/produit-02.png"
           ],
           "productCount": 2
+        },
+        {
+          "id": "feu-jant",
+          "slug": "jant",
+          "name": "Jant",
+          "sourceFolder": "JANT",
+          "cover": "collection/s01/feu/personnages/jant/produit-08.png",
+          "images": [
+            "collection/s01/feu/personnages/jant/produit-08.png",
+            "collection/s01/feu/personnages/jant/produit-09.png",
+            "collection/s01/feu/personnages/jant/produit-10.png"
+          ],
+          "productCount": 3
+        },
+        {
+          "id": "feu-panda",
+          "slug": "panda",
+          "name": "Panda",
+          "sourceFolder": "PANDA",
+          "cover": "collection/s01/feu/personnages/panda/produit-11.png",
+          "images": [
+            "collection/s01/feu/personnages/panda/produit-11.png"
+          ],
+          "productCount": 1
         }
       ]
     },

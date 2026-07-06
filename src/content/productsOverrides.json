@@ -207,5 +207,29 @@
     "priceXof": 55000,
     "excerpt": "YARANKA — Sans frontière de genre",
     "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne."
+  },
+  "feu/jant/produit-08": {
+    "name": "Jant 8",
+    "priceXof": 45000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "feu/jant/produit-09": {
+    "name": "Jant 9",
+    "priceXof": 45000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "feu/jant/produit-10": {
+    "name": "Jant 10",
+    "priceXof": 45000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "feu/panda/produit-11": {
+    "name": "Gé Am 11",
+    "priceXof": 45000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   }
 }

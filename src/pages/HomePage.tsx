@@ -39,7 +39,7 @@ export function HomePage() {
 
   const webgl = useWebGLSupport();
   const reduced = useReducedMotion();
-  const { setPhase, scrollRef } = useScenePhase();
+  const { setPhase, scrollRef, phase } = useScenePhase();
 
   useLenisGsap(loaded && !reduced);
   useSectionSceneBindings(
@@ -266,7 +266,10 @@ export function HomePage() {
       />
       {!loaded ? <Loader onDone={onLoaderDone} /> : null}
       <div className={`home__stage ${loaded ? "home__stage--ready" : ""}`}>
-        <div className="canvas-layer" aria-hidden="true">
+        <div
+          className={`canvas-layer${phase === "hero" ? " canvas-layer--hero-video" : ""}`}
+          aria-hidden="true"
+        >
           {webgl ? (
             <Suspense fallback={null}>
               <CanvasRoot />
