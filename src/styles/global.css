@@ -235,6 +235,16 @@ img {
   right: 0;
 }
 
+.site-header__link--pending {
+  opacity: 0.42;
+  cursor: default;
+  pointer-events: none;
+}
+
+.site-header__link--pending::after {
+  display: none;
+}
+
 .site-header__tools {
   display: flex;
   align-items: center;
@@ -1874,7 +1884,7 @@ img {
 
 .chapter-panel__overlay-name {
   font-family: var(--font-display);
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-size: clamp(0.88rem, 1.35vw, 1.05rem);
   color: var(--color-ivory);
   letter-spacing: -0.01em;
   line-height: 1.15;
@@ -1995,47 +2005,52 @@ img {
 
 .chapter-panel__poster-name {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+  font-size: clamp(0.95rem, 1.85vw, 1.28rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--color-ivory);
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 .chapter-panel__poster-role {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--c3, var(--color-copper));
 }
 
 /* Vignettes latérales — noms lisibles dans les colonnes étroites */
 .chapter-panel__detail .chapter-panel__poster-bar {
-  padding: 0.65rem 0.55rem 0.75rem;
+  padding: 0.55rem 0.5rem 0.65rem;
 }
 
 .chapter-panel__detail .chapter-panel__poster-name {
-  font-size: clamp(0.82rem, 1.8vw, 1.2rem);
+  font-size: clamp(0.68rem, 1.35vw, 0.92rem);
   max-width: 100%;
   overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .chapter-panel__detail--c .chapter-panel__poster-bar,
 .chapter-panel__detail--d .chapter-panel__poster-bar {
-  padding: 0.45rem 0.38rem 0.52rem;
+  padding: 0.38rem 0.32rem 0.45rem;
 }
 
 .chapter-panel__detail--c .chapter-panel__poster-name,
 .chapter-panel__detail--d .chapter-panel__poster-name {
-  font-size: clamp(0.58rem, 1.05vw, 0.82rem);
+  font-size: clamp(0.5rem, 0.88vw, 0.68rem);
   letter-spacing: 0.01em;
-  line-height: 1.2;
+  line-height: 1.18;
+  -webkit-line-clamp: 3;
 }
 
 .chapter-panel__detail--c .chapter-panel__poster-role,
 .chapter-panel__detail--d .chapter-panel__poster-role {
-  font-size: 0.48rem;
-  letter-spacing: 0.1em;
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
 }
 
 .chapter-panel__detail {

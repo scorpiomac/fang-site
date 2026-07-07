@@ -55,7 +55,9 @@
   },
   "tambali/diaak/produit-02": {
     "name": "Diaak 2",
-    "priceXof": 40000
+    "priceXof": 40000,
+    "excerpt": "DIAAK — Grand (double sens)",
+    "description": "Le corps qu'on t'a reproché porte un nom. Ce nom veut dire grandeur."
   },
   "tambali/racine/produit-01": {
     "name": "Racine 1",
@@ -137,7 +139,9 @@
   },
   "passage/djalann/produit-01": {
     "name": "Djaalann 1",
-    "priceXof": 47000
+    "priceXof": 47000,
+    "excerpt": "DJAALAN — Souriante (Sérère)",
+    "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite."
   },
   "passage/racine/produit-03": {
     "name": "Racine 3",
@@ -200,13 +204,13 @@
     "name": "Yaranka 1",
     "priceXof": 55000,
     "excerpt": "YARANKA — Sans frontière de genre",
-    "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne."
+    "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne — juste quelqu'un qui avait eu peur que tu la franchisses."
   },
   "feu/yaranka/produit-02": {
     "name": "Yaranka 2",
     "priceXof": 55000,
     "excerpt": "YARANKA — Sans frontière de genre",
-    "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne."
+    "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne — juste quelqu'un qui avait eu peur que tu la franchisses."
   },
   "feu/jant/produit-08": {
     "name": "Jant 8",
@@ -231,5 +235,155 @@
     "priceXof": 45000,
     "excerpt": "GÉ AM — Voyez-moi (Sérère)",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "ge-am/panda/produit-01": {
+    "name": "Panda 1",
+    "priceXof": 60000,
+    "excerpt": "PANDA — La force joyeuse",
+    "description": "Il a traversé les moqueries et en est sorti plus libre que ceux qui l'ont moqué."
+  },
+  "ge-am/gue-am/produit-12": {
+    "name": "Gé Am 12 (chapitre éponyme)",
+    "priceXof": 70000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "ge-am/gue-am/produit-13": {
+    "name": "Gé Am 13 (chapitre éponyme)",
+    "priceXof": 60000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "ge-am/gue-am/produit-14": {
+    "name": "Gé Am 14 (chapitre éponyme)",
+    "priceXof": 70000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "ge-am/gue-am/produit-15": {
+    "name": "Gé Am 15 (chapitre éponyme)",
+    "priceXof": 50000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "ge-am/gue-am/produit-16": {
+    "name": "Gé Am 16 (chapitre éponyme)",
+    "priceXof": 75000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "ge-am/gue-am/produit-17": {
+    "name": "Gé Am 17 (chapitre éponyme)",
+    "priceXof": 110000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "ge-am/gue-am/produit-18": {
+    "name": "Gé Am 18 (chapitre éponyme)",
+    "priceXof": 65000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "ge-am/gue-am/produit-19": {
+    "name": "Gé Am 19 (chapitre éponyme)",
+    "priceXof": 75000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "racine/racine/produit-04": {
+    "name": "Racine 4 (chapitre éponyme)",
+    "priceXof": 55000,
+    "excerpt": "RACINE — Mode de vie urbain.",
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+  },
+  "racine/racine/produit-05": {
+    "name": "Racine 5 (chapitre éponyme)",
+    "priceXof": 55000,
+    "excerpt": "RACINE — Mode de vie urbain",
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+  },
+  "racine/racine/produit-06": {
+    "name": "Racine 6 (chapitre éponyme)",
+    "priceXof": 55000,
+    "excerpt": "RACINE — Mode de vie urbain",
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+  },
+  "racine/racine/produit-07": {
+    "name": "Racine 7 (chapitre éponyme)",
+    "priceXof": 55000,
+    "excerpt": "RACINE — Mode de vie urbain",
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+  },
+  "racine/racine/produit-08": {
+    "name": "Racine 8 (chapitre éponyme)",
+    "priceXof": 55000,
+    "excerpt": "RACINE — Mode de vie urbain.",
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+  },
+  "mbougir/mossane/produit-02": {
+    "name": "Mossane 2",
+    "priceXof": 70000,
+    "excerpt": "MOSSANE — Celle qui sort du lot.",
+    "description": "Elle a grandi entre plusieurs mondes. Et elle voit des choses que les autres ne voient pas encore."
+  },
+  "mbougir/mossane/produit-03": {
+    "name": "Mossane 3",
+    "priceXof": 50000,
+    "excerpt": "MOSSANE — Celle qui sort du lot",
+    "description": "Elle a grandi entre plusieurs mondes. Et elle voit des choses que les autres ne voient pas encore."
+  },
+  "mbougir/djalann/produit-02": {
+    "name": "Djaalan 2",
+    "priceXof": 85000,
+    "excerpt": "DJAALAN — Souriante (Sérère)",
+    "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite."
+  },
+  "mbougir/gue-am/produit-20": {
+    "name": "Gé Am 20",
+    "priceXof": 95000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "mbougir/gue-am/produit-21": {
+    "name": "Gé Am 21",
+    "priceXof": 90000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "mbougir/gue-am/produit-22": {
+    "name": "Gé Am 22 (pièce unique)",
+    "priceXof": 160000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "mbougir/gue-am/produit-23": {
+    "name": "Gé Am 23 (pièce unique)",
+    "priceXof": 130000,
+    "excerpt": "GÉ AM — Voyez-moi (Sérère)",
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+  },
+  "mbougir/jant/produit-11": {
+    "name": "Jant 11",
+    "priceXof": 70000,
+    "excerpt": "JANT — Soleil (Sérère)",
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+  },
+  "mbougir/fod/produit-03": {
+    "name": "Fod 3",
+    "priceXof": 100000,
+    "excerpt": "FOD — Le Sage / Le Griot",
+    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti."
+  },
+  "mbougir/fod/produit-04": {
+    "name": "Fod 4",
+    "priceXof": 60000,
+    "excerpt": "FOD — Le Sage / Le Griot",
+    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti."
+  },
+  "mbougir/fod/produit-05": {
+    "name": "Fod 5",
+    "priceXof": 70000,
+    "excerpt": "FOD — Le Sage / Le Griot",
+    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti."
   }
 }

@@ -6,17 +6,16 @@ import { useCart } from "@/context/useCart";
 import { useCustomer } from "@/context/customerContext";
 
 const primaryNav = [
-  { id: "collections", label: "Collection", kind: "route" as const, to: "/collection" },
-  { id: "boutique", label: "Boutique", kind: "route" as const, to: "/boutique" },
-  { id: "manifeste", label: "Manifeste", kind: "hash" as const },
-];
+  { id: "accueil", label: "Accueil", to: "/" },
+  { id: "boutique", label: "Boutique", to: "/boutique" },
+  { id: "archetype", label: "Archétype", pending: true },
+] as const;
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isShop = location.pathname.startsWith("/boutique");
-  const isCollection = location.pathname.startsWith("/collection");
   const { openDrawer, countItems } = useCart();
   const { customer } = useCustomer();
 
@@ -27,7 +26,11 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const hashHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
+  function isNavActive(to: string): boolean {
+    if (to === "/") return isHome;
+    if (to === "/boutique") return isShop;
+    return false;
+  }
 
   return (
     <header className={`site-header ${scrolled ? "site-header--scrolled" : ""}`}>
@@ -38,23 +41,26 @@ export function SiteHeader() {
 
       <nav className="site-header__nav" aria-label="Navigation principale">
         {primaryNav.map((item) => {
-          if (item.kind === "route") {
-            const active =
-              item.to === "/boutique" ? isShop : item.to === "/collection" ? isCollection : false;
+          if ("pending" in item && item.pending) {
             return (
-              <Link
+              <span
                 key={item.id}
-                to={item.to}
-                className={`site-header__link ${item.to === "/boutique" ? "site-header__link--shop" : ""} ${active ? "is-active" : ""}`}
+                className="site-header__link site-header__link--pending"
+                aria-disabled="true"
               >
                 {item.label}
-              </Link>
+              </span>
             );
           }
+          const active = isNavActive(item.to);
           return (
-            <a key={item.id} href={hashHref(item.id)} className="site-header__link">
+            <Link
+              key={item.id}
+              to={item.to}
+              className={`site-header__link ${item.to === "/boutique" ? "site-header__link--shop" : ""} ${active ? "is-active" : ""}`}
+            >
               {item.label}
-            </a>
+            </Link>
           );
         })}
       </nav>

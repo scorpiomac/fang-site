@@ -6,6 +6,7 @@ import {
   type CollectionCharacter,
 } from "@/content/collectionCatalog";
 import productOverrides from "./productsOverrides.json";
+import { getCharacterProfile } from "./characterProfiles";
 import {
   displayPriceXof,
   resolveVariations,
@@ -120,6 +121,7 @@ function productFromCharacterImage(
 
   const pieceId = pieceIdFromImageUrl(imageUrl);
   const ov = getOverride(chapter.id, character.slug, pieceId);
+  const profile = getCharacterProfile(character.slug);
   const basePrice = typeof ov.priceXof === "number" ? ov.priceXof : DEFAULT_PRICE;
   const variations = resolveVariations(basePrice, ov.variations);
   const priceXof = displayPriceXof({ priceXof: basePrice, variations });
@@ -152,9 +154,11 @@ function productFromCharacterImage(
     material: ov.material ?? "Tissus locaux, confection à Dakar",
     excerpt:
       ov.excerpt ??
+      profile?.excerpt ??
       `Pièce du chapitre ${chapter.name}, portée par ${character.name}.`,
     description:
       ov.description ??
+      profile?.description ??
       `${character.name} — ${autoLabel}. Pièce produite à l'atelier FANG, collection ${chapter.name}.`,
     coverImage,
     images: resolveProductImages(coverImage, ov),

@@ -138,87 +138,74 @@
       ]
     }
   },
+  "ge-am": {
+    "panda": {
+      "cover": "collection/s01/ge-am/personnages/panda/produit-01.png",
+      "images": [
+        "collection/s01/ge-am/personnages/panda/produit-01.png"
+      ]
+    },
+    "gue-am": {
+      "cover": "collection/s01/ge-am/personnages/gue-am/produit-12.png",
+      "images": [
+        "collection/s01/ge-am/personnages/gue-am/produit-12.png",
+        "collection/s01/ge-am/personnages/gue-am/produit-13.png",
+        "collection/s01/ge-am/personnages/gue-am/produit-14.png",
+        "collection/s01/ge-am/personnages/gue-am/produit-15.png",
+        "collection/s01/ge-am/personnages/gue-am/produit-16.png",
+        "collection/s01/ge-am/personnages/gue-am/produit-17.png",
+        "collection/s01/ge-am/personnages/gue-am/produit-18.png",
+        "collection/s01/ge-am/personnages/gue-am/produit-19.png"
+      ]
+    }
+  },
+  "racine": {
+    "racine": {
+      "cover": "collection/s01/racine/personnages/racine/produit-04.png",
+      "images": [
+        "collection/s01/racine/personnages/racine/produit-04.png",
+        "collection/s01/racine/personnages/racine/produit-05.png",
+        "collection/s01/racine/personnages/racine/produit-06.png",
+        "collection/s01/racine/personnages/racine/produit-07.png",
+        "collection/s01/racine/personnages/racine/produit-08.png"
+      ]
+    }
+  },
   "mbougir": {
     "gue-am": {
-      "cover": "collection/s01/mbougir/cast/gue-am/cover.jpg",
+      "cover": "collection/s01/mbougir/personnages/gue-am/produit-20.png",
       "images": [
-        "collection/s01/mbougir/cast/gue-am/cover.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-01.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-02.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-03.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-04.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-05.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-06.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-07.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-08.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-09.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-10.jpg",
-        "collection/s01/mbougir/cast/gue-am/img-11.jpg"
+        "collection/s01/mbougir/personnages/gue-am/produit-20.png",
+        "collection/s01/mbougir/personnages/gue-am/produit-21.png",
+        "collection/s01/mbougir/personnages/gue-am/produit-22.png",
+        "collection/s01/mbougir/personnages/gue-am/produit-23.png"
       ]
     },
     "fod": {
-      "cover": "collection/s01/mbougir/cast/fod/cover.jpg",
+      "cover": "collection/s01/mbougir/personnages/fod/produit-03.png",
       "images": [
-        "collection/s01/mbougir/cast/fod/cover.jpg",
-        "collection/s01/mbougir/cast/fod/img-01.jpg",
-        "collection/s01/mbougir/cast/fod/img-02.jpg",
-        "collection/s01/mbougir/cast/fod/img-03.jpg",
-        "collection/s01/mbougir/cast/fod/img-04.jpg",
-        "collection/s01/mbougir/cast/fod/img-05.jpg",
-        "collection/s01/mbougir/cast/fod/img-06.jpg",
-        "collection/s01/mbougir/cast/fod/img-07.jpg",
-        "collection/s01/mbougir/cast/fod/img-08.jpg",
-        "collection/s01/mbougir/cast/fod/img-09.jpg",
-        "collection/s01/mbougir/cast/fod/img-10.jpg",
-        "collection/s01/mbougir/cast/fod/img-11.jpg"
+        "collection/s01/mbougir/personnages/fod/produit-03.png",
+        "collection/s01/mbougir/personnages/fod/produit-04.png",
+        "collection/s01/mbougir/personnages/fod/produit-05.png"
       ]
     },
     "mossane": {
-      "cover": "collection/s01/mbougir/cast/mossane/cover.jpg",
+      "cover": "collection/s01/mbougir/personnages/mossane/produit-02.png",
       "images": [
-        "collection/s01/mbougir/cast/mossane/cover.jpg",
-        "collection/s01/mbougir/cast/mossane/img-01.jpg",
-        "collection/s01/mbougir/cast/mossane/img-02.jpg",
-        "collection/s01/mbougir/cast/mossane/img-03.jpg",
-        "collection/s01/mbougir/cast/mossane/img-04.jpg",
-        "collection/s01/mbougir/cast/mossane/img-05.jpg",
-        "collection/s01/mbougir/cast/mossane/img-06.jpg",
-        "collection/s01/mbougir/cast/mossane/img-07.jpg",
-        "collection/s01/mbougir/cast/mossane/img-08.jpg",
-        "collection/s01/mbougir/cast/mossane/img-09.jpg",
-        "collection/s01/mbougir/cast/mossane/img-10.jpg",
-        "collection/s01/mbougir/cast/mossane/img-11.jpg"
+        "collection/s01/mbougir/personnages/mossane/produit-02.png",
+        "collection/s01/mbougir/personnages/mossane/produit-03.png"
       ]
     },
     "jant": {
-      "cover": "collection/s01/mbougir/cast/jant/cover.jpg",
+      "cover": "collection/s01/mbougir/personnages/jant/produit-11.png",
       "images": [
-        "collection/s01/mbougir/cast/jant/cover.jpg",
-        "collection/s01/mbougir/cast/jant/img-01.jpg",
-        "collection/s01/mbougir/cast/jant/img-02.jpg",
-        "collection/s01/mbougir/cast/jant/img-03.jpg",
-        "collection/s01/mbougir/cast/jant/img-04.jpg",
-        "collection/s01/mbougir/cast/jant/img-05.jpg",
-        "collection/s01/mbougir/cast/jant/img-06.jpg",
-        "collection/s01/mbougir/cast/jant/img-07.jpg",
-        "collection/s01/mbougir/cast/jant/img-08.jpg",
-        "collection/s01/mbougir/cast/jant/img-09.jpg",
-        "collection/s01/mbougir/cast/jant/img-10.jpg",
-        "collection/s01/mbougir/cast/jant/img-11.jpg"
+        "collection/s01/mbougir/personnages/jant/produit-11.png"
       ]
     },
-    "djalane": {
-      "cover": "collection/s01/mbougir/cast/djalane/cover.jpg",
+    "djalann": {
+      "cover": "collection/s01/mbougir/personnages/djalann/produit-02.png",
       "images": [
-        "collection/s01/mbougir/cast/djalane/cover.jpg",
-        "collection/s01/mbougir/cast/djalane/img-01.jpg",
-        "collection/s01/mbougir/cast/djalane/img-02.jpg",
-        "collection/s01/mbougir/cast/djalane/img-03.jpg",
-        "collection/s01/mbougir/cast/djalane/img-04.jpg",
-        "collection/s01/mbougir/cast/djalane/img-05.jpg",
-        "collection/s01/mbougir/cast/djalane/img-06.jpg",
-        "collection/s01/mbougir/cast/djalane/img-07.jpg",
-        "collection/s01/mbougir/cast/djalane/img-08.jpg"
+        "collection/s01/mbougir/personnages/djalann/produit-02.png"
       ]
     }
   }

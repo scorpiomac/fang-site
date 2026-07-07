@@ -282,7 +282,37 @@
       "index": "05",
       "name": "Gue Am",
       "sourceFolder": "5 GUE AM",
-      "characters": []
+      "characters": [
+        {
+          "id": "ge-am-panda",
+          "slug": "panda",
+          "name": "Panda",
+          "sourceFolder": "PANDA",
+          "cover": "collection/s01/ge-am/personnages/panda/produit-01.png",
+          "images": [
+            "collection/s01/ge-am/personnages/panda/produit-01.png"
+          ],
+          "productCount": 1
+        },
+        {
+          "id": "ge-am-gue-am",
+          "slug": "gue-am",
+          "name": "Gé Am",
+          "sourceFolder": "GE AM",
+          "cover": "collection/s01/ge-am/personnages/gue-am/produit-12.png",
+          "images": [
+            "collection/s01/ge-am/personnages/gue-am/produit-12.png",
+            "collection/s01/ge-am/personnages/gue-am/produit-13.png",
+            "collection/s01/ge-am/personnages/gue-am/produit-14.png",
+            "collection/s01/ge-am/personnages/gue-am/produit-15.png",
+            "collection/s01/ge-am/personnages/gue-am/produit-16.png",
+            "collection/s01/ge-am/personnages/gue-am/produit-17.png",
+            "collection/s01/ge-am/personnages/gue-am/produit-18.png",
+            "collection/s01/ge-am/personnages/gue-am/produit-19.png"
+          ],
+          "productCount": 8
+        }
+      ]
     },
     {
       "order": 6,
@@ -291,7 +321,23 @@
       "index": "06",
       "name": "Racine",
       "sourceFolder": "6 RACINE",
-      "characters": []
+      "characters": [
+        {
+          "id": "racine-racine",
+          "slug": "racine",
+          "name": "Racine",
+          "sourceFolder": "RACINE",
+          "cover": "collection/s01/racine/personnages/racine/produit-04.png",
+          "images": [
+            "collection/s01/racine/personnages/racine/produit-04.png",
+            "collection/s01/racine/personnages/racine/produit-05.png",
+            "collection/s01/racine/personnages/racine/produit-06.png",
+            "collection/s01/racine/personnages/racine/produit-07.png",
+            "collection/s01/racine/personnages/racine/produit-08.png"
+          ],
+          "productCount": 5
+        }
+      ]
     },
     {
       "order": 7,
@@ -302,150 +348,65 @@
       "sourceFolder": "CHAPITRE 7 MBOUGIR",
       "characters": [
         {
-          "id": "mbougir-djalane",
-          "slug": "djalane",
-          "name": "Djalane",
-          "sourceFolder": "DJALANE",
-          "cover": "collection/s01/mbougir/personnages/djalane/cover.jpg",
+          "id": "mbougir-djalann",
+          "slug": "djalann",
+          "name": "Djaalan",
+          "sourceFolder": "DJAALANN",
+          "cover": "collection/s01/mbougir/personnages/djalann/produit-02.png",
           "images": [
-            "collection/s01/mbougir/personnages/djalane/cover.jpg",
-            "collection/s01/mbougir/personnages/djalane/produit-01.jpg",
-            "collection/s01/mbougir/personnages/djalane/produit-02.jpg",
-            "collection/s01/mbougir/personnages/djalane/produit-03.jpg",
-            "collection/s01/mbougir/personnages/djalane/produit-04.jpg",
-            "collection/s01/mbougir/personnages/djalane/produit-05.jpg",
-            "collection/s01/mbougir/personnages/djalane/produit-06.jpg",
-            "collection/s01/mbougir/personnages/djalane/produit-07.jpg",
-            "collection/s01/mbougir/personnages/djalane/produit-08.jpg"
+            "collection/s01/mbougir/personnages/djalann/produit-02.png"
           ],
-          "productCount": 9
+          "productCount": 1
         },
         {
           "id": "mbougir-fod",
           "slug": "fod",
           "name": "Fod",
           "sourceFolder": "FOD",
-          "cover": "collection/s01/mbougir/personnages/fod/cover.jpg",
+          "cover": "collection/s01/mbougir/personnages/fod/produit-03.png",
           "images": [
-            "collection/s01/mbougir/personnages/fod/cover.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-01.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-02.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-03.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-04.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-05.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-06.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-07.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-08.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-09.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-10.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-11.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-12.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-13.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-14.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-15.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-16.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-17.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-18.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-19.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-20.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-21.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-22.jpg",
-            "collection/s01/mbougir/personnages/fod/produit-23.jpg"
+            "collection/s01/mbougir/personnages/fod/produit-03.png",
+            "collection/s01/mbougir/personnages/fod/produit-04.png",
+            "collection/s01/mbougir/personnages/fod/produit-05.png"
           ],
-          "productCount": 24
+          "productCount": 3
         },
         {
           "id": "mbougir-gue-am",
           "slug": "gue-am",
-          "name": "Gue Am",
+          "name": "Gé Am",
           "sourceFolder": "GUE AM",
-          "cover": "collection/s01/mbougir/personnages/gue-am/cover.jpg",
+          "cover": "collection/s01/mbougir/personnages/gue-am/produit-20.png",
           "images": [
-            "collection/s01/mbougir/personnages/gue-am/cover.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-01.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-02.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-03.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-04.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-05.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-06.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-07.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-08.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-09.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-10.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-11.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-12.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-13.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-14.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-15.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-16.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-17.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-18.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-19.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-20.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-21.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-22.jpg",
-            "collection/s01/mbougir/personnages/gue-am/produit-23.jpg"
+            "collection/s01/mbougir/personnages/gue-am/produit-20.png",
+            "collection/s01/mbougir/personnages/gue-am/produit-21.png",
+            "collection/s01/mbougir/personnages/gue-am/produit-22.png",
+            "collection/s01/mbougir/personnages/gue-am/produit-23.png"
           ],
-          "productCount": 24
+          "productCount": 4
         },
         {
           "id": "mbougir-jant",
           "slug": "jant",
           "name": "Jant",
           "sourceFolder": "JANT",
-          "cover": "collection/s01/mbougir/personnages/jant/cover.jpg",
+          "cover": "collection/s01/mbougir/personnages/jant/produit-11.png",
           "images": [
-            "collection/s01/mbougir/personnages/jant/cover.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-01.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-02.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-03.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-04.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-05.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-06.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-07.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-08.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-09.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-10.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-11.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-12.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-13.jpg",
-            "collection/s01/mbougir/personnages/jant/produit-14.jpg"
+            "collection/s01/mbougir/personnages/jant/produit-11.png"
           ],
-          "productCount": 15
+          "productCount": 1
         },
         {
           "id": "mbougir-mossane",
           "slug": "mossane",
           "name": "Mossane",
           "sourceFolder": "MOSSANE",
-          "cover": "collection/s01/mbougir/personnages/mossane/cover.jpg",
+          "cover": "collection/s01/mbougir/personnages/mossane/produit-02.png",
           "images": [
-            "collection/s01/mbougir/personnages/mossane/cover.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-01.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-02.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-03.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-04.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-05.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-06.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-07.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-08.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-09.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-10.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-11.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-12.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-13.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-14.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-15.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-16.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-17.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-18.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-19.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-20.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-21.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-22.jpg",
-            "collection/s01/mbougir/personnages/mossane/produit-23.jpg"
+            "collection/s01/mbougir/personnages/mossane/produit-02.png",
+            "collection/s01/mbougir/personnages/mossane/produit-03.png"
           ],
-          "productCount": 24
+          "productCount": 2
         }
       ]
     }

@@ -5,11 +5,11 @@ import { Loader } from "@/components/ui/Loader";
 import { HeroSection } from "@/sections/HeroSection";
 import { StorySection } from "@/sections/StorySection";
 import { ChaptersSection } from "@/sections/ChaptersSection";
-import { FeaturedPiecesSection } from "@/sections/FeaturedPiecesSection";
 import { CreatorSection } from "@/sections/CreatorSection";
 import { RecognitionSection } from "@/sections/RecognitionSection";
 import { ManifestSection } from "@/sections/ManifestSection";
 import { MarqueeStrip } from "@/components/ui/MarqueeStrip";
+import { homeMarqueeMeanings, homeMarqueeNames } from "@/content/characterProfiles";
 import { useScenePhase } from "@/context/useScenePhase";
 import { useLenisGsap } from "@/hooks/useLenisGsap";
 import { useSectionSceneBindings } from "@/hooks/useSectionSceneBindings";
@@ -278,11 +278,10 @@ export function HomePage() {
         </div>
         <main id="contenu-principal" className="content-root">
           <HeroSection ref={heroRef} showVideoFallback />
-          <MarqueeStrip items={["FANG", "Collection 01", "Nel Fang Te Dundu", "Dakar 14°N", "Artisanal", "2024", "Wolof", "Sérère", "Diola"]} />
+          <MarqueeStrip items={homeMarqueeNames} />
           <StorySection ref={storyRef} />
-          <MarqueeStrip items={["Tambali", "Passage", "Exposition", "Feu", "Ge Am", "Racine", "Mbougir", "7 Personnages", "1 Vision"]} className="marquee-strip--inverse" />
+          <MarqueeStrip items={homeMarqueeMeanings} className="marquee-strip--inverse" />
           <ChaptersSection ref={chaptersRef} />
-          <FeaturedPiecesSection />
           <CreatorSection ref={creatorRef} />
           <RecognitionSection />
           <ManifestSection ref={manifestRef} />
