@@ -103,7 +103,7 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
           </a>
         </div>
         <p className="hero__sub-meta">
-          <span>Chapitres · archétypes · pièces produites à Dakar.</span>
+          <span>Chapitres · archétypes · pièces produites à Dakar</span>
           <Link to="/collection" className="hero__sub-meta-link">
             Voir la collection →
           </Link>

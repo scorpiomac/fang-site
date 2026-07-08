@@ -94,9 +94,6 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                     <div className="chapter-panel__teaser" aria-label="Aperçu du chapitre">
                       <div className="chapter-panel__teaser-row">
                         <span className="chapter-panel__badge">Chapitre {c.index}</span>
-                        <span className="chapter-panel__char-label chapter-panel__char-label--inline">
-                          {c.sourceFolder}
-                        </span>
                       </div>
                       <p className="chapter-panel__role">{c.name}</p>
                       <div className="chapter-panel__story-links">

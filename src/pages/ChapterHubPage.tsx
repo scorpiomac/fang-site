@@ -61,7 +61,6 @@ export function ChapterHubPage() {
 
       <header className="collection-chapter-hub__hero collection-chapter-hub__hero--premium">
         <div className="collection-chapter-hub__hero-copy">
-          <p className="collection-chapter-hub__folder">{chapter.sourceFolder}</p>
           <p className="collection-chapter-hub__index">Chapitre {chapter.index}</p>
           <h1>{chapter.name}</h1>
           {chapter.meaning ? <p className="collection-chapter-hub__meaning">{chapter.meaning}</p> : null}
