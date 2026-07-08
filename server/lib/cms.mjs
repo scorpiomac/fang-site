@@ -161,10 +161,10 @@ export const CMS_SCHEMA = {
 
 export const CMS_DEFAULTS = {
   "home.hero": {
-    eyebrow: "Maison sénégalaise — Saison 01",
+    eyebrow: "Maison sénégalaise — Saison 0 — Neel Fang",
     title: "Le futur a des racines.",
     subtitle:
-      "FANG est une maison afro-contemporaine née à Dakar. Saison 01 : sept chapitres, des personnages réels, des pièces produites à Dakar.",
+      "FANG est une maison afro-contemporaine née à Dakar. Saison 0 — Neel Fang : sept chapitres, des personnages réels, des pièces produites à Dakar.",
     ctaPrimary: "Entrer dans la collection",
     ctaSecondary: "Lire le manifeste",
   },

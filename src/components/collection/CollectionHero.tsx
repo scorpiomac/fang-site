@@ -54,7 +54,7 @@ export function CollectionHero() {
               fallbacks={[
                 publicUrl("collection/s01/tambali/personnages/jant/produit-09.jpg"),
               ]}
-              alt="Pièce FANG — collection Saison 01"
+              alt="Pièce FANG — collection Saison 0 — Neel Fang"
               loading="eager"
               decoding="async"
             />

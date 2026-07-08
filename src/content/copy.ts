@@ -5,17 +5,17 @@ const baseCopy = {
   tagline: "Nel Fang Te Dundu",
   taglineFr: "Expose-toi et vis",
 
-  heroEyebrow: "Maison sénégalaise — Saison 01",
+  heroEyebrow: "Maison sénégalaise — Saison 0 — Neel Fang",
   heroTitle: "Le futur a des racines.",
   heroSubtitle:
-    "FANG est une maison afro-contemporaine née à Dakar. Saison 01 : sept chapitres, des personnages réels, des pièces produites à Dakar.",
+    "FANG est une maison afro-contemporaine née à Dakar. Saison 0 — Neel Fang : sept chapitres, des archétypes réels, des pièces produites à Dakar.",
   heroPrimary: "Entrer dans la collection",
   heroSecondary: "Lire le manifeste",
 
   chaptersEyebrow: "Casting — Nel Fang Te Dundu",
   chaptersTitle: "Sept chapitres,\nune même exposition.",
   chaptersIntro:
-    "Sept visages, sept portes : ici on défile le casting. Le récit complet, les images et le lien avec la pièce se vivent sur la page dédiée à chaque personnage.",
+    "Sept visages, sept portes : ici on défile le casting. Le récit complet, les images et le lien avec la pièce se vivent sur la page dédiée à chaque archétype.",
 
   creatorEyebrow: "Le créateur",
   creatorName: "Fallou Ngom",
@@ -44,7 +44,7 @@ const baseCopy = {
   personnageCinematicLine:
     "Avant que les cartes ne portent les noms des empires, il y avait des voix, des royaumes et des résistances.",
   personnageCinematicSub:
-    "Ici, ce n’est pas une biographie froide : c’est une traversée. Un personnage FANG, une scène, une mémoire qui continue de parler.",
+    "Ici, ce n’est pas une biographie froide : c’est une traversée. Un archétype FANG, une scène, une mémoire qui continue de parler.",
   personnageEnterStory: "Entrer dans l’histoire",
   personnageSkipIntro: "Passer l’introduction",
   personnageScrollScenes: "Faites défiler — sept scènes, une même ligne du temps.",
@@ -60,18 +60,18 @@ const baseCopy = {
   personnageShopSeePiece: "Voir la pièce",
   personnageShopBrowseCharacter: "Voir dans la boutique",
   personnageShopDiscover: "Découvrir la boutique",
-  productPageContinueCharacterBoutique: "Boutique — ce personnage",
+  productPageContinueCharacterBoutique: "Boutique — cet archétype",
   productPageContinueShopping: "Continuer les achats",
-  chapterPanelBoutiqueFilter: "Boutique — ce personnage",
+  chapterPanelBoutiqueFilter: "Boutique — cet archétype",
 
   collectionEyebrow: "Collection",
-  collectionPersonnagesLabel: "Personnages",
-  collectionCharactersOnly: "Uniquement les personnages de l’atelier",
+  collectionPersonnagesLabel: "Archétypes",
+  collectionCharactersOnly: "Uniquement les archétypes de l’atelier",
   collectionSeeChapter: "Explorer le chapitre",
   collectionSeePersonnage: "Voir les produits",
-  collectionBackSeason: "Saison 01",
+  collectionBackSeason: "Saison 0 — Neel Fang",
   collectionPersonnagesIntro:
-    "Chaque personnage n’existe que s’il est dans le dossier de la collection. Ouvrez un profil pour voir ses produits dans ce chapitre.",
+    "Chaque archétype n’existe que s’il est dans le dossier de la collection. Ouvrez un profil pour voir ses produits dans ce chapitre.",
   collectionEmptyChapter: "Ce chapitre arrive bientôt dans l'atelier.",
   collectionPieceCta: "Commander",
 
@@ -97,7 +97,7 @@ const baseCopy = {
 const chapterCardHighlightsBase = [
   { title: "Univers authentique", detail: "Inspiré de la culture" },
   { title: "Pièces uniques", detail: "Finitions soignées" },
-  { title: "Personnages variés", detail: "Histoires riches" },
+  { title: "Archétypes variés", detail: "Histoires riches" },
   { title: "Qualité premium", detail: "Conçue pour durer" },
 ];
 

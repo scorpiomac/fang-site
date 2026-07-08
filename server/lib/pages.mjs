@@ -181,7 +181,7 @@ Tous nos vêtements sont produits à la main et peuvent être adaptés. Mentionn
 
 Peu importe ta morphologie. Ton genre. Ta culture. Ose t'exposer. Tu es beau. Tu es toi. C'est suffisant.
 
-FANG est une maison sénégalaise de mode afro-contemporaine. Notre saison 01, Nel Fang Te Dundu, raconte sept chapitres à travers sept personnages réels portés par sept silhouettes produites à Dakar.
+FANG est une maison sénégalaise de mode afro-contemporaine. Notre Saison 0 — Neel Fang, Nel Fang Te Dundu, raconte sept chapitres à travers sept personnages réels portés par sept silhouettes produites à Dakar.
 
 NOTRE ENGAGEMENT
 - Production 100 % à Dakar

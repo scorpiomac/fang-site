@@ -41,7 +41,7 @@ export function AdminDashboard() {
         <p className="admin-eyebrow">Tableau de bord</p>
         <h1>Bonjour, atelier FANG</h1>
         <p className="admin-page__lede">
-          Vous pilotez la saison <strong>{bundle.catalog.season?.title ?? "Saison 01"}</strong>.
+          Vous pilotez la saison <strong>{bundle.catalog.season?.title ?? "Saison 0 — Neel Fang"}</strong>.
           Tout ce que vous modifiez ici se met à jour instantanément sur le site.
         </p>
       </header>

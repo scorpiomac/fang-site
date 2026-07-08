@@ -9,7 +9,8 @@ import {
   getChapterVisualFallbacks,
   type CollectionChapter,
 } from "@/content/collectionCatalog";
-import { getProductsForChapter, formatPriceXof, type ShopProduct } from "@/content/shop";
+import { getHomeChapterProducts } from "@/content/homeChapterGallery";
+import { formatPriceXof, type ShopProduct } from "@/content/shop";
 import { copy } from "@/content/copy";
 import { useCmsText } from "@/context/CmsContext";
 import { MediaImage } from "@/components/ui/MediaImage";
@@ -32,7 +33,7 @@ const chapterPanelData: ChapterPanelData[] = collectionChapters.map((c) => {
     characters: getCharactersForChapter(c.id),
     lore,
     visualImages: getChapterVisualFallbacks(c, lore?.images ?? []),
-    chapterProducts: getProductsForChapter(c.id),
+    chapterProducts: getHomeChapterProducts(c.id),
   };
 });
 
@@ -101,7 +102,7 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                       <div className="chapter-panel__story-links">
                         {isActive ? (
                           <Link to={`/collection/${c.slug}`} className="chapter-panel__universe-cta">
-                            Personnages et produits
+                            Archétypes et produits
                             <span aria-hidden="true"> →</span>
                           </Link>
                         ) : null}
@@ -159,7 +160,7 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                               </span>
                             </div>
                             <span className="chapter-panel__overlay-see">
-                              Voir le personnage <span aria-hidden="true">→</span>
+                              Voir l&apos;archétype <span aria-hidden="true">→</span>
                             </span>
                           </div>
                         </Link>

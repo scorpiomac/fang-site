@@ -6,13 +6,13 @@ export type CharacterProfile = {
   description: string;
 };
 
-/** Profils narratifs du casting Saison 01 — source de vérité excerpt / description */
+/** Profils narratifs du casting Saison 0 — Neel Fang — source de vérité excerpt / description */
 export const castCharacterProfiles: CharacterProfile[] = [
   {
-    name: "Gé Am",
+    name: "Gue Am",
     slug: "gue-am",
     meaning: "« Voyez-moi » (sérère)",
-    excerpt: "GÉ AM — Voyez-moi (Sérère)",
+    excerpt: "GUE AM — Voyez-moi (Sérère)",
     description:
       "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
   },

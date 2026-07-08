@@ -3,8 +3,8 @@
     "id": "s01",
     "slug": "saison-01",
     "title": "Nel Fang Te Dundu",
-    "subtitle": "Saison 01",
-    "tagline": "L’ordre et la numérotation des collections suivent le dossier atelier Saison 01.",
+    "subtitle": "Saison 0 — Neel Fang",
+    "tagline": "L’ordre et la numérotation des collections suivent le dossier atelier Saison 0 — Neel Fang.",
     "sourceRoot": "SAISON 1  neel fang",
     "chapterOrder": [
       "tambali",
@@ -63,8 +63,8 @@
         {
           "id": "tambali-gue-am",
           "slug": "gue-am",
-          "name": "Gé Am",
-          "sourceFolder": "GE AM",
+          "name": "Gue Am",
+          "sourceFolder": "Gue Am",
           "cover": "collection/s01/tambali/personnages/gue-am/produit-01.png",
           "images": [
             "collection/s01/tambali/personnages/gue-am/produit-01.png",
@@ -100,8 +100,8 @@
         {
           "id": "tambali-sukox",
           "slug": "sukox",
-          "name": "Sukox",
-          "sourceFolder": "SUKOX",
+          "name": "Sukoh",
+          "sourceFolder": "SUKOH",
           "cover": "collection/s01/tambali/personnages/sukox/produit-01.png",
           "images": [
             "collection/s01/tambali/personnages/sukox/produit-01.png"
@@ -115,7 +115,7 @@
       "id": "passage",
       "slug": "passage",
       "index": "02",
-      "name": "Mik Fi Djaalan",
+      "name": "Miik fi djaalan",
       "sourceFolder": "Chap2 MIK  fi djaalan",
       "characters": [
         {
@@ -135,8 +135,8 @@
         {
           "id": "passage-gue-am",
           "slug": "gue-am",
-          "name": "Gé Am",
-          "sourceFolder": "GE AM",
+          "name": "Gue Am",
+          "sourceFolder": "Gue Am",
           "cover": "collection/s01/passage/personnages/gue-am/produit-04.png",
           "images": [
             "collection/s01/passage/personnages/gue-am/produit-04.png",
@@ -162,7 +162,7 @@
           "id": "passage-djalann",
           "slug": "djalann",
           "name": "Djaalan",
-          "sourceFolder": "DJAALANN",
+          "sourceFolder": "DJAALAN",
           "cover": "collection/s01/passage/personnages/djalann/produit-01.png",
           "images": [
             "collection/s01/passage/personnages/djalann/produit-01.png"
@@ -198,8 +198,8 @@
       "id": "exposition",
       "slug": "exposition",
       "index": "03",
-      "name": "Ohasso A Roka",
-      "sourceFolder": "chap3 ohasso a roka",
+      "name": "Ohasso a roka",
+      "sourceFolder": "Ohasso a roka",
       "characters": [
         {
           "id": "exposition-jant",
@@ -217,8 +217,8 @@
         {
           "id": "exposition-gue-am",
           "slug": "gue-am",
-          "name": "Gé Am",
-          "sourceFolder": "GE AM",
+          "name": "Gue Am",
+          "sourceFolder": "Gue Am",
           "cover": "collection/s01/exposition/personnages/gue-am/produit-08.png",
           "images": [
             "collection/s01/exposition/personnages/gue-am/produit-08.png",
@@ -234,8 +234,8 @@
       "id": "feu",
       "slug": "feu",
       "index": "04",
-      "name": "Panda Fi Yaranka",
-      "sourceFolder": " 4 PANDA FI YARANKA",
+      "name": "Panda fi yaranka",
+      "sourceFolder": "Panda fi yaranka",
       "characters": [
         {
           "id": "feu-yaranka",
@@ -297,8 +297,8 @@
         {
           "id": "ge-am-gue-am",
           "slug": "gue-am",
-          "name": "Gé Am",
-          "sourceFolder": "GE AM",
+          "name": "Gue Am",
+          "sourceFolder": "Gue Am",
           "cover": "collection/s01/ge-am/personnages/gue-am/produit-12.png",
           "images": [
             "collection/s01/ge-am/personnages/gue-am/produit-12.png",
@@ -344,14 +344,14 @@
       "id": "mbougir",
       "slug": "mbougir",
       "index": "07",
-      "name": "Mbougir",
-      "sourceFolder": "CHAPITRE 7 MBOUGIR",
+      "name": "Mbougirr",
+      "sourceFolder": "Mbougirr",
       "characters": [
         {
           "id": "mbougir-djalann",
           "slug": "djalann",
           "name": "Djaalan",
-          "sourceFolder": "DJAALANN",
+          "sourceFolder": "DJAALAN",
           "cover": "collection/s01/mbougir/personnages/djalann/produit-02.png",
           "images": [
             "collection/s01/mbougir/personnages/djalann/produit-02.png"
@@ -374,7 +374,7 @@
         {
           "id": "mbougir-gue-am",
           "slug": "gue-am",
-          "name": "Gé Am",
+          "name": "Gue Am",
           "sourceFolder": "GUE AM",
           "cover": "collection/s01/mbougir/personnages/gue-am/produit-20.png",
           "images": [

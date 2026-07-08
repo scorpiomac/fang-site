@@ -179,7 +179,7 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
           <h1 className="product-page__title">{product.name}</h1>
           {chapter ? (
             <aside className="product-page__character" aria-labelledby="product-character-heading">
-              <p className="product-page__character-kicker">Personnage · {chapter.name}</p>
+              <p className="product-page__character-kicker">Archétype · {chapter.name}</p>
               <h2 className="product-page__character-name" id="product-character-heading">
                 {product.characterName}
               </h2>
@@ -197,11 +197,11 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
                 to={`/collection/${chapter.slug}/${product.characterSlug}`}
                 className="product-page__character-link"
               >
-                Voir toutes les pièces du personnage
+                Voir toutes les pièces de l’archétype
                 <span aria-hidden="true"> →</span>
               </Link>
               <Link to={`/collection/${chapter.slug}`} className="product-page__character-link">
-                Tous les personnages · {chapter.name}
+                Tous les archétypes · {chapter.name}
                 <span aria-hidden="true"> →</span>
               </Link>
             </aside>

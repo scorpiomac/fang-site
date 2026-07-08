@@ -17,7 +17,7 @@ const sampleOrder = {
       variationLabel: "gue am 1",
       size: "M",
       qty: 1,
-      chapterLabel: "Ohasso A Roka",
+      chapterLabel: "Ohasso a roka",
       characterName: "Gue Am",
     },
   ],

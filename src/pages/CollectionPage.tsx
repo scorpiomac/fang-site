@@ -46,7 +46,7 @@ export function CollectionPage() {
       <aside className="commerce-closer">
         <p className="commerce-closer__title">Prêt à porter FANG ?</p>
         <p className="commerce-closer__body">
-          {activeChapters.length} chapitres disponibles — choisissez votre personnage, votre taille,
+          {activeChapters.length} chapitres disponibles — choisissez votre archétype, votre taille,
           validez sur WhatsApp avec l&apos;atelier.
         </p>
         <Link to="/boutique" className="cta cta--solid">

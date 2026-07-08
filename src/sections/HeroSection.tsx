@@ -16,7 +16,7 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
   const heroTitle = useCmsText("home.hero.title", copy.heroTitle);
   const heroSubtitle = useCmsText("home.hero.subtitle", copy.heroSubtitle);
   const heroPrimary = useCmsText("home.hero.ctaPrimary", copy.heroPrimary);
-  const heroSecondary = useCmsText("home.hero.ctaSecondary", "Voir la boutique");
+  const heroSecondary = useCmsText("home.hero.ctaSecondary", copy.heroSecondary);
   const tagline = useCmsText("brand.tagline", copy.tagline);
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroVideoSrc = publicUrl("video/fang-hero.mp4");
@@ -98,12 +98,12 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
             <span>{heroPrimary}</span>
             <span aria-hidden>→</span>
           </Link>
-          <Link className="cta cta--ghost" to="/boutique">
+          <a className="cta cta--ghost" href="#manifeste">
             <span>{heroSecondary}</span>
-          </Link>
+          </a>
         </div>
         <p className="hero__sub-meta">
-          <span>Chapitres · personnages · pièces produites à Dakar.</span>
+          <span>Chapitres · archétypes · pièces produites à Dakar.</span>
           <Link to="/collection" className="hero__sub-meta-link">
             Voir la collection →
           </Link>

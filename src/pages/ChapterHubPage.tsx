@@ -89,11 +89,11 @@ export function ChapterHubPage() {
           <div>
             <p className="collection-cast__eyebrow">{copy.collectionPersonnagesLabel}</p>
             <h2 id="personnages-heading">
-              Choisissez un personnage
+              Choisissez un archétype
               {productTotal > 0 ? ` · ${productTotal} pièces` : ""}
             </h2>
             <p className="collection-cast__intro">
-              Chaque personnage porte une pièce unique de ce chapitre. Sélectionnez, choisissez votre
+              Chaque archétype porte une pièce unique de ce chapitre. Sélectionnez, choisissez votre
               taille, commandez.
             </p>
           </div>

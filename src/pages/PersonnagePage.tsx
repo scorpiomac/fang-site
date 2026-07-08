@@ -83,7 +83,7 @@ export function PersonnagePage() {
   if (!chapter) {
     return (
       <main id="contenu-principal" className="personnage-doc personnage-doc--missing shop-shell">
-        <p>Personnage introuvable.</p>
+        <p>Archétype introuvable.</p>
         <Link to="/#personnages" className="cta cta--solid">
           Casting
         </Link>

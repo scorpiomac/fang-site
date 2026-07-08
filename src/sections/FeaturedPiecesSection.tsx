@@ -11,7 +11,7 @@ export function FeaturedPiecesSection() {
   const title = useCmsText("home.featured.title", "Du chapitre au vêtement.");
   const tagline = useCmsText(
     "home.featured.tagline",
-    "Des pièces tirées directement des personnages présents dans la collection Saison 01."
+    "Des pièces tirées directement des archétypes présents dans la collection Saison 0 — Neel Fang."
   );
 
   if (items.length === 0) return null;
@@ -71,7 +71,7 @@ export function FeaturedPiecesSection() {
                   to={`/collection/${chapter.slug}/${p.characterSlug}`}
                   className="featured-card__character"
                 >
-                  {p.characterName} · voir le personnage
+                  {p.characterName} · voir l’archétype
                 </Link>
               ) : null}
             </li>

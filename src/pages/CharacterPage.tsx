@@ -23,7 +23,7 @@ export function CharacterPage() {
   if (!chapter || !character) {
     return (
       <main id="contenu-principal" className="collection-page collection-page--missing shop-shell">
-        <p>Personnage introuvable dans cette collection.</p>
+        <p>Archétype introuvable dans cette collection.</p>
         <Link to="/collection" className="cta cta--solid">
           Voir la collection
         </Link>
@@ -68,7 +68,7 @@ export function CharacterPage() {
       {products.length === 0 ? (
         <p className="collection-cast__empty">{copy.collectionEmptyChapter}</p>
       ) : (
-        <ul className="character-pieces-grid" aria-label="Pièces du personnage">
+        <ul className="character-pieces-grid" aria-label="Pièces de l’archétype">
           {products.map((product) => (
             <li key={product.id}>
               <Link to={`/boutique/${product.slug}`} className="character-piece-card">
@@ -90,7 +90,7 @@ export function CharacterPage() {
       )}
 
       <Link to={`/collection/${chapter.slug}`} className="character-commerce__back cta cta--ghost">
-        ← Tous les personnages
+        ← Tous les archétypes
       </Link>
     </main>
   );

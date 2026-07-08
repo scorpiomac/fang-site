@@ -112,7 +112,7 @@ export function ShopPage() {
     <main id="contenu-principal" className="shop-page shop-page--catalog shop-shell">
       <Seo
         title={`Boutique — ${settings.brand.name}`}
-        description="Toutes les pièces de la saison 01. Production artisanale à Dakar."
+        description="Toutes les pièces de la Saison 0 — Neel Fang. Production artisanale à Dakar."
         url={`${siteUrl}/boutique`}
       />
 
