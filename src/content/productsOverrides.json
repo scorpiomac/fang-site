@@ -3,61 +3,116 @@
     "name": "Jant 1",
     "priceXof": 40000,
     "excerpt": "JANT — Soleil (Sérère)",
-    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "coverImage": "collection/s01/tambali/personnages/jant/produit-09.jpg",
+    "images": [
+      "collection/s01/tambali/personnages/jant/produit-09.jpg",
+      "collection/s01/tambali/personnages/jant/look-09-01.png",
+      "collection/s01/tambali/personnages/jant/detail-09-01.png"
+    ]
   },
   "tambali/jant/produit-02": {
     "name": "Jant 2",
     "priceXof": 35000,
     "excerpt": "JANT — Soleil (Sérère)",
-    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "coverImage": "collection/s01/tambali/personnages/jant/produit-02.png",
+    "images": [
+      "collection/s01/tambali/personnages/jant/produit-02.png",
+      "collection/s01/tambali/personnages/jant/look-02-01.png",
+      "collection/s01/tambali/personnages/jant/detail-02-01.png"
+    ]
   },
   "tambali/fod/produit-01": {
     "name": "Fod 1",
     "priceXof": 40000,
     "excerpt": "FOD — Le Sage / Le Griot",
-    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti."
+    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti.",
+    "coverImage": "collection/s01/tambali/personnages/fod/produit-01.png",
+    "images": [
+      "collection/s01/tambali/personnages/fod/produit-01.png",
+      "collection/s01/tambali/personnages/fod/look-01-01.png"
+    ]
   },
   "tambali/fod/produit-02": {
     "name": "Fod 2",
     "priceXof": 41000,
     "excerpt": "FOD — Le Sage / Le Griot",
-    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti."
+    "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti.",
+    "coverImage": "collection/s01/tambali/personnages/fod/produit-02.png",
+    "images": [
+      "collection/s01/tambali/personnages/fod/produit-02.png",
+      "collection/s01/tambali/personnages/fod/look-02-01.png"
+    ]
   },
   "tambali/mossane/produit-01": {
     "name": "Mossane 1",
     "priceXof": 40000,
     "excerpt": "MOSSANE — Celle qui sort du lot",
-    "description": "Elle a grandi entre plusieurs mondes. Et elle voit des choses que les autres ne voient pas encore."
+    "description": "Elle a grandi entre plusieurs mondes. Et elle voit des choses que les autres ne voient pas encore.",
+    "coverImage": "collection/s01/tambali/personnages/mossane/produit-01.png",
+    "images": [
+      "collection/s01/tambali/personnages/mossane/produit-01.png",
+      "collection/s01/tambali/personnages/mossane/look-01-01.png",
+      "collection/s01/tambali/personnages/mossane/detail-01-01.png"
+    ]
   },
   "tambali/gue-am/produit-01": {
     "name": "Gue Am 1",
     "priceXof": 40000,
     "excerpt": "GUE AM — Voyez-moi (Sérère)",
-    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/tambali/personnages/gue-am/produit-01.png",
+    "images": [
+      "collection/s01/tambali/personnages/gue-am/produit-01.png",
+      "collection/s01/tambali/personnages/gue-am/look-01-01.png"
+    ]
   },
   "tambali/gue-am/produit-02": {
     "name": "Gue Am 2",
     "priceXof": 40000,
     "excerpt": "GUE AM — Voyez-moi (Sérère)",
-    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/tambali/personnages/gue-am/produit-02.png",
+    "images": [
+      "collection/s01/tambali/personnages/gue-am/produit-02.png",
+      "collection/s01/tambali/personnages/gue-am/look-02-01.png",
+      "collection/s01/tambali/personnages/gue-am/detail-02-01.png"
+    ]
   },
   "tambali/gue-am/produit-03": {
     "name": "Gue Am 3",
     "priceXof": 40000,
     "excerpt": "GUE AM — Voyez-moi (Sérère)",
-    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/tambali/personnages/gue-am/produit-03.png",
+    "images": [
+      "collection/s01/tambali/personnages/gue-am/produit-03.png",
+      "collection/s01/tambali/personnages/gue-am/look-03-01.png",
+      "collection/s01/tambali/personnages/gue-am/detail-03-01.png"
+    ]
   },
   "tambali/diaak/produit-01": {
     "name": "Diaak 1",
     "priceXof": 39000,
     "excerpt": "DIAAK — Grand (double sens)",
-    "description": "Le corps qu'on t'a reproché porte un nom. Ce nom veut dire grandeur."
+    "description": "Le corps qu'on t'a reproché porte un nom. Ce nom veut dire grandeur.",
+    "coverImage": "collection/s01/tambali/personnages/diaak/produit-01.png",
+    "images": [
+      "collection/s01/tambali/personnages/diaak/produit-01.png",
+      "collection/s01/tambali/personnages/diaak/look-01-01.png"
+    ]
   },
   "tambali/diaak/produit-02": {
     "name": "Diaak 2",
     "priceXof": 40000,
     "excerpt": "DIAAK — Grand (double sens)",
-    "description": "Le corps qu'on t'a reproché porte un nom. Ce nom veut dire grandeur."
+    "description": "Le corps qu'on t'a reproché porte un nom. Ce nom veut dire grandeur.",
+    "coverImage": "collection/s01/tambali/personnages/diaak/produit-02.png",
+    "images": [
+      "collection/s01/tambali/personnages/diaak/produit-02.png",
+      "collection/s01/tambali/personnages/diaak/look-02-01.png"
+    ]
   },
   "tambali/racine/produit-01": {
     "name": "Racine 1",
@@ -69,13 +124,24 @@
     "name": "Racine 2",
     "priceXof": 40000,
     "excerpt": "RACINE — Mode de vie urbain",
-    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
+    "coverImage": "collection/s01/tambali/personnages/racine/produit-02.png",
+    "images": [
+      "collection/s01/tambali/personnages/racine/produit-02.png",
+      "collection/s01/tambali/personnages/racine/look-02-01.png",
+      "collection/s01/tambali/personnages/racine/detail-02-01.png"
+    ]
   },
   "tambali/sukox/produit-01": {
     "name": "Sukoh 1",
     "priceXof": 40000,
     "excerpt": "SUKOH — Se cacher (Sérère)",
-    "description": "Le détail si précis qu'il brille malgré lui."
+    "description": "Le détail si précis qu'il brille malgré lui.",
+    "coverImage": "collection/s01/tambali/personnages/sukox/produit-01.png",
+    "images": [
+      "collection/s01/tambali/personnages/sukox/produit-01.png",
+      "collection/s01/tambali/personnages/sukox/look-01-01.png"
+    ]
   },
   "passage/miik/produit-01": {
     "name": "Miik 1",
@@ -87,31 +153,60 @@
     "name": "Miik 2",
     "priceXof": 33000,
     "excerpt": "MIIK — Silencieuse (Sérère)",
-    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi."
+    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi.",
+    "coverImage": "collection/s01/passage/personnages/miik/produit-02.png",
+    "images": [
+      "collection/s01/passage/personnages/miik/produit-02.png",
+      "collection/s01/passage/personnages/miik/look-02-01.png",
+      "collection/s01/passage/personnages/miik/detail-02-01.png"
+    ]
   },
   "passage/miik/produit-03": {
     "name": "Miik 3",
     "priceXof": 32000,
     "excerpt": "MIIK — Silencieuse (Sérère)",
-    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi."
+    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi.",
+    "coverImage": "collection/s01/passage/personnages/miik/produit-03.png",
+    "images": [
+      "collection/s01/passage/personnages/miik/produit-03.png",
+      "collection/s01/passage/personnages/miik/look-03-01.png",
+      "collection/s01/passage/personnages/miik/detail-03-01.png"
+    ]
   },
   "passage/miik/produit-04": {
     "name": "Miik 4",
     "priceXof": 35000,
     "excerpt": "MIIK — Silencieuse (Sérère)",
-    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi."
+    "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi.",
+    "coverImage": "collection/s01/passage/personnages/miik/produit-04.png",
+    "images": [
+      "collection/s01/passage/personnages/miik/produit-04.png",
+      "collection/s01/passage/personnages/miik/look-04-01.png"
+    ]
   },
   "passage/gue-am/produit-04": {
     "name": "Gue Am 4",
     "priceXof": 45000,
     "excerpt": "GUE AM — Voyez-moi (Sérère)",
-    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/passage/personnages/gue-am/produit-04.png",
+    "images": [
+      "collection/s01/passage/personnages/gue-am/produit-04.png",
+      "collection/s01/passage/personnages/gue-am/look-04-01.png",
+      "collection/s01/passage/personnages/gue-am/detail-04-01.png"
+    ]
   },
   "passage/gue-am/produit-05": {
     "name": "Gue Am 4",
     "priceXof": 48000,
     "excerpt": "GUE AM — Voyez-moi (Sérère)",
-    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/passage/personnages/gue-am/produit-05.png",
+    "images": [
+      "collection/s01/passage/personnages/gue-am/produit-05.png",
+      "collection/s01/passage/personnages/gue-am/look-05-01.png",
+      "collection/s01/passage/personnages/gue-am/detail-05-01.png"
+    ]
   },
   "passage/gue-am/produit-06": {
     "name": "Gue Am 5",
@@ -129,25 +224,48 @@
     "name": "Jant 3",
     "priceXof": 65000,
     "excerpt": "JANT — Soleil (Sérère)",
-    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "coverImage": "collection/s01/passage/personnages/jant/produit-03.png",
+    "images": [
+      "collection/s01/passage/personnages/jant/produit-03.png",
+      "collection/s01/passage/personnages/jant/look-03-01.png",
+      "collection/s01/passage/personnages/jant/detail-03-01.png"
+    ]
   },
   "passage/jant/produit-04": {
     "name": "Jant 4",
     "priceXof": 50000,
     "excerpt": "JANT — Soleil (Sérère)",
-    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "coverImage": "collection/s01/passage/personnages/jant/produit-04.png",
+    "images": [
+      "collection/s01/passage/personnages/jant/produit-04.png",
+      "collection/s01/passage/personnages/jant/look-04-01.png",
+      "collection/s01/passage/personnages/jant/detail-04-01.png"
+    ]
   },
   "passage/djalann/produit-01": {
     "name": "Djaalan 1",
     "priceXof": 47000,
     "excerpt": "DJAALAN — Souriante (Sérère)",
-    "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite."
+    "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite.",
+    "coverImage": "collection/s01/passage/personnages/djalann/produit-01.png",
+    "images": [
+      "collection/s01/passage/personnages/djalann/produit-01.png",
+      "collection/s01/passage/personnages/djalann/look-01-01.png",
+      "collection/s01/passage/personnages/djalann/detail-01-01.png"
+    ]
   },
   "passage/racine/produit-03": {
     "name": "Racine 3",
     "priceXof": 45000,
     "excerpt": "RACINE — Mode de vie urbain",
-    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
+    "coverImage": "collection/s01/passage/personnages/racine/produit-03.png",
+    "images": [
+      "collection/s01/passage/personnages/racine/produit-03.png",
+      "collection/s01/passage/personnages/racine/look-03-01.png"
+    ]
   },
   "passage/fod/produit-02": {
     "name": "Fod 2",
@@ -160,8 +278,11 @@
     "priceXof": 15000,
     "excerpt": "JANT — Soleil (Sérère)",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "coverImage": "collection/s01/exposition/personnages/jant/produit-05.png",
     "images": [
       "collection/s01/exposition/personnages/jant/produit-05.png",
+      "collection/s01/exposition/personnages/jant/look-05-01.png",
+      "collection/s01/exposition/personnages/jant/detail-05-01.png",
       "collection/s01/exposition/personnages/jant/produit-06.png"
     ]
   },
@@ -169,13 +290,25 @@
     "name": "Jant 6",
     "priceXof": 55000,
     "excerpt": "JANT — Soleil (Sérère)",
-    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "coverImage": "collection/s01/exposition/personnages/jant/produit-07.png",
+    "images": [
+      "collection/s01/exposition/personnages/jant/produit-07.png",
+      "collection/s01/exposition/personnages/jant/look-07-01.png",
+      "collection/s01/exposition/personnages/jant/detail-07-01.png"
+    ]
   },
   "exposition/jant/produit-08": {
     "name": "Jant 7 (édition spéciale pièce de collection)",
     "priceXof": 75000,
     "excerpt": "JANT — Soleil (Sérère)",
-    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "coverImage": "collection/s01/exposition/personnages/jant/produit-08.png",
+    "images": [
+      "collection/s01/exposition/personnages/jant/produit-08.png",
+      "collection/s01/exposition/personnages/jant/look-08-01.png",
+      "collection/s01/exposition/personnages/jant/detail-08-01.png"
+    ]
   },
   "exposition/gue-am/produit-08": {
     "name": "Gue Am 8 (pants)",
@@ -192,7 +325,13 @@
     "name": "Gue Am 9",
     "priceXof": 60000,
     "excerpt": "GUE AM — Voyez-moi (Sérère)",
-    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/exposition/personnages/gue-am/produit-11.png",
+    "images": [
+      "collection/s01/exposition/personnages/gue-am/produit-11.png",
+      "collection/s01/exposition/personnages/gue-am/look-11-01.png",
+      "collection/s01/exposition/personnages/gue-am/detail-11-01.png"
+    ]
   },
   "exposition/gue-am/produit-12": {
     "name": "Gue Am 10 (édition spéciale pièce de collection)",
@@ -204,7 +343,15 @@
     "name": "Yaranka 1",
     "priceXof": 55000,
     "excerpt": "YARANKA — Sans frontière de genre",
-    "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne — juste quelqu'un qui avait eu peur que tu la franchisses."
+    "description": "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne — juste quelqu'un qui avait eu peur que tu la franchisses.",
+    "coverImage": "collection/s01/feu/personnages/yaranka/produit-01.png",
+    "images": [
+      "collection/s01/feu/personnages/yaranka/produit-01.png",
+      "collection/s01/feu/personnages/yaranka/look-01-01.png",
+      "collection/s01/feu/personnages/yaranka/detail-01-01.png",
+      "collection/s01/feu/personnages/yaranka/look-01-02.png",
+      "collection/s01/feu/personnages/yaranka/detail-01-02.png"
+    ]
   },
   "feu/yaranka/produit-02": {
     "name": "Yaranka 2",
@@ -216,7 +363,12 @@
     "name": "Jant 8",
     "priceXof": 45000,
     "excerpt": "JANT — Soleil (Sérère)",
-    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
+    "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
+    "coverImage": "collection/s01/feu/personnages/jant/produit-08.png",
+    "images": [
+      "collection/s01/feu/personnages/jant/produit-08.png",
+      "collection/s01/feu/personnages/jant/look-08-01.png"
+    ]
   },
   "feu/jant/produit-09": {
     "name": "Jant 9",
@@ -234,13 +386,25 @@
     "name": "Gue Am 11",
     "priceXof": 45000,
     "excerpt": "GUE AM — Voyez-moi (Sérère)",
-    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/feu/personnages/panda/produit-11.png",
+    "images": [
+      "collection/s01/feu/personnages/panda/produit-11.png",
+      "collection/s01/feu/personnages/panda/look-11-01.png",
+      "collection/s01/feu/personnages/panda/detail-11-01.png"
+    ]
   },
   "ge-am/panda/produit-01": {
     "name": "Panda 1",
     "priceXof": 60000,
     "excerpt": "PANDA — La force joyeuse",
-    "description": "Il a traversé les moqueries et en est sorti plus libre que ceux qui l'ont moqué."
+    "description": "Il a traversé les moqueries et en est sorti plus libre que ceux qui l'ont moqué.",
+    "coverImage": "collection/s01/ge-am/personnages/panda/produit-01.png",
+    "images": [
+      "collection/s01/ge-am/personnages/panda/produit-01.png",
+      "collection/s01/ge-am/personnages/panda/look-01-01.png",
+      "collection/s01/ge-am/personnages/panda/detail-01-01.png"
+    ]
   },
   "ge-am/gue-am/produit-12": {
     "name": "Gue Am 12 (chapitre éponyme)",
@@ -294,31 +458,59 @@
     "name": "Racine 4 (chapitre éponyme)",
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain.",
-    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
+    "coverImage": "collection/s01/racine/personnages/racine/produit-04.png",
+    "images": [
+      "collection/s01/racine/personnages/racine/produit-04.png",
+      "collection/s01/racine/personnages/racine/look-04-01.png",
+      "collection/s01/racine/personnages/racine/detail-04-01.png"
+    ]
   },
   "racine/racine/produit-05": {
     "name": "Racine 5 (chapitre éponyme)",
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain",
-    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
+    "coverImage": "collection/s01/racine/personnages/racine/produit-05.png",
+    "images": [
+      "collection/s01/racine/personnages/racine/produit-05.png",
+      "collection/s01/racine/personnages/racine/look-05-01.png",
+      "collection/s01/racine/personnages/racine/detail-05-01.png"
+    ]
   },
   "racine/racine/produit-06": {
     "name": "Racine 6 (chapitre éponyme)",
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain",
-    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
+    "coverImage": "collection/s01/racine/personnages/racine/produit-06.png",
+    "images": [
+      "collection/s01/racine/personnages/racine/produit-06.png",
+      "collection/s01/racine/personnages/racine/look-06-01.png",
+      "collection/s01/racine/personnages/racine/detail-06-01.png"
+    ]
   },
   "racine/racine/produit-07": {
     "name": "Racine 7 (chapitre éponyme)",
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain",
-    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
+    "coverImage": "collection/s01/racine/personnages/racine/produit-07.png",
+    "images": [
+      "collection/s01/racine/personnages/racine/produit-07.png",
+      "collection/s01/racine/personnages/racine/look-07-01.png"
+    ]
   },
   "racine/racine/produit-08": {
     "name": "Racine 8 (chapitre éponyme)",
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain.",
-    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être."
+    "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
+    "coverImage": "collection/s01/racine/personnages/racine/produit-08.png",
+    "images": [
+      "collection/s01/racine/personnages/racine/produit-08.png",
+      "collection/s01/racine/personnages/racine/look-01.png"
+    ]
   },
   "mbougir/mossane/produit-02": {
     "name": "Mossane 2",
@@ -336,7 +528,13 @@
     "name": "Djaalan 2",
     "priceXof": 85000,
     "excerpt": "DJAALAN — Souriante (Sérère)",
-    "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite."
+    "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite.",
+    "coverImage": "collection/s01/mbougir/personnages/djalann/look-01.png",
+    "images": [
+      "collection/s01/mbougir/personnages/djalann/look-01.png",
+      "collection/s01/mbougir/personnages/djalann/detail-01.png",
+      "collection/s01/mbougir/personnages/djalann/produit-02.png"
+    ]
   },
   "mbougir/gue-am/produit-20": {
     "name": "Gue Am 20",
