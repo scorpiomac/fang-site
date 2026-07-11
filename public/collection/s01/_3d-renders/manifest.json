@@ -1,0 +1,44 @@
+﻿[
+    {
+        "clip":  1,
+        "slug":  "clip-01",
+        "source":  "Clip 1(1).mp4",
+        "frames":  12,
+        "cover":  "collection/s01/_3d-renders/clip-01/cover.png"
+    },
+    {
+        "clip":  2,
+        "slug":  "clip-02",
+        "source":  "Clip 1(2).mp4",
+        "frames":  12,
+        "cover":  "collection/s01/_3d-renders/clip-02/cover.png"
+    },
+    {
+        "clip":  3,
+        "slug":  "clip-03",
+        "source":  "Clip 1(3).mp4",
+        "frames":  12,
+        "cover":  "collection/s01/_3d-renders/clip-03/cover.png"
+    },
+    {
+        "clip":  4,
+        "slug":  "clip-04",
+        "source":  "Clip 1(4).mp4",
+        "frames":  12,
+        "cover":  "collection/s01/_3d-renders/clip-04/cover.png"
+    },
+    {
+        "clip":  5,
+        "slug":  "clip-05",
+        "source":  "Clip 1(5).mp4",
+        "frames":  12,
+        "cover":  "collection/s01/_3d-renders/clip-05/cover.png"
+    },
+    {
+        "clip":  6,
+        "slug":  "clip-06",
+        "source":  "Clip 1(6).mp4",
+        "frames":  12,
+        "cover":  "collection/s01/_3d-renders/clip-06/cover.png"
+    }
+]

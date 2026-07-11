@@ -8,7 +8,7 @@ import { useCustomer } from "@/context/customerContext";
 const primaryNav = [
   { id: "accueil", label: "Accueil", to: "/" },
   { id: "boutique", label: "Boutique", to: "/boutique" },
-  { id: "archetype", label: "Archétype", pending: true },
+  { id: "archetype", label: "Archétype", to: "/archetype" },
 ] as const;
 
 export function SiteHeader() {
@@ -16,6 +16,7 @@ export function SiteHeader() {
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isShop = location.pathname.startsWith("/boutique");
+  const isArchetype = location.pathname.startsWith("/archetype");
   const { openDrawer, countItems } = useCart();
   const { customer } = useCustomer();
 
@@ -29,6 +30,7 @@ export function SiteHeader() {
   function isNavActive(to: string): boolean {
     if (to === "/") return isHome;
     if (to === "/boutique") return isShop;
+    if (to === "/archetype") return isArchetype;
     return false;
   }
 
@@ -41,17 +43,6 @@ export function SiteHeader() {
 
       <nav className="site-header__nav" aria-label="Navigation principale">
         {primaryNav.map((item) => {
-          if ("pending" in item && item.pending) {
-            return (
-              <span
-                key={item.id}
-                className="site-header__link site-header__link--pending"
-                aria-disabled="true"
-              >
-                {item.label}
-              </span>
-            );
-          }
           const active = isNavActive(item.to);
           return (
             <Link

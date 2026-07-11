@@ -1,0 +1,321 @@
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { Link } from "react-router-dom";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { getArchetypeRoster } from "@/content/characterArchetypeRoster";
+import { publicUrl } from "@/lib/publicUrl";
+const roster = getArchetypeRoster();
+
+const ATTRS = [
+  { key: "origin", label: "Origine", icon: "globe" },
+  { key: "values", label: "Valeurs", icon: "heart" },
+  { key: "force", label: "Force", icon: "bolt" },
+  { key: "symbol", label: "Symbole", icon: "star" },
+  { key: "element", label: "Élément", icon: "wind" },
+] as const;
+
+function AttrIcon({ type }: { type: (typeof ATTRS)[number]["icon"] }) {
+  const common = { fill: "none", stroke: "currentColor", strokeWidth: 1.35 };
+  if (type === "globe")
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden {...common}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18" />
+      </svg>
+    );
+  if (type === "heart")
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden {...common}>
+        <path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.4-7 10-7 10z" />
+      </svg>
+    );
+  if (type === "bolt")
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden {...common}>
+        <path d="M13 2 5 14h6l-1 8 8-12h-6l1-8z" />
+      </svg>
+    );
+  if (type === "star")
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden {...common}>
+        <path d="m12 3 2.2 5.5L20 9l-4.5 3.3L17 18l-5-3.2L7 18l1.5-5.7L4 9l5.8-.5L12 3z" />
+      </svg>
+    );
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden {...common}>
+      <path d="M9.5 4C6 7 4 10 4 14a8 8 0 0 0 16 0c0-4-2-7-5.5-10" />
+      <path d="M9 14h6" />
+    </svg>
+  );
+}
+
+function slotOffset(index: number, selected: number, count: number): number {
+  let offset = index - selected;
+  const half = Math.floor(count / 2);
+  if (offset > half) offset -= count;
+  if (offset < -half) offset += count;
+  return offset;
+}
+
+/** Position en arc sur la plateforme — fidèle au carrousel du prototype */
+function slotArc(offset: number) {
+  const abs = Math.abs(offset);
+  const isCenter = offset === 0;
+  const angleRad = (offset * 24 * Math.PI) / 180;
+  const radiusX = 320;
+  const lift = (Math.cos(angleRad) - 1) * 22;
+
+  return {
+    x: `${Math.sin(angleRad) * radiusX}px`,
+    y: `${lift + (isCenter ? -6 : abs * 5)}px`,
+    scale: isCenter ? 1 : Math.max(0.58, 0.68 - abs * 0.05),
+    opacity: isCenter ? 1 : Math.max(0.55, 0.82 - abs * 0.1),
+  };
+}
+
+export function CharacterRosterSection() {
+  const titleId = useId();
+  const reduced = useReducedMotion();
+  const [selected, setSelected] = useState(0);
+  const [autoPaused, setAutoPaused] = useState(false);
+  const dragRef = useRef({ startX: 0, active: false });
+  const count = roster.length;
+
+  const select = useCallback(
+    (index: number) => {
+      if (count === 0) return;
+      setSelected(((index % count) + count) % count);
+    },
+    [count]
+  );
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        select(selected + 1);
+      }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        select(selected - 1);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [select, selected]);
+
+  useEffect(() => {
+    if (reduced || autoPaused || count < 2) return;
+    const id = window.setInterval(() => {
+      setSelected((current) => (current + 1) % count);
+    }, 3000);
+    return () => window.clearInterval(id);
+  }, [autoPaused, count, reduced]);
+
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    setAutoPaused(true);
+    dragRef.current = { startX: e.clientX, active: true };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerUp = (e: PointerEvent<HTMLDivElement>) => {
+    if (!dragRef.current.active) return;
+    const delta = e.clientX - dragRef.current.startX;
+    if (Math.abs(delta) > 40) select(selected + (delta > 0 ? -1 : 1));
+    dragRef.current.active = false;
+  };
+
+  if (count === 0) return null;
+
+  const active = roster[selected]!;
+
+  return (
+    <section className="archetype-screen" id="personnages" aria-labelledby={titleId}>
+      <div className="archetype-screen__layout">
+        <div className="archetype-screen__left">
+          <header className="archetype-screen__intro">
+            <p className="archetype-screen__eyebrow">
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="archetype-screen__eyebrow-icon">
+                <path d="M4 7h16M4 12h10M4 17h16" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              </svg>
+              <span>/ Archétype</span>
+            </p>
+            <h1 id={titleId} className="archetype-screen__title">
+              Les personnages
+            </h1>
+            <p className="archetype-screen__lede">
+              Chaque personnage incarne une facette de notre héritage, de notre histoire et de notre
+              vision du futur.
+            </p>
+          </header>
+
+          <div
+            className="archetype-screen__stage"
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+            onMouseEnter={() => setAutoPaused(true)}
+            onMouseLeave={() => setAutoPaused(false)}
+            onFocus={() => setAutoPaused(true)}
+            onBlur={() => setAutoPaused(false)}
+          >
+            <div className="archetype-screen__dais" aria-hidden="true">
+              <div className="archetype-screen__dais-outer" />
+              <div className="archetype-screen__dais-mid">
+                <span className="archetype-screen__dais-strip" />
+              </div>
+              <div className="archetype-screen__dais-inner">
+                <span className="archetype-screen__dais-strip archetype-screen__dais-strip--inner" />
+              </div>
+              <div className="archetype-screen__dais-pivot-slot">
+                <div className="archetype-screen__pivot">
+                  <button
+                    type="button"
+                    className="archetype-screen__pivot-btn"
+                    onClick={() => select(selected - 1)}
+                    tabIndex={-1}
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                    </svg>
+                  </button>
+                  <span className="archetype-screen__pivot-mouse" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <rect x="8" y="3" width="8" height="14" rx="4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+                      <path d="M12 7v3" stroke="currentColor" strokeWidth="1.4" />
+                    </svg>
+                  </span>
+                  <span className="archetype-screen__pivot-label">Faites glisser pour pivoter</span>
+                  <button
+                    type="button"
+                    className="archetype-screen__pivot-btn"
+                    onClick={() => select(selected + 1)}
+                    tabIndex={-1}
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="archetype-screen__cast" aria-live="polite">
+              {roster.map((entry, index) => {
+                const offset = slotOffset(index, selected, count);
+                const isCenter = offset === 0;
+                const abs = Math.abs(offset);
+                if (abs > 2) return null;
+
+                const arc = slotArc(offset);
+                const style = {
+                  "--slot-x": arc.x,
+                  "--slot-y": arc.y,
+                  "--slot-scale": arc.scale,
+                  "--slot-opacity": arc.opacity,
+                  zIndex: isCenter ? 8 : 11 - abs,
+                } as CSSProperties;
+
+                return (
+                  <button
+                    key={entry.clipId}
+                    type="button"
+                    className={`archetype-screen__figure${isCenter ? " is-center" : ""}`}
+                    style={style}
+                    onClick={() => select(index)}
+                    aria-pressed={isCenter}
+                    aria-label={entry.name}
+                  >
+                    <div className="archetype-screen__figure-body">
+                      <div className="archetype-screen__figure-model-wrap">
+                        <div
+                          className={`archetype-screen__figure-model-stage${isCenter ? " is-center" : ""}`}
+                        >
+                          <img
+                            src={publicUrl(entry.coverPath)}
+                            alt={isCenter ? `Modèle 3D — ${entry.name}` : ""}
+                            className="archetype-screen__figure-model"
+                            loading={isCenter ? "eager" : "lazy"}
+                            decoding="async"
+                            draggable={false}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="archetype-screen__figure-pedestal">
+                      <span className="archetype-screen__figure-ring" />
+                      <span className="archetype-screen__figure-plate">{entry.name}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+          </div>
+
+          <div className="archetype-screen__thumbs" role="tablist" aria-label="Personnages">
+            {roster.map((entry, index) => (
+              <button
+                key={entry.clipId}
+                type="button"
+                role="tab"
+                aria-selected={index === selected}
+                className={`archetype-screen__thumb${index === selected ? " is-active" : ""}`}
+                onClick={() => select(index)}
+              >
+                <img
+                  src={publicUrl(entry.coverPath)}
+                  alt={entry.name}
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <aside className="archetype-screen__panel">
+          <p className="archetype-screen__panel-eyebrow">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+              <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="currentColor" strokeWidth="1.4" />
+            </svg>
+            <span>/ Personnage</span>
+          </p>
+
+          <h2 className="archetype-screen__panel-name">{active.name}</h2>
+          <p className="archetype-screen__panel-role">{active.meta.role}</p>
+          <p className="archetype-screen__panel-bio">{active.description}</p>
+
+          <ul className="archetype-screen__attrs">
+            {ATTRS.map(({ key, label, icon }) => (
+              <li key={key}>
+                <span className="archetype-screen__attr-icon">
+                  <AttrIcon type={icon} />
+                </span>
+                <div className="archetype-screen__attr-copy">
+                  <span className="archetype-screen__attr-label">{label}</span>
+                  <span className="archetype-screen__attr-value">
+                    {active.meta[key as keyof typeof active.meta]}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <Link
+            className="archetype-screen__cta"
+            to={`/collection/${active.chapterSlug}/${active.characterSlug}`}
+          >
+            <span>Découvrir son univers</span>
+            <span className="archetype-screen__cta-arrow" aria-hidden="true">
+              →
+            </span>
+          </Link>
+        </aside>
+      </div>
+    </section>
+  );
+}

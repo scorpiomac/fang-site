@@ -10,6 +10,7 @@ import { CartToast } from "@/components/ui/CartToast";
 import { HomePage } from "@/pages/HomePage";
 import { ProductPage } from "@/pages/ProductPage";
 import { CollectionPage } from "@/pages/CollectionPage";
+import { ArchetypePage } from "@/pages/ArchetypePage";
 import { ChapterHubPage } from "@/pages/ChapterHubPage";
 import { CharacterPage } from "@/pages/CharacterPage";
 import { CustomerProvider } from "@/context/customerContext";
@@ -88,6 +89,7 @@ function MainSite() {
                   }
                 />
                 <Route path="/boutique/:slug" element={<ProductPage />} />
+                <Route path="/archetype" element={<ArchetypePage />} />
                 <Route path="/collection" element={<CollectionPage />} />
                 <Route path="/collection/:chapterSlug" element={<ChapterHubPage />} />
                 <Route path="/collection/:chapterSlug/:characterSlug" element={<CharacterPage />} />
