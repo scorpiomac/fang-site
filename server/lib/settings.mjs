@@ -14,9 +14,9 @@ export const DEFAULT_SETTINGS = {
     siteUrl: "",
   },
   contact: {
-    email: "contact@fang.studio",
-    phone: "",
-    whatsapp: "221000000000",
+    email: "elhadjifalloungom7@gmail.com",
+    phone: "+221 78 187 97 38",
+    whatsapp: "221781879738",
     supportHours: "Lun–Ven · 9h–18h GMT",
   },
   social: {
@@ -60,7 +60,7 @@ export const DEFAULT_SETTINGS = {
     message: "Le site est en maintenance. Revenez très bientôt.",
   },
   mail: {
-    from: "FANG Atelier <contact@fang.studio>",
+    from: "FANG Atelier <elhadjifalloungom7@gmail.com>",
     notifyAdmins: true,
     adminRecipients: "",
   },

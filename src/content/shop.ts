@@ -277,7 +277,7 @@ export function formatPriceXof(value: number): string {
 }
 
 export const whatsappOrderNumber =
-  import.meta.env.VITE_WHATSAPP_ORDER ?? "221000000000";
+  import.meta.env.VITE_WHATSAPP_ORDER ?? "221781879738";
 
 export const placeholderChapterImage = publicUrl("chapters/ch1/img1.jpg");
 

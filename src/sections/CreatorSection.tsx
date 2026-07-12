@@ -21,12 +21,8 @@ export const CreatorSection = forwardRef<HTMLElement>(function CreatorSection(_,
         <aside className="creator__portrait" aria-hidden="true">
           <div className="creator__portrait-frame">
             <MediaImage
-              src={publicUrl("chapters/ch6/img1.jpg")}
-              fallbacks={[
-                publicUrl("chapters/ch6/img2.jpg"),
-                publicUrl("chapters/ch1/img1.jpg"),
-              ]}
-              alt=""
+              src={publicUrl("creator/fallou-ngom.png")}
+              alt="Fallou Ngom, créateur de FANG"
               loading="lazy"
             />
           </div>

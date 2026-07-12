@@ -9,6 +9,7 @@ const primaryNav = [
   { id: "accueil", label: "Accueil", to: "/" },
   { id: "boutique", label: "Boutique", to: "/boutique" },
   { id: "archetype", label: "Archétype", to: "/archetype" },
+  { id: "contact", label: "Contact", to: "/contact" },
 ] as const;
 
 export function SiteHeader() {
@@ -17,6 +18,7 @@ export function SiteHeader() {
   const isHome = location.pathname === "/";
   const isShop = location.pathname.startsWith("/boutique");
   const isArchetype = location.pathname.startsWith("/archetype");
+  const isContact = location.pathname.startsWith("/contact");
   const { openDrawer, countItems } = useCart();
   const { customer } = useCustomer();
 
@@ -31,6 +33,7 @@ export function SiteHeader() {
     if (to === "/") return isHome;
     if (to === "/boutique") return isShop;
     if (to === "/archetype") return isArchetype;
+    if (to === "/contact") return isContact;
     return false;
   }
 

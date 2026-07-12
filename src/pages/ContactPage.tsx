@@ -12,6 +12,17 @@ export function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
   const [feedback, setFeedback] = useState<string>("");
 
+  const whatsappDigits = (settings.contact.whatsapp || "").replace(/\D/g, "");
+  const whatsappHref = whatsappDigits ? `https://wa.me/${whatsappDigits}` : undefined;
+  const phoneHref = settings.contact.phone
+    ? `tel:${settings.contact.phone.replace(/\s/g, "")}`
+    : undefined;
+
+  const instagramUrl = settings.social.instagram;
+  const instagramHandle = instagramUrl
+    ? `@${instagramUrl.replace(/\/$/, "").split("/").pop()}`
+    : "@fanglamarque";
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !message.trim()) {
@@ -47,36 +58,55 @@ export function ContactPage() {
           <div className="contact-grid">
             <div className="contact-info">
               <div>
+                <p className="contact-info__label">Fondateur</p>
+                <p className="contact-info__value">Fallou Ngom</p>
+              </div>
+              <div>
+                <p className="contact-info__label">Marque / WhatsApp</p>
+                {whatsappHref ? (
+                  <a
+                    className="link-underline"
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {settings.contact.phone || `+${whatsappDigits}`}
+                  </a>
+                ) : phoneHref ? (
+                  <a className="link-underline" href={phoneHref}>
+                    {settings.contact.phone}
+                  </a>
+                ) : (
+                  <p className="contact-info__value">—</p>
+                )}
+              </div>
+              <div>
                 <p className="contact-info__label">E-mail</p>
                 <a className="link-underline" href={`mailto:${settings.contact.email}`}>
                   {settings.contact.email}
                 </a>
               </div>
               <div>
-                <p className="contact-info__label">WhatsApp / Téléphone</p>
-                <a className="link-underline" href={`tel:${settings.contact.phone}`}>
-                  {settings.contact.phone}
-                </a>
+                <p className="contact-info__label">Instagram</p>
+                {instagramUrl ? (
+                  <a
+                    className="link-underline"
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {instagramHandle}
+                  </a>
+                ) : (
+                  <p className="contact-info__value">{instagramHandle}</p>
+                )}
               </div>
               {settings.brand.address ? (
                 <div>
                   <p className="contact-info__label">Adresse</p>
-                  <p>{settings.brand.address}</p>
+                  <p className="contact-info__value">{settings.brand.address}</p>
                 </div>
               ) : null}
-              <div>
-                <p className="contact-info__label">Réseaux</p>
-                {settings.social.instagram ? (
-                  <a
-                    className="link-underline"
-                    href={settings.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Instagram
-                  </a>
-                ) : null}
-              </div>
             </div>
 
             <form className="contact-form" onSubmit={handleSubmit}>
