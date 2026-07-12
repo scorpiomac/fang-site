@@ -152,11 +152,7 @@ export const StorySection = forwardRef<HTMLElement>(function StorySection(_, ref
               onMouseLeave={onCardPointerLeave}
             >
               <span className="story-card__num">{String(i + 1).padStart(2, "0")}</span>
-              <div
-                className="story-card__icon"
-                aria-hidden="true"
-                style={{ "--ring-delay": `${i * 0.72}s` } as React.CSSProperties}
-              >
+              <div className="story-card__icon" aria-hidden="true">
                 <span className="story-card__icon-ring" aria-hidden="true" />
                 <StoryIcon name={pillar.icon} />
               </div>
