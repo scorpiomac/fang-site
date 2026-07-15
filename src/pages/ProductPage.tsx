@@ -21,6 +21,7 @@ import {
 import { WishlistButton } from "@/components/shop/WishlistButton";
 import { ProductReviews } from "@/components/shop/ProductReviews";
 import { Seo } from "@/components/Seo";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
 
 export function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -181,7 +182,7 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
             <aside className="product-page__character" aria-labelledby="product-character-heading">
               <p className="product-page__character-kicker">Archétype · {chapter.name}</p>
               <h2 className="product-page__character-name" id="product-character-heading">
-                {product.characterName}
+                <GlossedTerm term={product.characterName} focusable />
               </h2>
               {chapterLore?.role ? (
                 <p className="product-page__character-role">{chapterLore.role}</p>
@@ -312,7 +313,7 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
       {siblingPieces.length > 0 && (
         <section className="product-page__related">
           <p className="product-page__related-label">
-            Autres pièces · {product.characterName}
+            Autres pièces · <GlossedTerm term={product.characterName} />
           </p>
           <div className="product-page__related-grid">
             {siblingPieces.map((p) => (

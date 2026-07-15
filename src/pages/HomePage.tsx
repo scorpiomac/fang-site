@@ -278,7 +278,7 @@ export function HomePage() {
         </div>
         <main id="contenu-principal" className="content-root">
           <HeroSection ref={heroRef} showVideoFallback />
-          <MarqueeStrip items={homeMarqueeNames} />
+          <MarqueeStrip items={homeMarqueeNames} gloss />
           <StorySection ref={storyRef} />
           <MarqueeStrip items={homeMarqueeMeanings} className="marquee-strip--inverse" />
           <ChaptersSection ref={chaptersRef} />

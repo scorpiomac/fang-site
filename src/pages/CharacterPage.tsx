@@ -9,6 +9,7 @@ import {
 } from "@/content/shop";
 import { copy } from "@/content/copy";
 import { CommerceJourney } from "@/components/shop/CommerceJourney";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
 
 export function CharacterPage() {
   const { chapterSlug, characterSlug } = useParams<{ chapterSlug: string; characterSlug: string }>();
@@ -55,7 +56,9 @@ export function CharacterPage() {
         <p className="character-commerce__eyebrow">
           Ch. {chapter.index} · {chapter.name}
         </p>
-        <h1 className="character-commerce__name">{character.name}</h1>
+        <h1 className="character-commerce__name">
+          <GlossedTerm term={character.name} focusable />
+        </h1>
         <p className="character-commerce__sub">
           {products.length} pièce{products.length > 1 ? "s" : ""}
           {priceRange ? <> · {formatPriceRange(priceRange.min, priceRange.max)}</> : null}

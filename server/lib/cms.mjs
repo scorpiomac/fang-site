@@ -166,7 +166,7 @@ export const CMS_DEFAULTS = {
     subtitle:
       "FANG est une maison afro-contemporaine née à Dakar. Saison 0 — Neel Fang : sept chapitres, des personnages réels, des pièces produites à Dakar.",
     ctaPrimary: "Entrer dans la collection",
-    ctaSecondary: "Lire le manifeste",
+    ctaSecondary: "Nos personnages",
   },
   "home.story": {
     fragments: [

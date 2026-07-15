@@ -11,7 +11,7 @@ export const castCharacterProfiles: CharacterProfile[] = [
   {
     name: "Gue Am",
     slug: "gue-am",
-    meaning: "« Voyez-moi » (sérère)",
+    meaning: "« Voyez-moi » (Sérère)",
     excerpt: "GUE AM — Voyez-moi (Sérère)",
     description:
       "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
@@ -19,7 +19,7 @@ export const castCharacterProfiles: CharacterProfile[] = [
   {
     name: "Jant",
     slug: "jant",
-    meaning: "« Soleil » (sérère)",
+    meaning: "« Soleil » (Sérère)",
     excerpt: "JANT — Soleil (Sérère)",
     description:
       "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
@@ -27,7 +27,7 @@ export const castCharacterProfiles: CharacterProfile[] = [
   {
     name: "Miik",
     slug: "miik",
-    meaning: "« Silencieuse » (sérère)",
+    meaning: "« Silencieuse » (Sérère)",
     excerpt: "MIIK — Silencieuse (Sérère)",
     description:
       "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi.",
@@ -35,7 +35,7 @@ export const castCharacterProfiles: CharacterProfile[] = [
   {
     name: "Djaalan",
     slug: "djalann",
-    meaning: "« Souriante » (sérère)",
+    meaning: "« Souriante » (Sérère)",
     excerpt: "DJAALAN — Souriante (Sérère)",
     description:
       "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite.",
@@ -43,23 +43,23 @@ export const castCharacterProfiles: CharacterProfile[] = [
   {
     name: "Panda",
     slug: "panda",
-    meaning: "La force joyeuse",
-    excerpt: "PANDA — La force joyeuse",
+    meaning: "L'animal fort et drôle",
+    excerpt: "PANDA — L'animal fort et drôle",
     description:
       "Il a traversé les moqueries et en est sorti plus libre que ceux qui l'ont moqué.",
   },
   {
     name: "Diaak",
     slug: "diaak",
-    meaning: "« Grand » (double sens)",
-    excerpt: "DIAAK — Grand (double sens)",
+    meaning: "« Grand » (taille & esprit)",
+    excerpt: "DIAAK — Grand (taille & esprit)",
     description: "Le corps qu'on t'a reproché porte un nom. Ce nom veut dire grandeur.",
   },
   {
     name: "Yaranka",
     slug: "yaranka",
-    meaning: "Sans frontière de genre",
-    excerpt: "YARANKA — Sans frontière de genre",
+    meaning: "Genre-fluid",
+    excerpt: "YARANKA — Genre-fluid",
     description:
       "Aucun code. Aucune frontière. Il n'y avait jamais eu de ligne — juste quelqu'un qui avait eu peur que tu la franchisses.",
   },
@@ -74,7 +74,7 @@ export const castCharacterProfiles: CharacterProfile[] = [
   {
     name: "Sukoh",
     slug: "sukox",
-    meaning: "« Se cacher » (sérère)",
+    meaning: "« Se cacher » (Sérère)",
     excerpt: "SUKOH — Se cacher (Sérère)",
     description: "Le détail si précis qu'il brille malgré lui.",
   },
@@ -89,8 +89,8 @@ export const castCharacterProfiles: CharacterProfile[] = [
   {
     name: "Fod",
     slug: "fod",
-    meaning: "Le sage / le griot",
-    excerpt: "FOD — Le sage / le griot",
+    meaning: "Le sage (aussi force)",
+    excerpt: "FOD — Le sage (aussi force)",
     description:
       "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti.",
   },
@@ -99,6 +99,59 @@ export const castCharacterProfiles: CharacterProfile[] = [
 export const characterProfilesBySlug = Object.fromEntries(
   castCharacterProfiles.map((p) => [p.slug, p])
 ) as Record<string, CharacterProfile>;
+
+/** Variantes de nom → slug (lookup glossaire). */
+const NAME_ALIASES: Record<string, string> = {
+  "gue am": "gue-am",
+  "gé am": "gue-am",
+  "ge am": "gue-am",
+  gueam: "gue-am",
+  jant: "jant",
+  miik: "miik",
+  djaalan: "djalann",
+  diaalan: "djalann",
+  djalann: "djalann",
+  panda: "panda",
+  diaak: "diaak",
+  yaranka: "yaranka",
+  racine: "racine",
+  sukoh: "sukox",
+  sukox: "sukox",
+  mossane: "mossane",
+  fod: "fod",
+};
+
+function normalizeGlossaryKey(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ");
+}
+
+/** Résout un nom, slug ou variante vers le profil casting. */
+export function resolveCharacterGlossaryTerm(
+  term: string
+): CharacterProfile | undefined {
+  const raw = term.trim();
+  if (!raw) return undefined;
+
+  const bySlug = characterProfilesBySlug[raw.toLowerCase()];
+  if (bySlug) return bySlug;
+
+  const key = normalizeGlossaryKey(raw);
+  const aliasSlug = NAME_ALIASES[key] ?? NAME_ALIASES[key.replace(/\s/g, "")];
+  if (aliasSlug) return characterProfilesBySlug[aliasSlug];
+
+  return castCharacterProfiles.find((p) => normalizeGlossaryKey(p.name) === key);
+}
+
+/** Signification française d’un archétype, ou null si inconnu. */
+export function getArchetypeMeaning(term: string): string | null {
+  return resolveCharacterGlossaryTerm(term)?.meaning ?? null;
+}
 
 /** Bande défilante 1 — noms du casting */
 export const homeMarqueeNames = castCharacterProfiles.map((p) => p.name);

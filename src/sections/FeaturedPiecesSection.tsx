@@ -4,6 +4,7 @@ import { shopProducts, formatPriceXof } from "@/content/shop";
 import { getChapterById } from "@/content/collectionCatalog";
 import { useCmsText } from "@/context/CmsContext";
 import { MediaImage } from "@/components/ui/MediaImage";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
 
 export function FeaturedPiecesSection() {
   const items = shopProducts.slice(0, 3);
@@ -71,7 +72,7 @@ export function FeaturedPiecesSection() {
                   to={`/collection/${chapter.slug}/${p.characterSlug}`}
                   className="featured-card__character"
                 >
-                  {p.characterName} · voir l’archétype
+                  <GlossedTerm term={p.characterName} /> · voir l’archétype
                 </Link>
               ) : null}
             </li>

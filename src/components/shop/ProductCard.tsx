@@ -10,6 +10,7 @@ import {
   ProductVariationSelect,
   useProductVariation,
 } from "@/components/shop/ProductVariationSelect";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
 
 type Props = {
   product: ShopProduct;
@@ -91,7 +92,7 @@ export function ProductCard({ product, variant = "default" }: Props) {
         <div className="product-card-shop__body">
           {isCatalog ? (
             <p className="product-card-shop__meta">
-              {product.characterName}
+              <GlossedTerm term={product.characterName} />
               <span className="product-card-shop__meta-sep" aria-hidden="true">
                 ·
               </span>

@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useId, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent } from "react";
 import { Link } from "react-router-dom";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { getArchetypeRoster } from "@/content/characterArchetypeRoster";
 import { publicUrl } from "@/lib/publicUrl";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
+import { CharacterTurntable } from "@/components/collection/CharacterTurntable";
 const roster = getArchetypeRoster();
 
 const ATTRS = [
@@ -56,12 +58,11 @@ function slotOffset(index: number, selected: number, count: number): number {
   return offset;
 }
 
-/** Position en arc sur la plateforme — fidèle au carrousel du prototype */
-function slotArc(offset: number) {
+/** Position en arc sur la plateforme — rayon adapté à la largeur viewport */
+function slotArc(offset: number, radiusX: number) {
   const abs = Math.abs(offset);
   const isCenter = offset === 0;
   const angleRad = (offset * 24 * Math.PI) / 180;
-  const radiusX = 320;
   const lift = (Math.cos(angleRad) - 1) * 22;
 
   return {
@@ -72,13 +73,30 @@ function slotArc(offset: number) {
   };
 }
 
+function arcRadiusForViewport(width: number): number {
+  if (width <= 640) return 0;
+  if (width <= 900) return Math.min(220, Math.max(140, width * 0.28));
+  if (width <= 1200) return Math.min(280, width * 0.26);
+  return 320;
+}
+
 export function CharacterRosterSection() {
   const titleId = useId();
   const reduced = useReducedMotion();
   const [selected, setSelected] = useState(0);
   const [autoPaused, setAutoPaused] = useState(false);
+  const [arcRadius, setArcRadius] = useState(() =>
+    typeof window !== "undefined" ? arcRadiusForViewport(window.innerWidth) : 320
+  );
   const dragRef = useRef({ startX: 0, active: false });
   const count = roster.length;
+
+  useEffect(() => {
+    const onResize = () => setArcRadius(arcRadiusForViewport(window.innerWidth));
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const select = useCallback(
     (index: number) => {
@@ -112,6 +130,7 @@ export function CharacterRosterSection() {
   }, [autoPaused, count, reduced]);
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest(".archetype-screen__pivot")) return;
     setAutoPaused(true);
     dragRef.current = { startX: e.clientX, active: true };
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -122,6 +141,20 @@ export function CharacterRosterSection() {
     const delta = e.clientX - dragRef.current.startX;
     if (Math.abs(delta) > 40) select(selected + (delta > 0 ? -1 : 1));
     dragRef.current.active = false;
+  };
+
+  const stepPrev = (e: MouseEvent | PointerEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setAutoPaused(true);
+    select(selected - 1);
+  };
+
+  const stepNext = (e: MouseEvent | PointerEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setAutoPaused(true);
+    select(selected + 1);
   };
 
   if (count === 0) return null;
@@ -166,38 +199,39 @@ export function CharacterRosterSection() {
               <div className="archetype-screen__dais-inner">
                 <span className="archetype-screen__dais-strip archetype-screen__dais-strip--inner" />
               </div>
-              <div className="archetype-screen__dais-pivot-slot">
-                <div className="archetype-screen__pivot">
-                  <button
-                    type="button"
-                    className="archetype-screen__pivot-btn"
-                    onClick={() => select(selected - 1)}
-                    tabIndex={-1}
-                    aria-hidden="true"
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
-                    </svg>
-                  </button>
-                  <span className="archetype-screen__pivot-mouse" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">
-                      <rect x="8" y="3" width="8" height="14" rx="4" fill="none" stroke="currentColor" strokeWidth="1.4" />
-                      <path d="M12 7v3" stroke="currentColor" strokeWidth="1.4" />
-                    </svg>
-                  </span>
-                  <span className="archetype-screen__pivot-label">Faites glisser pour pivoter</span>
-                  <button
-                    type="button"
-                    className="archetype-screen__pivot-btn"
-                    onClick={() => select(selected + 1)}
-                    tabIndex={-1}
-                    aria-hidden="true"
-                  >
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
-                    </svg>
-                  </button>
-                </div>
+            </div>
+
+            <div className="archetype-screen__pivot-bar">
+              <div className="archetype-screen__pivot">
+                <button
+                  type="button"
+                  className="archetype-screen__pivot-btn"
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={stepPrev}
+                  aria-label="Personnage précédent"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                  </svg>
+                </button>
+                <span className="archetype-screen__pivot-mouse" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <rect x="8" y="3" width="8" height="14" rx="4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+                    <path d="M12 7v3" stroke="currentColor" strokeWidth="1.4" />
+                  </svg>
+                </span>
+                <span className="archetype-screen__pivot-label">Faites glisser pour pivoter</span>
+                <button
+                  type="button"
+                  className="archetype-screen__pivot-btn"
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={stepNext}
+                  aria-label="Personnage suivant"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                  </svg>
+                </button>
               </div>
             </div>
 
@@ -208,7 +242,7 @@ export function CharacterRosterSection() {
                 const abs = Math.abs(offset);
                 if (abs > 2) return null;
 
-                const arc = slotArc(offset);
+                const arc = slotArc(offset, arcRadius);
                 const style = {
                   "--slot-x": arc.x,
                   "--slot-y": arc.y,
@@ -232,20 +266,32 @@ export function CharacterRosterSection() {
                         <div
                           className={`archetype-screen__figure-model-stage${isCenter ? " is-center" : ""}`}
                         >
-                          <img
-                            src={publicUrl(entry.coverPath)}
-                            alt={isCenter ? `Modèle 3D — ${entry.name}` : ""}
-                            className="archetype-screen__figure-model"
-                            loading={isCenter ? "eager" : "lazy"}
-                            decoding="async"
-                            draggable={false}
-                          />
+                          {isCenter ? (
+                            <CharacterTurntable
+                              key={entry.clipId}
+                              framePath={entry.framePath}
+                              frameCount={entry.frameCount}
+                              name={entry.name}
+                              className="archetype-screen__figure-model"
+                            />
+                          ) : (
+                            <img
+                              src={publicUrl(entry.coverPath)}
+                              alt=""
+                              className="archetype-screen__figure-model"
+                              loading="lazy"
+                              decoding="async"
+                              draggable={false}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
                     <div className="archetype-screen__figure-pedestal">
                       <span className="archetype-screen__figure-ring" />
-                      <span className="archetype-screen__figure-plate">{entry.name}</span>
+                      <span className="archetype-screen__figure-plate">
+                        <GlossedTerm term={entry.name} />
+                      </span>
                     </div>
                   </button>
                 );
@@ -285,7 +331,9 @@ export function CharacterRosterSection() {
             <span>/ Personnage</span>
           </p>
 
-          <h2 className="archetype-screen__panel-name">{active.name}</h2>
+          <h2 className="archetype-screen__panel-name">
+            <GlossedTerm term={active.name} focusable />
+          </h2>
           <p className="archetype-screen__panel-role">{active.meta.role}</p>
           <p className="archetype-screen__panel-bio">{active.description}</p>
 

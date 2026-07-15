@@ -14,6 +14,7 @@ import { formatPriceXof, type ShopProduct } from "@/content/shop";
 import { copy } from "@/content/copy";
 import { useCmsText } from "@/context/CmsContext";
 import { MediaImage } from "@/components/ui/MediaImage";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
 import type { Chapter } from "@/content/chapters";
 
 const narrativeById = new Map(narrativeChapters.map((n) => [n.id, n]));
@@ -121,7 +122,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                     {heroProduct ? (
                       <Link to={`/boutique/${heroProduct.slug}`} className="chapter-panel__cta">
                         <span>
-                          Voir une pièce — {heroChar?.name} · {formatPriceXof(heroProduct.priceXof)} FCFA
+                          Voir une pièce —{" "}
+                          {heroChar ? <GlossedTerm term={heroChar.name} /> : null} ·{" "}
+                          {formatPriceXof(heroProduct.priceXof)} FCFA
                         </span>
                         <span className="chapter-panel__cta-arrow" aria-hidden="true">→</span>
                       </Link>
@@ -145,7 +148,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                             decoding="async"
                           />
                           <div className="chapter-panel__poster-bar" aria-hidden="true">
-                            <span className="chapter-panel__poster-name">{heroChar.name}</span>
+                            <span className="chapter-panel__poster-name">
+                              <GlossedTerm term={heroChar.name} />
+                            </span>
                             <span className="chapter-panel__poster-role">{c.name}</span>
                           </div>
                           <div className="chapter-panel__img-overlay">
@@ -171,7 +176,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                             decoding="async"
                           />
                           <div className="chapter-panel__poster-bar" aria-hidden="true">
-                            <span className="chapter-panel__poster-name">{heroChar?.name ?? c.name}</span>
+                            <span className="chapter-panel__poster-name">
+                              {heroChar ? <GlossedTerm term={heroChar.name} /> : c.name}
+                            </span>
                             <span className="chapter-panel__poster-role">{heroChar ? c.name : c.role}</span>
                           </div>
                         </>
@@ -205,7 +212,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                             />
                             <div className="chapter-panel__poster-bar" aria-hidden="true">
                               <span className="chapter-panel__poster-name">{detailProduct.name}</span>
-                              <span className="chapter-panel__poster-role">{detailChar?.name ?? c.name}</span>
+                              <span className="chapter-panel__poster-role">
+                                {detailChar ? <GlossedTerm term={detailChar.name} /> : c.name}
+                              </span>
                             </div>
                           </Link>
                         ) : detailChar ? (
@@ -222,7 +231,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                               decoding="async"
                             />
                             <div className="chapter-panel__poster-bar" aria-hidden="true">
-                              <span className="chapter-panel__poster-name">{detailChar.name}</span>
+                              <span className="chapter-panel__poster-name">
+                                <GlossedTerm term={detailChar.name} />
+                              </span>
                               <span className="chapter-panel__poster-role">{c.name}</span>
                             </div>
                           </Link>

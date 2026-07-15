@@ -15,6 +15,7 @@ import {
 import { copy } from "@/content/copy";
 import { CommerceJourney } from "@/components/shop/CommerceJourney";
 import { TrustStrip } from "@/components/shop/TrustStrip";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
 
 const CHAPTER_STRIP_LIMIT = 16;
 
@@ -119,7 +120,9 @@ export function ChapterHubPage() {
                     </Link>
                     <div className="cast-card__body">
                       <h3>
-                        <Link to={`/collection/${chapter.slug}/${character.slug}`}>{character.name}</Link>
+                        <Link to={`/collection/${chapter.slug}/${character.slug}`}>
+                          <GlossedTerm term={character.name} />
+                        </Link>
                       </h3>
                       {priceRange ? (
                         <p className="cast-card__price">{formatPriceRange(priceRange.min, priceRange.max)}</p>

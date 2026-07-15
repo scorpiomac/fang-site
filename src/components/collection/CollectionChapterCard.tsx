@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { CollectionChapter, CollectionCharacter } from "@/content/collectionCatalog";
 import { formatPriceXof } from "@/content/shop";
 import { copy } from "@/content/copy";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
 
 type HighlightIcon = "star" | "cube" | "users" | "shield";
 
@@ -123,7 +124,9 @@ export function CollectionChapterCard({
                     title={member.name}
                   >
                     <img src={member.cover} alt="" loading="lazy" />
-                    <span>{member.name}</span>
+                    <span>
+                      <GlossedTerm term={member.name} />
+                    </span>
                   </Link>
                 </li>
               ))}
