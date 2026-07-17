@@ -89,6 +89,7 @@
 
 html {
   scroll-behavior: auto;
+  overscroll-behavior-y: none;
 }
 
 html.lenis,
@@ -107,6 +108,7 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  overscroll-behavior-y: none;
 }
 
 #root {
@@ -1539,10 +1541,10 @@ img {
 
 .chapters__pin {
   position: relative;
-  height: 100dvh;
+  height: min(100dvh, 52rem);
   min-height: 36rem;
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr auto auto;
   overflow: hidden;
   isolation: isolate;
   background: #0d0b09;
@@ -1560,9 +1562,64 @@ img {
 
 .chapters__track {
   display: flex;
+  width: 100%;
   height: 100%;
   min-height: 0;
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapters__track {
+    transition: none;
+  }
+}
+
+.chapters--defile .chapter-panel {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+}
+
+.chapters__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 0.65rem var(--space-md) 0.35rem;
+  z-index: 2;
+}
+
+.chapters__nav-btn {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 166, 107, 0.35);
+  color: #c9a66b;
+  background: rgba(8, 7, 6, 0.7);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.chapters__nav-btn:hover {
+  background: rgba(201, 166, 107, 0.12);
+  border-color: #c9a66b;
+  color: #e8c88a;
+}
+
+.chapters__nav-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.chapters__defile-label {
+  margin: 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(201, 166, 107, 0.75);
 }
 
 .chapter-panel {
@@ -2156,7 +2213,7 @@ img {
     var(--chapters-pad-start);
   background: #0d0b09;
   border-top: 1px solid rgba(242, 235, 227, 0.06);
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .chapters__progress-track {
@@ -2172,6 +2229,7 @@ img {
   background: var(--color-copper);
   transform-origin: left center;
   transform: scaleX(0);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 1;
 }
 
@@ -2192,22 +2250,31 @@ img {
 .chapters__progress-list li {
   position: relative;
   z-index: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.chapters__progress-list li > button {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 0.28rem;
-  min-width: 0;
-  text-align: center;
-  pointer-events: auto;
+  width: 100%;
+  padding: 0.15rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
   transition: color 0.4s var(--ease-out);
 }
 
-.chapters__progress-list li.is-active {
+.chapters__progress-list li.is-active,
+.chapters__progress-list li.is-active > button {
   color: var(--color-copper);
 }
 
-.chapters__progress-list li > span {
+.chapters__progress-list li > button > span:first-child {
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -2225,7 +2292,7 @@ img {
     background 0.35s var(--ease-out);
 }
 
-.chapters__progress-list li.is-active > span {
+.chapters__progress-list li.is-active > button > span:first-child {
   border-color: var(--color-copper);
   color: var(--color-copper);
   background: rgba(201, 166, 107, 0.12);
@@ -2306,31 +2373,34 @@ img {
   .chapters__pin {
     height: auto;
     min-height: 0;
+    grid-template-rows: auto auto auto;
   }
 
   .chapters__viewport {
-    overflow: visible;
+    overflow: hidden;
+    min-height: clamp(520px, 78vh, 720px);
   }
 
   .chapters__track {
-    flex-direction: column;
-    height: auto;
+    flex-direction: row;
+    height: 100%;
   }
 
+  .chapters--defile .chapter-panel,
   .chapter-panel {
-    flex: 0 0 auto;
+    flex: 0 0 100%;
     width: 100%;
     height: auto;
-    min-height: 0;
-    overflow: visible;
+    min-height: clamp(520px, 78vh, 720px);
+    overflow: hidden;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
-    gap: var(--space-lg);
-    padding: 4.5rem var(--space-md) 1.5rem;
+    gap: var(--space-md);
+    padding: 3.5rem var(--space-md) 1rem;
   }
 
   .chapter-panel__head {
-    padding-top: 2.5rem;
+    padding-top: 2rem;
     padding-left: 0;
     align-self: start;
   }
@@ -2347,14 +2417,14 @@ img {
   .chapter-panel__hero {
     grid-column: 1 / -1;
     grid-row: auto;
-    min-height: clamp(240px, 52vw, 360px);
+    min-height: clamp(200px, 48vw, 320px);
     aspect-ratio: 4 / 5;
   }
 
   .chapter-panel__detail {
     grid-column: auto;
     grid-row: auto;
-    min-height: clamp(140px, 38vw, 200px);
+    min-height: clamp(120px, 34vw, 180px);
     aspect-ratio: 1;
   }
 
@@ -2372,6 +2442,12 @@ img {
   }
 
   .chapters__progress {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .chapters__progress-name,
+  .chapters__progress-sub {
     display: none;
   }
 }

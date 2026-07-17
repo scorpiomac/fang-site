@@ -6,13 +6,33 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function prefersNativeScroll(): boolean {
+  if (typeof window === "undefined") return true;
+  // Sur tactile / tablette, Lenis + barre d’URL provoquent des sauts / faux « reload ».
+  return (
+    window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+    window.matchMedia("(max-width: 900px)").matches
+  );
+}
+
 export function useLenisGsap(active: boolean) {
   const reduced = useReducedMotion();
 
   useEffect(() => {
     if (!active || reduced) return;
 
-    const lenis = new Lenis({ autoRaf: false });
+    if (prefersNativeScroll()) {
+      document.documentElement.classList.add("scroll-native");
+      return () => {
+        document.documentElement.classList.remove("scroll-native");
+      };
+    }
+
+    const lenis = new Lenis({
+      autoRaf: false,
+      // Évite le rubber-band qui déclenche le pull-to-refresh.
+      syncTouch: false,
+    });
     const onScroll = () => {
       ScrollTrigger.update();
     };
@@ -44,7 +64,14 @@ export function useLenisGsap(active: boolean) {
       pinType: document.documentElement.style.transform ? "transform" : "fixed",
     });
 
-    const onResize = () => ScrollTrigger.refresh();
+    // Ne rafraîchir que si la largeur change (pas quand la barre d’URL mobile monte/descend).
+    let lastWidth = window.innerWidth;
+    const onResize = () => {
+      const w = window.innerWidth;
+      if (Math.abs(w - lastWidth) < 2) return;
+      lastWidth = w;
+      ScrollTrigger.refresh();
+    };
     window.addEventListener("resize", onResize);
     ScrollTrigger.refresh();
 
@@ -52,11 +79,8 @@ export function useLenisGsap(active: boolean) {
       window.removeEventListener("resize", onResize);
       gsap.ticker.remove(ticker);
       lenis.off("scroll", onScroll);
-      lenis.scrollTo(0, { immediate: true });
       lenis.destroy();
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
+      // Ne pas forcer scrollTop = 0 : ça donne l’impression d’un rechargement.
       ScrollTrigger.scrollerProxy(document.documentElement, {});
       ScrollTrigger.refresh();
     };

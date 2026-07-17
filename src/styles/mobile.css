@@ -1,5 +1,12 @@
 /* ───── Mobile & touch refinements ───── */
 
+/* Empêche le pull-to-refresh / rebond qui « recharge » la page */
+html,
+body,
+#root {
+  overscroll-behavior-y: none;
+}
+
 /* Overlays chapitres / produit visibles sans hover (tactile) */
 @media (hover: none) and (pointer: coarse) {
   .chapter-panel__img-link--hero .chapter-panel__img-overlay,

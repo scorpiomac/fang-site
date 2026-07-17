@@ -15,7 +15,6 @@ import { useLenisGsap } from "@/hooks/useLenisGsap";
 import { useSectionSceneBindings } from "@/hooks/useSectionSceneBindings";
 import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { chapters } from "@/content/chapters";
 import { Seo } from "@/components/Seo";
 import { useSiteSettings } from "@/context/siteSettingsContext";
 
@@ -39,7 +38,7 @@ export function HomePage() {
 
   const webgl = useWebGLSupport();
   const reduced = useReducedMotion();
-  const { setPhase, scrollRef, phase } = useScenePhase();
+  const { setPhase, phase } = useScenePhase();
 
   useLenisGsap(loaded && !reduced);
   useSectionSceneBindings(
@@ -86,76 +85,6 @@ export function HomePage() {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 901px)", () => {
-        const pin = document.querySelector<HTMLElement>("[data-chapters-pin]");
-        const track = document.querySelector<HTMLElement>("[data-chapters-track]");
-        const progress = document.querySelector<HTMLElement>("[data-chapters-progress]");
-        const dots = gsap.utils.toArray<HTMLElement>("[data-chapter-dot]");
-
-        if (pin && track) {
-          const panelCount = chapters.length;
-          const viewport = pin.querySelector<HTMLElement>(".chapters__viewport");
-          const distance = () =>
-            track.scrollWidth - (viewport?.clientWidth ?? window.innerWidth);
-
-          const horizontalTween = gsap.to(track, {
-            x: () => -distance(),
-            ease: "none",
-            scrollTrigger: {
-              trigger: pin,
-              pin: true,
-              start: "top top",
-              end: () => `+=${distance()}`,
-              scrub: 0.6,
-              invalidateOnRefresh: true,
-              onUpdate: (self) => {
-                const p = self.progress;
-                if (progress) progress.style.transform = `scaleX(${p})`;
-                const idx = Math.min(panelCount - 1, Math.floor(p * panelCount));
-                scrollRef.current.chapterIndex = idx;
-                scrollRef.current.chapter = p;
-                dots.forEach((d, i) => {
-                  d.classList.toggle("is-active", i === idx);
-                });
-              },
-            },
-          });
-
-          gsap.utils.toArray<HTMLElement>(".chapter-panel").forEach((panel) => {
-            const head = panel.querySelector(".chapter-panel__head");
-            const figs = panel.querySelectorAll<HTMLElement>("figure");
-            if (head) {
-              gsap.from(head, {
-                opacity: 0,
-                y: 40,
-                duration: 0.9,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: panel,
-                  containerAnimation: horizontalTween,
-                  start: "left center",
-                  toggleActions: "play none none reverse",
-                },
-              });
-            }
-            figs.forEach((fig, i) => {
-              gsap.from(fig, {
-                opacity: 0,
-                y: 30,
-                scale: 0.96,
-                duration: 1,
-                delay: 0.05 * i,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: panel,
-                  containerAnimation: horizontalTween,
-                  start: "left center+=10%",
-                  toggleActions: "play none none reverse",
-                },
-              });
-            });
-          });
-        }
-
         const creatorEl = creatorRef.current;
         if (creatorEl) {
           gsap.from(creatorEl.querySelectorAll(".creator__paragraphs > p, .pillar"), {
@@ -169,44 +98,47 @@ export function HomePage() {
               toggleActions: "play none none reverse",
             },
           });
-        gsap.from(".creator__portrait-frame", {
-          opacity: 0,
-          scale: 0.9,
-          ease: "power3.out",
-          duration: 1.2,
-          scrollTrigger: {
-            trigger: creatorEl,
-            start: "top 75%",
-          },
-        });
+          gsap.from(".creator__portrait-frame", {
+            opacity: 0,
+            scale: 0.9,
+            ease: "power3.out",
+            duration: 1.2,
+            scrollTrigger: {
+              trigger: creatorEl,
+              start: "top 75%",
+            },
+          });
         }
 
         const manifestEl = manifestRef.current;
         if (manifestEl) {
-          gsap.from(manifestEl.querySelectorAll(".manifest__title, .manifest__body, .manifest__signature"), {
-            opacity: 0,
-            y: 26,
-            stagger: 0.12,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: manifestEl,
-              start: "top 70%",
-            },
-          });
+          gsap.from(
+            manifestEl.querySelectorAll(".manifest__title, .manifest__body, .manifest__signature"),
+            {
+              opacity: 0,
+              y: 26,
+              stagger: 0.12,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: manifestEl,
+                start: "top 70%",
+              },
+            }
+          );
         }
       });
 
-      mm.add("(max-width: 768px)", () => {
-        gsap.utils.toArray<HTMLElement>(".chapter-panel").forEach((el, i) => {
-          gsap.from(el, {
+      mm.add("(max-width: 900px)", () => {
+        const pin = document.querySelector<HTMLElement>("[data-chapters-pin]");
+        if (pin) {
+          gsap.from(pin, {
             opacity: 0,
-            y: 26,
+            y: 24,
             duration: 0.8,
-            delay: i * 0.04,
             ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 90%" },
+            scrollTrigger: { trigger: pin, start: "top 88%" },
           });
-        });
+        }
       });
     }, rootRef);
 
