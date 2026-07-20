@@ -33,9 +33,14 @@ body,
 /* Hero */
 @media (max-width: 768px) {
   .hero {
-    padding-top: clamp(6.25rem, 16vw, 7.5rem);
+    min-height: 0;
+    height: auto;
+    padding-top: calc(var(--header-offset, 4.75rem) + 0.35rem);
+    padding-bottom: 1.1rem;
     padding-left: var(--space-md);
     padding-right: var(--space-md);
+    grid-template-rows: auto auto auto;
+    align-content: start;
   }
 
   .hero__top {
@@ -44,6 +49,12 @@ body,
     gap: 0.35rem;
     letter-spacing: 0.22em;
     font-size: 0.62rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero__content {
+    align-self: start;
+    margin: 0;
   }
 
   .hero__sign {
@@ -53,6 +64,18 @@ body,
   .hero__ornament {
     right: var(--space-md);
     top: clamp(5.5rem, 14vw, 7rem);
+  }
+
+  .hero__wolof {
+    margin-bottom: 0.75rem;
+  }
+
+  .hero__title {
+    margin-bottom: 0.75rem;
+  }
+
+  .hero__subtitle {
+    margin-bottom: 1rem;
   }
 
   .hero__actions {
@@ -67,7 +90,19 @@ body,
 
   .hero__sub-meta {
     flex-wrap: wrap;
-    gap: 0.35rem 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .hero__scroll {
+    position: static;
+    transform: none;
+    left: auto;
+    bottom: auto;
+    margin: 1rem auto 0;
+  }
+
+  .hero__scroll-line {
+    height: 26px;
   }
 }
 
@@ -88,7 +123,8 @@ body,
 
   .shop-shell,
   .commerce-shell {
-    padding-top: clamp(6.5rem, 18vw, 7.5rem);
+    /* Le header mobile fait 2 lignes : le contenu doit démarrer dessous */
+    padding-top: calc(var(--header-offset, 4.75rem) + 0.75rem);
     padding-left: var(--space-md);
     padding-right: var(--space-md);
   }
@@ -236,6 +272,11 @@ body,
     bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px));
     right: var(--space-sm);
     z-index: 85;
+  }
+
+  /* La barre d'achat fixe occupe tout le bas : on masque le bouton son pour ne pas recouvrir le CTA */
+  body:has(.sticky-buy) .music-toggle {
+    display: none;
   }
 
   .cart-toast {

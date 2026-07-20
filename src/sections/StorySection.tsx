@@ -1,7 +1,9 @@
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useRef,
+  useState,
   type MouseEvent,
   type MutableRefObject,
 } from "react";
@@ -15,6 +17,8 @@ import {
 import { useCmsText, useCmsList } from "@/context/CmsContext";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useStorySectionMotion } from "@/hooks/useStorySectionMotion";
+
+const DEFILE_MS = 3000;
 
 function StoryIcon({ name }: { name: StoryPillarIcon }) {
   const common = {
@@ -86,7 +90,10 @@ function onCardPointerLeave(e: MouseEvent<HTMLLIElement>) {
 
 export const StorySection = forwardRef<HTMLElement>(function StorySection(_, ref) {
   const localRef = useRef(null) as MutableRefObject<HTMLElement | null>;
+  const cardsRef = useRef<HTMLOListElement>(null);
   const reduced = useReducedMotion();
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   const tagline = useCmsText("brand.tagline", copy.tagline);
   const taglineFr = useCmsText("brand.taglineFr", copy.taglineFr);
   const intro = useCmsText("home.story.intro", storyIntro);
@@ -111,6 +118,27 @@ export const StorySection = forwardRef<HTMLElement>(function StorySection(_, ref
     ...pillar,
     title: cmsTitles[i] ?? pillar.title,
   }));
+  const count = pillars.length;
+
+  // Auto-défilé horizontal (tablette / mobile) — pause au survol / focus / touch
+  useEffect(() => {
+    if (reduced || paused || count < 2) return;
+    const id = window.setInterval(() => {
+      setActive((i) => (i + 1) % count);
+    }, DEFILE_MS);
+    return () => window.clearInterval(id);
+  }, [count, paused, reduced]);
+
+  useEffect(() => {
+    const root = cardsRef.current;
+    if (!root) return;
+    // Desktop grille 5 colonnes : pas de scroll à forcer
+    if (root.scrollWidth <= root.clientWidth + 12) return;
+    const card = root.children[active] as HTMLElement | undefined;
+    if (!card) return;
+    const left = card.offsetLeft - root.offsetLeft;
+    root.scrollTo({ left, behavior: "smooth" });
+  }, [active]);
 
   return (
     <section
@@ -143,11 +171,25 @@ export const StorySection = forwardRef<HTMLElement>(function StorySection(_, ref
           <p className="story__intro">{intro}</p>
         </div>
 
-        <ol className="story__cards">
+        <ol
+          ref={cardsRef}
+          className="story__cards story__cards--defile"
+          aria-live="polite"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false);
+          }}
+          onTouchStart={() => setPaused(true)}
+          onTouchEnd={() => {
+            window.setTimeout(() => setPaused(false), 2800);
+          }}
+        >
           {pillars.map((pillar, i) => (
             <li
               key={pillar.title}
-              className="story-card"
+              className={`story-card${i === active ? " is-active" : ""}`}
               onMouseMove={onCardPointerMove}
               onMouseLeave={onCardPointerLeave}
             >

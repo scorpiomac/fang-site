@@ -20,7 +20,9 @@ export function CanvasRoot() {
   const useHero = phase === "hero" || phase === "story";
   const useGarment = phase === "chapters" || phase === "creator";
   const useQuiet = phase === "manifest" || phase === "idle";
-  const animating = phase !== "idle";
+  // En phase "hero", le canvas est masqué par la vidéo (.canvas-layer--hero-video) :
+  // inutile de rendre la scène 3D derrière, on économise le GPU.
+  const animating = phase !== "idle" && phase !== "hero";
 
   return (
     <Canvas

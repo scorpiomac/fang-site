@@ -96,7 +96,8 @@ export function ProductCard({ product, variant = "default" }: Props) {
               <span className="product-card-shop__meta-sep" aria-hidden="true">
                 ·
               </span>
-              {product.chapterLabel}
+              {/* chapterLabel = "Chapitre · Personnage" — on n'affiche que le chapitre pour éviter le doublon */}
+              {product.chapterLabel.split(" · ")[0]}
             </p>
           ) : (
             <p className="product-card-shop__kind">{product.kind}</p>

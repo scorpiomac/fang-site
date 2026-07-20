@@ -36,11 +36,11 @@ export type Character3DRosterEntry = Character3DClip & {
 
 export function frameAssetPath(clipId: string, index: number): string {
   const n = String(index + 1).padStart(2, "0");
-  return `collection/s01/_3d-renders/${clipId}/frame-${n}.png`;
+  return `collection/s01/_3d-renders/${clipId}/frame-${n}.webp`;
 }
 
 export function coverAssetPath(clipId: string): string {
-  return `collection/s01/_3d-renders/${clipId}/cover.png`;
+  return `collection/s01/_3d-renders/${clipId}/cover.webp`;
 }
 
 export function getPrimaryChapterForCharacter(characterSlug: string): {

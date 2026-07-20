@@ -389,28 +389,45 @@ img {
   white-space: nowrap;
 }
 
-@media (max-width: 1024px) {
+.site-header__burger {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .site-header {
+    padding: 0.95rem var(--space-md);
+  }
+
   .site-header__nav {
     gap: var(--space-md);
     font-size: 0.66rem;
     letter-spacing: 0.16em;
   }
-}
 
-@media (max-width: 760px) {
-  .site-header__account-label {
+  /* Tablette : icônes seules pour compte / panier, sinon ça déborde à droite */
+  .site-header__account-label,
+  .site-header__cart-label {
     display: none;
+  }
+
+  .site-header__account {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .site-header__cart {
+    padding: 0.5rem 0.65rem;
   }
 }
 
 @media (max-width: 760px) {
   :root {
-    --header-offset: 7.25rem;
+    /* Header 1 ligne (logo + outils + burger) */
+    --header-offset: 4.75rem;
   }
 
   .site-header {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 0.65rem;
     padding: 0.75rem var(--space-md);
@@ -424,21 +441,105 @@ img {
   .site-header__tools {
     flex: 0 0 auto;
     margin-left: auto;
+    gap: 0.45rem;
   }
 
+  /* Menu mobile : panneau plein écran sous le header */
   .site-header__nav {
-    flex: 1 1 100%;
-    order: 3;
+    position: fixed;
+    top: var(--header-offset);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 130;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: flex-start;
-    gap: 0.85rem;
-    overflow-x: auto;
-    padding-bottom: 0.2rem;
+    gap: 0;
+    padding: 1.25rem var(--space-md) 2rem;
+    background: rgba(10, 8, 6, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.35s var(--ease-out), opacity 0.35s var(--ease-out),
+      visibility 0.35s;
   }
 
-  .site-header__nav::-webkit-scrollbar {
+  .site-header--menu-open .site-header__nav {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .site-header__nav .site-header__link {
+    display: block;
+    padding: 1.05rem 0.25rem;
+    border-bottom: 1px solid rgba(242, 235, 227, 0.08);
+    font-size: inherit;
+  }
+
+  .site-header__nav .site-header__link::after {
     display: none;
+  }
+
+  .site-header__nav .site-header__link.is-active {
+    color: var(--color-copper);
+  }
+
+  .site-header__burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid rgba(242, 235, 227, 0.22);
+    border-radius: 999px;
+    background: rgba(13, 11, 9, 0.35);
+    color: var(--color-ivory);
+    cursor: pointer;
+  }
+
+  .site-header__burger span {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+  }
+
+  .site-header__burger.is-open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+
+  .site-header__burger.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .site-header__burger.is-open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  .site-header__scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 115;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
   }
 
   .site-header__cart-label {
@@ -447,6 +548,13 @@ img {
 
   .site-header__cart {
     padding: 0.5rem 0.65rem;
+  }
+}
+
+@media (min-width: 761px) {
+  .site-header__burger,
+  .site-header__scrim {
+    display: none !important;
   }
 }
 
@@ -1008,6 +1116,82 @@ img {
   color: var(--color-sand);
 }
 
+/*
+ * Tablettes portrait (ex. Galaxy Tab S7) :
+ * supprimer les grands vides haut/bas — texte juste sous le header.
+ */
+@media (min-width: 700px) and (max-width: 1100px) and (orientation: portrait) {
+  .hero {
+    min-height: 0;
+    height: auto;
+    padding-top: calc(var(--header-offset, 4.75rem) + 0.35rem);
+    padding-bottom: 1.25rem;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+    grid-template-rows: auto auto auto;
+    align-content: start;
+  }
+
+  .hero__top {
+    margin-bottom: 0.85rem;
+  }
+
+  .hero__content {
+    align-self: start;
+    max-width: min(36rem, 92%);
+    margin: 0;
+  }
+
+  .hero__video {
+    object-position: center 22%;
+  }
+
+  .hero__veil {
+    background: linear-gradient(
+      180deg,
+      rgba(13, 11, 9, 0.45) 0%,
+      rgba(13, 11, 9, 0.28) 40%,
+      rgba(13, 11, 9, 0.55) 75%,
+      rgba(13, 11, 9, 0.78) 100%
+    );
+  }
+
+  .hero__wolof {
+    margin-bottom: 0.85rem;
+  }
+
+  .hero__title {
+    font-size: clamp(2.45rem, 5.8vw, 3.5rem);
+    margin-bottom: 0.85rem;
+  }
+
+  .hero__subtitle {
+    max-width: 32rem;
+    font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+    margin-bottom: 1.1rem;
+  }
+
+  .hero__actions {
+    gap: 0.65rem;
+  }
+
+  .hero__sub-meta {
+    margin-top: 0.85rem;
+  }
+
+  .hero__scroll {
+    position: static;
+    transform: none;
+    left: auto;
+    bottom: auto;
+    margin: 1.1rem auto 0;
+  }
+
+  .hero__scroll-line {
+    height: 28px;
+  }
+}
+
 /* ───── STORY / Philosophie ───── */
 .story {
   position: relative;
@@ -1384,9 +1568,51 @@ img {
   right: 1.1rem;
 }
 
-@media (max-width: 1024px) {
+/* Tablette : défilé horizontal des cartes philosophie */
+@media (min-width: 769px) and (max-width: 1100px) {
   .story__cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
+    grid-template-columns: none;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--space-lg);
+    scroll-behavior: smooth;
+    padding: 0.25rem 0.15rem 1rem;
+    margin-inline: calc(-1 * var(--space-lg));
+    padding-inline: var(--space-lg);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 166, 107, 0.45) transparent;
+  }
+
+  .story__cards::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .story__cards::-webkit-scrollbar-thumb {
+    background: rgba(201, 166, 107, 0.4);
+    border-radius: 999px;
+  }
+
+  .story-card {
+    flex: 0 0 min(58vw, 300px);
+    max-width: 300px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .story-card__num {
+    grid-column: auto;
+    width: auto;
+  }
+
+  .story-card__icon {
+    grid-row: auto;
   }
 }
 
@@ -1402,28 +1628,42 @@ img {
     border-top: 1px solid rgba(201, 166, 107, 0.2);
   }
 
+  /* Mobile : même défilé horizontal */
   .story__cards {
-    grid-template-columns: 1fr;
+    display: flex;
+    grid-template-columns: none;
     gap: 0.85rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--space-md);
+    scroll-behavior: smooth;
+    margin-inline: calc(-1 * var(--space-md));
+    padding: 0.15rem var(--space-md) 0.85rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 166, 107, 0.4) transparent;
   }
 
   .story-card {
-    display: grid;
-    grid-template-columns: 3.25rem 1fr;
-    grid-template-rows: auto auto auto;
-    align-items: start;
-    text-align: left;
-    gap: 0.5rem 1rem;
+    flex: 0 0 min(78vw, 280px);
+    max-width: 280px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.85rem;
   }
 
   .story-card__num {
-    grid-column: 1 / -1;
+    grid-column: auto;
     width: auto;
   }
 
   .story-card__icon {
-    grid-row: 2 / span 2;
-    align-self: start;
+    grid-row: auto;
+    align-self: center;
   }
 
   .story-card__title,
@@ -2376,14 +2616,17 @@ img {
     grid-template-rows: auto auto auto;
   }
 
+  /* container-type: size fige la hauteur → on laisse le contenu dicter la hauteur sur mobile/tablette */
   .chapters__viewport {
     overflow: hidden;
-    min-height: clamp(520px, 78vh, 720px);
+    min-height: 0;
+    container-type: inline-size;
   }
 
   .chapters__track {
     flex-direction: row;
-    height: 100%;
+    height: auto;
+    align-items: stretch;
   }
 
   .chapters--defile .chapter-panel,
@@ -2399,10 +2642,14 @@ img {
     padding: 3.5rem var(--space-md) 1rem;
   }
 
+  /* Laisse la colonne texte grandir : sinon le CTA « Voir une pièce » est coupé */
   .chapter-panel__head {
     padding-top: 2rem;
     padding-left: 0;
     align-self: start;
+    max-height: none;
+    overflow: visible;
+    max-width: none;
   }
 
   .chapter-panel__gallery {
@@ -2419,6 +2666,8 @@ img {
     grid-row: auto;
     min-height: clamp(200px, 48vw, 320px);
     aspect-ratio: 4 / 5;
+    /* Tablette : sans plafond, l'image 4/5 pleine largeur devient démesurée */
+    max-height: clamp(340px, 62vh, 620px);
   }
 
   .chapter-panel__detail {
@@ -2448,6 +2697,17 @@ img {
 
   .chapters__progress-name,
   .chapters__progress-sub {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .chapter-panel__cta {
+    width: 100%;
+  }
+
+  /* Évite la flèche orpheline sur sa propre ligne quand le texte passe sur 2 lignes */
+  .chapter-panel__cta-arrow {
     display: none;
   }
 }
@@ -11427,7 +11687,8 @@ img {
 /* ───── Pages statiques (CGV, FAQ, etc.) + Contact ───── */
 .static-page {
   min-height: 70vh;
-  padding: clamp(4rem, 10vw, 6rem) 1.5rem 4rem;
+  /* Toujours au moins la hauteur du header fixe, sinon le titre passe dessous */
+  padding: max(clamp(4rem, 10vw, 6rem), calc(var(--header-offset, 5rem) + 1rem)) 1.5rem 4rem;
   background: var(--bg, #0c0c0d);
   color: var(--fg, #f2ebe3);
 }

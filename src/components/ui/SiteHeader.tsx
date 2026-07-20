@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { copy } from "@/content/copy";
 import { publicUrl } from "@/lib/publicUrl";
@@ -14,6 +14,8 @@ const primaryNav = [
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuId = useId();
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isShop = location.pathname.startsWith("/boutique");
@@ -29,6 +31,21 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Ferme le menu au changement de page
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  // Bloque le scroll fond quand le menu est ouvert
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
+
   function isNavActive(to: string): boolean {
     if (to === "/") return isHome;
     if (to === "/boutique") return isShop;
@@ -38,13 +55,15 @@ export function SiteHeader() {
   }
 
   return (
-    <header className={`site-header ${scrolled ? "site-header--scrolled" : ""}`}>
+    <header
+      className={`site-header ${scrolled ? "site-header--scrolled" : ""}${menuOpen ? " site-header--menu-open" : ""}`}
+    >
       <Link to="/" className="site-header__brand" aria-label="FANG — Accueil">
         <img src={publicUrl("logo/fang-logo-1.png")} alt="" aria-hidden="true" />
         <span>{copy.brand}</span>
       </Link>
 
-      <nav className="site-header__nav" aria-label="Navigation principale">
+      <nav className="site-header__nav" aria-label="Navigation principale" id={menuId}>
         {primaryNav.map((item) => {
           const active = isNavActive(item.to);
           return (
@@ -52,6 +71,7 @@ export function SiteHeader() {
               key={item.id}
               to={item.to}
               className={`site-header__link ${item.to === "/boutique" ? "site-header__link--shop" : ""} ${active ? "is-active" : ""}`}
+              onClick={() => setMenuOpen(false)}
             >
               {item.label}
             </Link>
@@ -100,7 +120,28 @@ export function SiteHeader() {
             <span className="site-header__cart-badge">{countItems > 99 ? "99+" : countItems}</span>
           ) : null}
         </button>
+        <button
+          type="button"
+          className={`site-header__burger${menuOpen ? " is-open" : ""}`}
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+        </button>
       </div>
+
+      {menuOpen ? (
+        <button
+          type="button"
+          className="site-header__scrim"
+          aria-label="Fermer le menu"
+          onClick={() => setMenuOpen(false)}
+        />
+      ) : null}
     </header>
   );
 }
