@@ -61,12 +61,20 @@ export function AccountAuth() {
   const onLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    const email = loginForm.email.trim().toLowerCase();
+    if (email === "admin@fang.tickets-place.net") {
+      setError(
+        "Ceci est le compte administrateur. Ouvrez /admin (Backoffice FANG), pas Mon compte."
+      );
+      return;
+    }
     setBusy(true);
     try {
       await login(loginForm.email, loginForm.password);
       goAfterAuth();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur");
+      const msg = err instanceof Error ? err.message : "Erreur";
+      setError(`${msg} — Pour le backoffice admin, allez sur /admin.`);
     } finally {
       setBusy(false);
     }

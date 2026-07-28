@@ -6,7 +6,7 @@ type Props = {
 };
 
 export function AdminAuth({ onAuthenticated }: Props) {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("admin@fang.tickets-place.net");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ export function AdminAuth({ onAuthenticated }: Props) {
     setError(null);
     setLoading(true);
     try {
-      await login(email, password);
+      await login(email.trim(), password);
       onAuthenticated();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Connexion impossible");
@@ -29,7 +29,7 @@ export function AdminAuth({ onAuthenticated }: Props) {
     <main className="admin-auth">
       <form className="admin-auth__card" onSubmit={onSubmit}>
         <h1>Backoffice FANG</h1>
-        <p>Accès réservé à l&apos;équipe atelier.</p>
+        <p>Connexion administrateur — pas l&apos;espace client boutique.</p>
         <label>
           <span>E-mail</span>
           <input
@@ -38,7 +38,7 @@ export function AdminAuth({ onAuthenticated }: Props) {
             autoComplete="username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="vous@fang.studio"
+            placeholder="admin@fang.tickets-place.net"
             required
           />
         </label>

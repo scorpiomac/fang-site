@@ -8,9 +8,7 @@ import {
   type MutableRefObject,
 } from "react";
 import {
-  copy,
   storyFooterQuote,
-  storyIntro,
   storyPillars,
   type StoryPillarIcon,
 } from "@/content/copy";
@@ -94,9 +92,6 @@ export const StorySection = forwardRef<HTMLElement>(function StorySection(_, ref
   const reduced = useReducedMotion();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const tagline = useCmsText("brand.tagline", copy.tagline);
-  const taglineFr = useCmsText("brand.taglineFr", copy.taglineFr);
-  const intro = useCmsText("home.story.intro", storyIntro);
   const footerQuote = useCmsText("home.story.footerQuote", storyFooterQuote);
   const cmsTitles = useCmsList(
     "home.story.fragments",
@@ -161,15 +156,6 @@ export const StorySection = forwardRef<HTMLElement>(function StorySection(_, ref
             <span className="story__eyebrow-line" aria-hidden="true" />
           </div>
         </header>
-
-        <div className="story__intro-grid">
-          <h2 className="story__title">
-            <span className="story__title-accent">{tagline}</span>
-            <span className="story__title-sep"> — </span>
-            <span className="story__title-main">{taglineFr}.</span>
-          </h2>
-          <p className="story__intro">{intro}</p>
-        </div>
 
         <ol
           ref={cardsRef}

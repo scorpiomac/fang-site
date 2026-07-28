@@ -94,7 +94,7 @@ export function MediaLibrary() {
     if (item.usedBy.length > 0) {
       if (
         !confirm(
-          `Cette image est utilisée par ${item.usedBy.length} personnage(s). La supprimer la retirera aussi de ces personnages. Continuer ?`
+          `Cette image est utilisée par ${item.usedBy.length} archétype(s). La supprimer la retirera aussi de ces archétypes. Continuer ?`
         )
       )
         return;
@@ -190,7 +190,7 @@ export function MediaLibrary() {
         </div>
         <input
           className="admin-search"
-          placeholder="Rechercher (fichier, personnage, chapitre)…"
+          placeholder="Rechercher (fichier, archétype, chapitre)…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -274,7 +274,7 @@ export function MediaLibrary() {
                 <h3>Utilisé par</h3>
                 {selected.usedBy.length === 0 ? (
                   <p className="admin-help">
-                    Aucun personnage. Vous pouvez supprimer ce média en toute sécurité.
+                    Aucun archétype. Vous pouvez supprimer ce média en toute sécurité.
                   </p>
                 ) : (
                   <ul className="admin-usage">

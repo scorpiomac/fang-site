@@ -2,19 +2,19 @@
   "tambali/jant/produit-09": {
     "name": "Jant 1",
     "priceXof": 40000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
     "coverImage": "collection/s01/tambali/personnages/jant/produit-09.jpg",
     "images": [
       "collection/s01/tambali/personnages/jant/produit-09.jpg",
-      "collection/s01/tambali/personnages/jant/look-09-01.png",
-      "collection/s01/tambali/personnages/jant/detail-09-01.png"
+      "collection/s01/tambali/personnages/jant/detail-09-01.png",
+      "collection/s01/tambali/personnages/jant/look-09-01.png"
     ]
   },
   "tambali/jant/produit-02": {
     "name": "Jant 2",
     "priceXof": 35000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
     "coverImage": "collection/s01/tambali/personnages/jant/produit-02.png",
     "images": [
@@ -58,9 +58,9 @@
     ]
   },
   "tambali/gue-am/produit-01": {
-    "name": "Gue Am 1",
+    "name": "Gé Am 1",
     "priceXof": 40000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
     "coverImage": "collection/s01/tambali/personnages/gue-am/produit-01.png",
     "images": [
@@ -69,9 +69,9 @@
     ]
   },
   "tambali/gue-am/produit-02": {
-    "name": "Gue Am 2",
+    "name": "Gé Am 2",
     "priceXof": 40000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
     "coverImage": "collection/s01/tambali/personnages/gue-am/produit-02.png",
     "images": [
@@ -81,9 +81,9 @@
     ]
   },
   "tambali/gue-am/produit-03": {
-    "name": "Gue Am 3",
+    "name": "Gé Am 3",
     "priceXof": 40000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
     "coverImage": "collection/s01/tambali/personnages/gue-am/produit-03.png",
     "images": [
@@ -135,7 +135,7 @@
   "tambali/sukox/produit-01": {
     "name": "Sukoh 1",
     "priceXof": 40000,
-    "excerpt": "SUKOH — Se cacher (Sérère)",
+    "excerpt": "SUKOH — Se cacher",
     "description": "Le détail si précis qu'il brille malgré lui.",
     "coverImage": "collection/s01/tambali/personnages/sukox/produit-01.png",
     "images": [
@@ -146,13 +146,13 @@
   "passage/miik/produit-01": {
     "name": "Miik 1",
     "priceXof": 45000,
-    "excerpt": "MIIK — Silencieuse (Sérère)",
+    "excerpt": "MIIK — Silencieuse",
     "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi."
   },
   "passage/miik/produit-02": {
     "name": "Miik 2",
     "priceXof": 33000,
-    "excerpt": "MIIK — Silencieuse (Sérère)",
+    "excerpt": "MIIK — Silencieuse",
     "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi.",
     "coverImage": "collection/s01/passage/personnages/miik/produit-02.png",
     "images": [
@@ -164,7 +164,7 @@
   "passage/miik/produit-03": {
     "name": "Miik 3",
     "priceXof": 32000,
-    "excerpt": "MIIK — Silencieuse (Sérère)",
+    "excerpt": "MIIK — Silencieuse",
     "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi.",
     "coverImage": "collection/s01/passage/personnages/miik/produit-03.png",
     "images": [
@@ -176,7 +176,7 @@
   "passage/miik/produit-04": {
     "name": "Miik 4",
     "priceXof": 35000,
-    "excerpt": "MIIK — Silencieuse (Sérère)",
+    "excerpt": "MIIK — Silencieuse",
     "description": "Elle cherche le confort avant le regard. Atypique dans le détail — jamais pour toi.",
     "coverImage": "collection/s01/passage/personnages/miik/produit-04.png",
     "images": [
@@ -185,9 +185,9 @@
     ]
   },
   "passage/gue-am/produit-04": {
-    "name": "Gue Am 4",
+    "name": "Gé Am 4",
     "priceXof": 45000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
     "coverImage": "collection/s01/passage/personnages/gue-am/produit-04.png",
     "images": [
@@ -197,9 +197,9 @@
     ]
   },
   "passage/gue-am/produit-05": {
-    "name": "Gue Am 4",
+    "name": "Gé Am 4",
     "priceXof": 48000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
     "coverImage": "collection/s01/passage/personnages/gue-am/produit-05.png",
     "images": [
@@ -209,21 +209,21 @@
     ]
   },
   "passage/gue-am/produit-06": {
-    "name": "Gue Am 5",
+    "name": "Gé Am 5",
     "priceXof": 60000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "passage/gue-am/produit-07": {
-    "name": "Gue Am 6",
+    "name": "Gé Am 6",
     "priceXof": 25000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "passage/jant/produit-03": {
     "name": "Jant 3",
     "priceXof": 65000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
     "coverImage": "collection/s01/passage/personnages/jant/produit-03.png",
     "images": [
@@ -235,7 +235,7 @@
   "passage/jant/produit-04": {
     "name": "Jant 4",
     "priceXof": 50000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
     "coverImage": "collection/s01/passage/personnages/jant/produit-04.png",
     "images": [
@@ -247,7 +247,7 @@
   "passage/djalann/produit-01": {
     "name": "Djaalan 1",
     "priceXof": 47000,
-    "excerpt": "DJAALAN — Souriante (Sérère)",
+    "excerpt": "DJAALAN — Souriante",
     "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite.",
     "coverImage": "collection/s01/passage/personnages/djalann/produit-01.png",
     "images": [
@@ -276,7 +276,7 @@
   "exposition/jant/produit-05": {
     "name": "Jant 5 (tshirts)",
     "priceXof": 15000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
     "coverImage": "collection/s01/exposition/personnages/jant/produit-05.png",
     "images": [
@@ -289,7 +289,7 @@
   "exposition/jant/produit-07": {
     "name": "Jant 6",
     "priceXof": 55000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
     "coverImage": "collection/s01/exposition/personnages/jant/produit-07.png",
     "images": [
@@ -301,7 +301,7 @@
   "exposition/jant/produit-08": {
     "name": "Jant 7 (édition spéciale pièce de collection)",
     "priceXof": 75000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
     "coverImage": "collection/s01/exposition/personnages/jant/produit-08.png",
     "images": [
@@ -311,9 +311,9 @@
     ]
   },
   "exposition/gue-am/produit-08": {
-    "name": "Gue Am 8 (pants)",
+    "name": "Gé Am 8 (pants)",
     "priceXof": 25000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
     "images": [
       "collection/s01/exposition/personnages/gue-am/produit-08.png",
@@ -322,9 +322,9 @@
     ]
   },
   "exposition/gue-am/produit-11": {
-    "name": "Gue Am 9",
+    "name": "Gé Am 9",
     "priceXof": 60000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
     "coverImage": "collection/s01/exposition/personnages/gue-am/produit-11.png",
     "images": [
@@ -334,9 +334,9 @@
     ]
   },
   "exposition/gue-am/produit-12": {
-    "name": "Gue Am 10 (édition spéciale pièce de collection)",
+    "name": "Gé Am 10 (édition spéciale pièce de collection)",
     "priceXof": 50000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "feu/yaranka/produit-01": {
@@ -362,7 +362,7 @@
   "feu/jant/produit-08": {
     "name": "Jant 8",
     "priceXof": 45000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
     "coverImage": "collection/s01/feu/personnages/jant/produit-08.png",
     "images": [
@@ -373,19 +373,19 @@
   "feu/jant/produit-09": {
     "name": "Jant 9",
     "priceXof": 45000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
   },
   "feu/jant/produit-10": {
     "name": "Jant 10",
     "priceXof": 45000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
   },
   "feu/panda/produit-11": {
-    "name": "Gue Am 11",
+    "name": "Gé Am 11",
     "priceXof": 45000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
     "coverImage": "collection/s01/feu/personnages/panda/produit-11.png",
     "images": [
@@ -407,51 +407,51 @@
     ]
   },
   "ge-am/gue-am/produit-12": {
-    "name": "Gue Am 12 (chapitre éponyme)",
+    "name": "Gé Am 12 (chapitre éponyme)",
     "priceXof": 70000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "ge-am/gue-am/produit-13": {
-    "name": "Gue Am 13 (chapitre éponyme)",
+    "name": "Gé Am 13 (chapitre éponyme)",
     "priceXof": 60000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "ge-am/gue-am/produit-14": {
-    "name": "Gue Am 14 (chapitre éponyme)",
+    "name": "Gé Am 14 (chapitre éponyme)",
     "priceXof": 70000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "ge-am/gue-am/produit-15": {
-    "name": "Gue Am 15 (chapitre éponyme)",
+    "name": "Gé Am 15 (chapitre éponyme)",
     "priceXof": 50000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "ge-am/gue-am/produit-16": {
-    "name": "Gue Am 16 (chapitre éponyme)",
+    "name": "Gé Am 16 (chapitre éponyme)",
     "priceXof": 75000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "ge-am/gue-am/produit-17": {
-    "name": "Gue Am 17 (chapitre éponyme)",
+    "name": "Gé Am 17 (chapitre éponyme)",
     "priceXof": 110000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "ge-am/gue-am/produit-18": {
-    "name": "Gue Am 18 (chapitre éponyme)",
+    "name": "Gé Am 18 (chapitre éponyme)",
     "priceXof": 65000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "ge-am/gue-am/produit-19": {
-    "name": "Gue Am 19 (chapitre éponyme)",
+    "name": "Gé Am 19 (chapitre éponyme)",
     "priceXof": 75000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "racine/racine/produit-04": {
@@ -527,43 +527,43 @@
   "mbougir/djalann/produit-02": {
     "name": "Djaalan 2",
     "priceXof": 85000,
-    "excerpt": "DJAALAN — Souriante (Sérère)",
+    "excerpt": "DJAALAN — Souriante",
     "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite.",
     "coverImage": "collection/s01/mbougir/personnages/djalann/look-01.png",
     "images": [
       "collection/s01/mbougir/personnages/djalann/look-01.png",
-      "collection/s01/mbougir/personnages/djalann/detail-01.png",
-      "collection/s01/mbougir/personnages/djalann/produit-02.png"
+      "collection/s01/mbougir/cast/djalane/img-02.jpg",
+      "collection/s01/mbougir/cast/djalane/img-08.jpg"
     ]
   },
   "mbougir/gue-am/produit-20": {
-    "name": "Gue Am 20",
+    "name": "Gé Am 20",
     "priceXof": 95000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "mbougir/gue-am/produit-21": {
-    "name": "Gue Am 21",
+    "name": "Gé Am 21",
     "priceXof": 90000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "mbougir/gue-am/produit-22": {
-    "name": "Gue Am 22 (pièce unique)",
+    "name": "Gé Am 22 (pièce unique)",
     "priceXof": 160000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "mbougir/gue-am/produit-23": {
-    "name": "Gue Am 23 (pièce unique)",
+    "name": "Gé Am 23 (pièce unique)",
     "priceXof": 130000,
-    "excerpt": "GUE AM — Voyez-moi (Sérère)",
+    "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
   },
   "mbougir/jant/produit-11": {
     "name": "Jant 11",
     "priceXof": 70000,
-    "excerpt": "JANT — Soleil (Sérère)",
+    "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier."
   },
   "mbougir/fod/produit-03": {

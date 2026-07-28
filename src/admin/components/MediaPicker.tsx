@@ -102,7 +102,7 @@ export function MediaPicker({
         <div className="admin-toolbar">
           <input
             className="admin-search"
-            placeholder="Rechercher (fichier, personnage, chapitre)…"
+            placeholder="Rechercher (fichier, archétype, chapitre)…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             autoFocus

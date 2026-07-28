@@ -18,17 +18,12 @@ export function useStorySectionMotion(
       const masthead = root.querySelector<HTMLElement>(".story__masthead");
       const eyebrow = root.querySelector<HTMLElement>(".story__eyebrow");
       const lines = gsap.utils.toArray<HTMLElement>(".story__eyebrow-line", root);
-      const title = root.querySelector<HTMLElement>(".story__title");
-      const intro = root.querySelector<HTMLElement>(".story__intro");
-      const introGrid = root.querySelector<HTMLElement>(".story__intro-grid");
       const cards = gsap.utils.toArray<HTMLElement>(".story-card", root);
       const closing = root.querySelector<HTMLElement>(".story__closing");
 
       gsap.set(masthead, { opacity: 0, y: 16 });
       gsap.set(lines, { scaleX: 0, transformOrigin: "center center" });
       gsap.set(eyebrow, { opacity: 0, letterSpacing: "0.55em" });
-      gsap.set(title, { opacity: 0, x: -36 });
-      gsap.set(intro, { opacity: 0, x: 36 });
       gsap.set(cards, { opacity: 0, y: 56, scale: 0.94 });
       gsap.set(closing, { opacity: 0, y: 32, scale: 0.97 });
 
@@ -53,9 +48,6 @@ export function useStorySectionMotion(
           0.1
         )
         .to(masthead, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.08)
-        .to(title, { opacity: 1, x: 0, duration: 0.85, ease: "power3.out" }, 0.22)
-        .to(introGrid, { opacity: 1, duration: 0.01 }, 0.22)
-        .to(intro, { opacity: 1, x: 0, duration: 0.85, ease: "power3.out" }, 0.32)
         .to(
           cards,
           {
@@ -66,12 +58,12 @@ export function useStorySectionMotion(
             stagger: { each: 0.11, from: "start" },
             ease: "power3.out",
           },
-          0.42
+          0.28
         )
         .to(
           closing,
           { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: "power3.out" },
-          0.88
+          0.72
         );
 
       if (watermark) {
@@ -91,19 +83,6 @@ export function useStorySectionMotion(
             },
           }
         );
-      }
-
-      if (introGrid) {
-        gsap.to(introGrid, {
-          y: -18,
-          ease: "none",
-          scrollTrigger: {
-            trigger: root,
-            start: "top bottom",
-            end: "center top",
-            scrub: 1.8,
-          },
-        });
       }
 
       cards.forEach((card, index) => {

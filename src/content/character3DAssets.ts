@@ -28,6 +28,9 @@ export type Character3DRosterEntry = Character3DClip & {
   meaning: string;
   excerpt: string;
   description: string;
+  energyLine?: string;
+  style?: string;
+  visualContent?: string;
   chapterSlug: string;
   chapterName: string;
   coverPath: string;
@@ -73,6 +76,9 @@ export function getCharacter3DRoster(): Character3DRosterEntry[] {
         meaning: profile.meaning,
         excerpt: profile.excerpt,
         description: profile.description,
+        energyLine: profile.energyLine,
+        style: profile.style,
+        visualContent: profile.visualContent,
         chapterSlug: chapter.chapterSlug,
         chapterName: chapter.chapterName,
         coverPath: coverAssetPath(clip.clipId),

@@ -69,10 +69,10 @@ export function CollectionsAdmin() {
       <header className="admin-page__head admin-page__head--row">
         <div>
           <p className="admin-eyebrow">Collections</p>
-          <h1>Chapitres &amp; personnages</h1>
+          <h1>Chapitres &amp; archétypes</h1>
           <p className="admin-page__lede">
             Glissez les chapitres pour modifier l&apos;ordre du site. Cliquez sur un chapitre
-            pour gérer son récit et ses personnages.
+            pour gérer son récit et ses archétypes.
           </p>
         </div>
         <button
@@ -125,11 +125,11 @@ export function CollectionsAdmin() {
                 <img key={src} src={fileUrlFromPath(src)} alt="" />
               ))}
               {c.characters.length === 0 ? (
-                <span className="admin-chapter-row__empty">Pas de personnage</span>
+                <span className="admin-chapter-row__empty">Pas d&apos;archétype</span>
               ) : null}
             </div>
             <div className="admin-chapter-row__meta">
-              <span>{c.characters.length} personnages</span>
+              <span>{c.characters.length} archétype{c.characters.length > 1 ? "s" : ""}</span>
               <span>
                 {c.characters.reduce((s, ch) => s + ch.images.length, 0)} pièces
               </span>

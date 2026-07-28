@@ -10,7 +10,7 @@ const baseCopy = {
   heroSubtitle:
     "FANG est une maison afro-contemporaine née à Dakar. Saison 0 — Neel Fang : sept chapitres, des archétypes réels, des pièces produites à Dakar.",
   heroPrimary: "Entrer dans la collection",
-  heroSecondary: "Nos personnages",
+  heroSecondary: "Nos archétypes",
 
   chaptersEyebrow: "Casting — Nel Fang Te Dundu",
   chaptersTitle: "Sept chapitres,\nune même exposition.",
@@ -142,9 +142,6 @@ export const copy = {
 export const editableCopyKeys = Object.keys(baseCopy) as (keyof typeof baseCopy)[];
 export const editableCopyDefaults = baseCopy;
 
-export const storyIntro =
-  "Plus qu'un espace d'exposition, FANG est une philosophie. Un appel à l'expression de soi, à l'audace et à la célébration de notre identité.";
-
 export const storyFooterQuote = "FANG, ce n'est pas une norme. C'est une liberté.";
 
 export type StoryPillarIcon = "eye" | "branch" | "mask" | "sun" | "heart";
@@ -168,7 +165,7 @@ export const storyPillars: StoryPillar[] = [
   },
   {
     icon: "mask",
-    title: "Peu importe ta morphologie.",
+    title: "Peu importe ta morphologie. Ton genre. Ta culture.",
     description: "Ton genre. Ta culture. Ce qui compte, c'est ton identité, ta lumière.",
   },
   {

@@ -92,7 +92,7 @@ export function ChapterEditor() {
       setCharName("");
       setCreatingChar(false);
       await refresh();
-      setToast("Personnage ajouté");
+      setToast("Archétype ajouté");
     } catch (err) {
       setToast(err instanceof Error ? err.message : "Erreur de création");
     }
@@ -103,7 +103,7 @@ export function ChapterEditor() {
     try {
       await adminApi.deleteCharacter(chapter.id, ch.slug);
       await refresh();
-      setToast("Personnage supprimé");
+      setToast("Archétype supprimé");
     } catch (err) {
       setToast(err instanceof Error ? err.message : "Erreur de suppression");
     }
@@ -139,7 +139,7 @@ export function ChapterEditor() {
           </p>
           <h1>{chapter.name}</h1>
           <p className="admin-page__lede">
-            Récit, identité visuelle et personnages du chapitre {chapter.index}.
+            Récit, identité visuelle et archétypes du chapitre {chapter.index}.
           </p>
         </div>
         <div className="admin-page__actions">
@@ -173,7 +173,7 @@ export function ChapterEditor() {
               <input value={intention} onChange={(e) => setIntention(e.target.value)} />
             </label>
             <label>
-              <span>Rôle du personnage</span>
+              <span>Rôle de l&apos;archétype</span>
               <input value={role} onChange={(e) => setRole(e.target.value)} />
             </label>
             <label>
@@ -238,7 +238,7 @@ export function ChapterEditor() {
       <section className="admin-block">
         <header className="admin-block__head">
           <div>
-            <h2>Personnages</h2>
+            <h2>Archétypes</h2>
             <p className="admin-help">
               Glissez pour réordonner. Cliquez pour gérer ses photos &amp; son produit.
             </p>
@@ -248,14 +248,14 @@ export function ChapterEditor() {
             className="admin-cta admin-cta--small"
             onClick={() => setCreatingChar((v) => !v)}
           >
-            {creatingChar ? "Annuler" : "Ajouter un personnage"}
+            {creatingChar ? "Annuler" : "Ajouter un archétype"}
           </button>
         </header>
 
         {creatingChar ? (
           <form className="admin-inline-form" onSubmit={createChar}>
             <label>
-              <span>Nom du personnage</span>
+              <span>Nom de l&apos;archétype</span>
               <input
                 value={charName}
                 onChange={(e) => setCharName(e.target.value)}

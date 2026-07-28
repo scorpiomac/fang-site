@@ -209,7 +209,10 @@ const CMS_MEDIA_ROOT = path.join(ROOT, "cms-media");
 const MEDIA_ROOT = path.join(ROOT, "public/collection/s01");
 const LIBRARY_ROOT = path.join(ROOT, "public/medias/library");
 const PORT = Number(process.env.FANG_ADMIN_PORT ?? 5170);
-const CORS_ORIGIN = process.env.FANG_CORS_ORIGIN ?? "http://localhost:5173";
+const CORS_ORIGIN = (process.env.FANG_CORS_ORIGIN ?? "http://localhost:5173")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 const IMG_RE = /\.(jpe?g|png|webp)$/i;
 const MEDIA_FILE_RE = /\.(jpe?g|png|webp|mp4|webm)$/i;
@@ -2743,6 +2746,35 @@ app.delete(
   (req, res) => {
     const overrides = readJson(PRODUCTS_OVERRIDES_FILE, {});
     delete overrides[`${req.params.chapterId}/${req.params.characterSlug}`];
+    writeJson(PRODUCTS_OVERRIDES_FILE, overrides);
+    res.json({ ok: true });
+  }
+);
+
+app.put(
+  "/api/admin/chapters/:chapterId/personnages/:characterSlug/pieces/:pieceId/product",
+  (req, res) => {
+    const overrides = readJson(PRODUCTS_OVERRIDES_FILE, {});
+    const key = `${req.params.chapterId}/${req.params.characterSlug}/${req.params.pieceId}`;
+    const body = req.body && typeof req.body === "object" ? req.body : {};
+    const next = { ...(overrides[key] ?? {}), ...body };
+    if (Array.isArray(body.images)) {
+      next.images = body.images.filter((p) => typeof p === "string" && p.trim());
+      if (next.images.length === 0) delete next.images;
+      else if (!next.coverImage) next.coverImage = next.images[0];
+    }
+    if (body.coverImage === "" || body.coverImage === null) delete next.coverImage;
+    overrides[key] = next;
+    writeJson(PRODUCTS_OVERRIDES_FILE, overrides);
+    res.json({ override: overrides[key] });
+  }
+);
+
+app.delete(
+  "/api/admin/chapters/:chapterId/personnages/:characterSlug/pieces/:pieceId/product",
+  (req, res) => {
+    const overrides = readJson(PRODUCTS_OVERRIDES_FILE, {});
+    delete overrides[`${req.params.chapterId}/${req.params.characterSlug}/${req.params.pieceId}`];
     writeJson(PRODUCTS_OVERRIDES_FILE, overrides);
     res.json({ ok: true });
   }

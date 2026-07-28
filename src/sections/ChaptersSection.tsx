@@ -1,4 +1,12 @@
-import { forwardRef, useCallback, useEffect, useId, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type MutableRefObject,
+} from "react";
 import { Link } from "react-router-dom";
 import { chapters as narrativeChapters } from "@/content/chapters";
 import {
@@ -48,9 +56,20 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
   const titleId = useId();
   const reduced = useReducedMotion();
   const { scrollRef } = useScenePhase();
+  const localRef = useRef<HTMLElement | null>(null);
   const count = chapterPanelData.length;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
+
+  const setRefs = useCallback(
+    (node: HTMLElement | null) => {
+      localRef.current = node;
+      if (typeof ref === "function") ref(node);
+      else if (ref) (ref as MutableRefObject<HTMLElement | null>).current = node;
+    },
+    [ref]
+  );
 
   const goTo = useCallback(
     (index: number) => {
@@ -65,19 +84,31 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
     scrollRef.current.chapter = count > 1 ? active / (count - 1) : 0;
   }, [active, count, scrollRef]);
 
+  // Défilé auto uniquement quand la section est visible à l’écran
   useEffect(() => {
-    if (reduced || paused || count < 2) return;
+    const el = localRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.35, rootMargin: "0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduced || paused || !inView || count < 2) return;
     const id = window.setInterval(() => {
       setActive((i) => (i + 1) % count);
     }, DEFILE_MS);
     return () => window.clearInterval(id);
-  }, [count, paused, reduced]);
+  }, [count, paused, reduced, inView]);
 
   const progress = count > 0 ? (active + 1) / count : 0;
 
   return (
     <section
-      ref={ref}
+      ref={setRefs}
       className="chapters chapters--defile"
       id="collections"
       aria-labelledby={titleId}
@@ -170,10 +201,11 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                     </ul>
                     {heroProduct ? (
                       <Link to={`/boutique/${heroProduct.slug}`} className="chapter-panel__cta" tabIndex={isCurrent ? 0 : -1}>
-                        <span>
-                          Voir une pièce —{" "}
-                          {heroChar ? <GlossedTerm term={heroChar.name} /> : null} ·{" "}
-                          {formatPriceXof(heroProduct.priceXof)} FCFA
+                        <span className="chapter-panel__cta-label">
+                          Voir une pièce
+                          {heroChar ? ` — ${heroChar.name}` : ""}
+                          {" · "}
+                          {formatPriceXof(heroProduct.priceXof)}&nbsp;FCFA
                         </span>
                         <span className="chapter-panel__cta-arrow" aria-hidden="true">
                           →

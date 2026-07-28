@@ -94,7 +94,7 @@ export function ProductsAdmin() {
       <div className="admin-toolbar">
         <input
           className="admin-search"
-          placeholder="Rechercher une pièce, un personnage ou un chapitre…"
+          placeholder="Rechercher une pièce, un archétype ou un chapitre…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

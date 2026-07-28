@@ -79,7 +79,7 @@ export function CharacterEditor() {
   if (!bundle || !chapter || !character) {
     return (
       <section className="admin-page">
-        <p>Personnage introuvable.</p>
+        <p>Archétype introuvable.</p>
         <Link to="/admin/collections" className="admin-cta admin-cta--small">
           Retour
         </Link>
@@ -95,7 +95,7 @@ export function CharacterEditor() {
         coverImage: coverImage ?? "",
       });
       await refresh();
-      setToast("Personnage enregistré");
+      setToast("Archétype enregistré");
     } catch (err) {
       setToast(err instanceof Error ? err.message : "Erreur");
     }
@@ -118,10 +118,12 @@ export function CharacterEditor() {
         images: productImages.length > 0 ? productImages : undefined,
         variations:
           variations.length > 0
-            ? variations.map((v) => ({
-                ...v,
-                label: v.label.trim(),
-              })).filter((v) => v.label)
+            ? variations
+                .map((v) => ({
+                  ...v,
+                  label: v.label.trim(),
+                }))
+                .filter((v) => v.label)
             : undefined,
       });
       await refresh();
@@ -167,9 +169,7 @@ export function CharacterEditor() {
       );
       await refresh();
       if (skipped.length > 0) {
-        setToast(
-          `${linked.length} liée(s) · ${skipped.length} doublon(s) ignoré(s)`
-        );
+        setToast(`${linked.length} liée(s) · ${skipped.length} doublon(s) ignoré(s)`);
       } else {
         setToast(`${linked.length} photo(s) ajoutée(s) depuis la médiathèque`);
       }
@@ -215,9 +215,7 @@ export function CharacterEditor() {
   };
 
   const toggleSize = (s: string) => {
-    setSizes((prev) =>
-      prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s].sort()
-    );
+    setSizes((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s].sort()));
   };
 
   const COMMON_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
@@ -230,7 +228,7 @@ export function CharacterEditor() {
             <Link to="/admin/collections">Collections</Link>
             {" / "}
             <Link to={`/admin/collections/${chapter.id}`}>{chapter.name}</Link>
-            {" / Personnage"}
+            {" / Archétype"}
           </p>
           <h1>{character.name}</h1>
           <p className="admin-page__lede">
@@ -275,7 +273,7 @@ export function CharacterEditor() {
             </label>
           </div>
           <MediaSlot
-            label="Cover du personnage"
+            label="Cover de l'archétype"
             value={coverImage}
             onChange={setCoverImage}
             hint="Vignette utilisée dans les listes (sinon : 1ʳᵉ photo)"
@@ -292,7 +290,7 @@ export function CharacterEditor() {
             </button>
           </header>
           <p className="admin-help">
-            S&apos;appliquent à toutes les pièces de ce personnage, sauf surcharge individuelle
+            S&apos;appliquent à toutes les pièces de cet archétype, sauf surcharge individuelle
             ci-dessous.
           </p>
           <div className="admin-form">
@@ -369,9 +367,7 @@ export function CharacterEditor() {
                     <button
                       type="button"
                       className="admin-photo__remove"
-                      onClick={() =>
-                        setProductImages((prev) => prev.filter((x) => x !== src))
-                      }
+                      onClick={() => setProductImages((prev) => prev.filter((x) => x !== src))}
                     >
                       ✕
                     </button>
@@ -465,8 +461,8 @@ export function CharacterEditor() {
           <h2>Pièces boutique</h2>
         </header>
         <p className="admin-help">
-          Chaque photo ci-dessus correspond à une fiche produit distincte. Personnalisez le nom et
-          le prix par pièce.
+          Chaque photo ci-dessus correspond à une fiche produit distincte. Ajoutez une{" "}
+          <strong>galerie</strong> (looks / détails) sous chaque pièce pour la fiche boutique.
         </p>
         <ul className="admin-product-list">
           {character.images.map((src, i) => {
@@ -475,6 +471,12 @@ export function CharacterEditor() {
             const pieceOv = bundle.productsOverrides?.[`${overrideKey}/${pieceId}`] ?? {};
             const label = pieceLabel(pieceId, i);
             const shopSlug = `${chapter.slug}-${character.slug}-${pieceId}`;
+            const galleryPaths =
+              pieceOv.images && pieceOv.images.length > 0
+                ? pieceOv.images
+                : pieceOv.coverImage
+                  ? [pieceOv.coverImage]
+                  : [];
             return (
               <PieceRow
                 key={src}
@@ -482,6 +484,8 @@ export function CharacterEditor() {
                 pieceId={pieceId}
                 label={label}
                 image={src}
+                galleryImages={galleryPaths}
+                coverImage={pieceOv.coverImage ?? null}
                 shopSlug={shopSlug}
                 name={pieceOv.name ?? charOv.name ?? `${character.name} — ${label}`}
                 priceXof={pieceOv.priceXof ?? charOv.priceXof ?? 125000}
@@ -519,7 +523,7 @@ export function CharacterEditor() {
           setProductImages((prev) => Array.from(new Set([...prev, ...paths])));
         }}
         title="Pièces affichées sur le produit"
-        helper="Sélectionnez les photos à montrer dans la fiche produit. Laissez vide pour utiliser toutes les photos du personnage."
+        helper="Sélectionnez les photos à montrer dans la fiche produit. Laissez vide pour utiliser toutes les photos de l'archétype."
         confirmLabel="Ajouter les pièces"
       />
     </section>
@@ -531,6 +535,8 @@ function PieceRow({
   pieceId,
   label,
   image,
+  galleryImages: initialGallery,
+  coverImage: initialCover,
   shopSlug,
   name: initialName,
   priceXof: initialPrice,
@@ -541,6 +547,8 @@ function PieceRow({
   pieceId: string;
   label: string;
   image: string;
+  galleryImages: string[];
+  coverImage: string | null;
   shopSlug: string;
   name: string;
   priceXof: number;
@@ -549,25 +557,37 @@ function PieceRow({
     name: string;
     priceXof: number;
     excerpt: string;
+    coverImage?: string;
+    images?: string[];
   }) => Promise<void>;
 }) {
   const [name, setName] = useState(initialName);
   const [priceXof, setPriceXof] = useState(initialPrice);
   const [excerpt, setExcerpt] = useState(initialExcerpt);
+  const [gallery, setGallery] = useState<string[]>(initialGallery);
+  const [coverImage, setCoverImage] = useState<string | null>(initialCover);
   const [saving, setSaving] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
+
+  const galleryKey = initialGallery.join("|");
 
   useEffect(() => {
     setName(initialName);
     setPriceXof(initialPrice);
     setExcerpt(initialExcerpt);
-  }, [initialName, initialPrice, initialExcerpt, pieceId]);
+    setGallery(initialGallery);
+    setCoverImage(initialCover);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- galleryKey tracks initialGallery
+  }, [initialName, initialPrice, initialExcerpt, galleryKey, initialCover, pieceId]);
+
+  const thumbs = gallery.length > 0 ? gallery : [image];
 
   return (
-    <li id={id} className="admin-product-row">
+    <li id={id} className="admin-product-row admin-product-row--gallery">
       <div className="admin-product-row__media">
-        <img src={fileUrlFromPath(image)} alt={label} />
+        <img src={fileUrlFromPath(coverImage || thumbs[0])} alt={label} />
       </div>
-      <div className="admin-product-row__main admin-form" style={{ flex: 1 }}>
+      <div className="admin-product-row__main admin-form">
         <strong>{label}</strong>
         <label>
           <span>Nom boutique</span>
@@ -586,6 +606,62 @@ function PieceRow({
           <span>Accroche</span>
           <input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
         </label>
+
+        <div className="admin-product-row__gallery">
+          <div className="admin-slot__head">
+            <span className="admin-form__label">Galerie fiche produit</span>
+            <span className="admin-slot__hint">
+              {gallery.length > 0
+                ? `${gallery.length} photo(s) sous l’image principale`
+                : "1 photo (image de la pièce)"}
+            </span>
+          </div>
+          <ul className="admin-photo-grid admin-photo-grid--compact">
+            {thumbs.map((src, idx) => (
+              <li key={`${src}-${idx}`} className="admin-photo">
+                <img src={fileUrlFromPath(src)} alt="" />
+                {idx === 0 ? <span className="admin-photo__index">Principale</span> : null}
+                {gallery.length > 0 ? (
+                  <button
+                    type="button"
+                    className="admin-photo__remove"
+                    onClick={() => {
+                      const next = gallery.filter((_, i) => i !== idx);
+                      setGallery(next);
+                      if (coverImage === src || idx === 0) {
+                        setCoverImage(next[0] ?? null);
+                      }
+                    }}
+                    aria-label="Retirer de la galerie"
+                  >
+                    ✕
+                  </button>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+          <div className="admin-slot__actions">
+            <button
+              type="button"
+              className="admin-cta admin-cta--small admin-cta--ghost"
+              onClick={() => setPickerOpen(true)}
+            >
+              {gallery.length > 0 ? "Modifier la galerie" : "Ajouter des photos"}
+            </button>
+            {gallery.length > 0 ? (
+              <button
+                type="button"
+                className="admin-cta admin-cta--small admin-cta--ghost"
+                onClick={() => {
+                  setGallery([]);
+                  setCoverImage(null);
+                }}
+              >
+                Réinitialiser
+              </button>
+            ) : null}
+          </div>
+        </div>
       </div>
       <div className="admin-page__actions">
         <button
@@ -595,7 +671,13 @@ function PieceRow({
           onClick={async () => {
             setSaving(true);
             try {
-              await onSave({ name, priceXof, excerpt });
+              await onSave({
+                name,
+                priceXof,
+                excerpt,
+                coverImage: gallery[0] ?? coverImage ?? undefined,
+                images: gallery,
+              });
             } finally {
               setSaving(false);
             }
@@ -612,6 +694,20 @@ function PieceRow({
           Voir →
         </a>
       </div>
+
+      <MediaPicker
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onConfirm={(paths) => {
+          setPickerOpen(false);
+          const next = Array.from(new Set([...gallery, ...paths]));
+          setGallery(next);
+          if (!coverImage && next[0]) setCoverImage(next[0]);
+        }}
+        title={`Galerie — ${label}`}
+        helper="Ces photos apparaissent sous l’image principale sur la fiche boutique."
+        confirmLabel="Ajouter à la galerie"
+      />
     </li>
   );
 }

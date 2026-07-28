@@ -11,7 +11,7 @@ type Props = {
 
 /**
  * Affiche un nom d’archétype ; au survol / focus, la signification française
- * apparaît juste sous le mot.
+ * apparaît juste sous le mot (NOM · SENS — ÉNERGIE).
  */
 export function GlossedTerm({ term, children, className = "", focusable = false }: Props) {
   const meaning = getArchetypeMeaning(term);
@@ -25,7 +25,6 @@ export function GlossedTerm({ term, children, className = "", focusable = false 
   return (
     <span
       className={`glossed-term${open ? " is-open" : ""}${className ? ` ${className}` : ""}`}
-      title={meaning}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       onFocus={() => setOpen(true)}

@@ -76,7 +76,7 @@ export function AdminDashboard() {
         </article>
         <article>
           <p className="admin-kpi__value">{totalChars}</p>
-          <p>Personnages</p>
+          <p>Archétypes</p>
           <Link to="/admin/collections" className="admin-kpi__cta">
             Ajouter / éditer →
           </Link>
@@ -132,12 +132,12 @@ export function AdminDashboard() {
             <span>Onglet Collections → bouton « Nouveau chapitre ».</span>
           </li>
           <li>
-            <strong>2. Créer un personnage</strong>
-            <span>Ouvrir une collection → ajouter un personnage → glisser-déposer ses photos.</span>
+            <strong>2. Créer un archétype</strong>
+            <span>Ouvrir une collection → ajouter un archétype → glisser-déposer ses photos.</span>
           </li>
           <li>
             <strong>3. Régler son produit</strong>
-            <span>Onglet Produits → choisir le personnage → prix, tailles, description.</span>
+            <span>Onglet Produits → choisir l&apos;archétype → prix, tailles, description.</span>
           </li>
           <li>
             <strong>4. Affiner le récit</strong>

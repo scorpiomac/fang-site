@@ -63,7 +63,7 @@
         {
           "id": "tambali-gue-am",
           "slug": "gue-am",
-          "name": "Gue Am",
+          "name": "Gé Am",
           "sourceFolder": "Gue Am",
           "cover": "collection/s01/tambali/personnages/gue-am/produit-01.png",
           "images": [
@@ -135,7 +135,7 @@
         {
           "id": "passage-gue-am",
           "slug": "gue-am",
-          "name": "Gue Am",
+          "name": "Gé Am",
           "sourceFolder": "Gue Am",
           "cover": "collection/s01/passage/personnages/gue-am/produit-04.png",
           "images": [
@@ -217,7 +217,7 @@
         {
           "id": "exposition-gue-am",
           "slug": "gue-am",
-          "name": "Gue Am",
+          "name": "Gé Am",
           "sourceFolder": "Gue Am",
           "cover": "collection/s01/exposition/personnages/gue-am/produit-08.png",
           "images": [
@@ -280,7 +280,7 @@
       "id": "ge-am",
       "slug": "ge-am",
       "index": "05",
-      "name": "Gue Am",
+      "name": "Gé Am",
       "sourceFolder": "5 GUE AM",
       "characters": [
         {
@@ -297,7 +297,7 @@
         {
           "id": "ge-am-gue-am",
           "slug": "gue-am",
-          "name": "Gue Am",
+          "name": "Gé Am",
           "sourceFolder": "Gue Am",
           "cover": "collection/s01/ge-am/personnages/gue-am/produit-12.png",
           "images": [
@@ -319,7 +319,7 @@
       "id": "racine",
       "slug": "racine",
       "index": "06",
-      "name": "Racine",
+      "name": "Racine a wata",
       "sourceFolder": "6 RACINE",
       "characters": [
         {
@@ -374,7 +374,7 @@
         {
           "id": "mbougir-gue-am",
           "slug": "gue-am",
-          "name": "Gue Am",
+          "name": "Gé Am",
           "sourceFolder": "GUE AM",
           "cover": "collection/s01/mbougir/personnages/gue-am/produit-20.png",
           "images": [

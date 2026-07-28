@@ -7,49 +7,6 @@ import { GlossedTerm } from "@/components/ui/GlossedTerm";
 import { CharacterTurntable } from "@/components/collection/CharacterTurntable";
 const roster = getArchetypeRoster();
 
-const ATTRS = [
-  { key: "origin", label: "Origine", icon: "globe" },
-  { key: "values", label: "Valeurs", icon: "heart" },
-  { key: "force", label: "Force", icon: "bolt" },
-  { key: "symbol", label: "Symbole", icon: "star" },
-  { key: "element", label: "Élément", icon: "wind" },
-] as const;
-
-function AttrIcon({ type }: { type: (typeof ATTRS)[number]["icon"] }) {
-  const common = { fill: "none", stroke: "currentColor", strokeWidth: 1.35 };
-  if (type === "globe")
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden {...common}>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18" />
-      </svg>
-    );
-  if (type === "heart")
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden {...common}>
-        <path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.4-7 10-7 10z" />
-      </svg>
-    );
-  if (type === "bolt")
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden {...common}>
-        <path d="M13 2 5 14h6l-1 8 8-12h-6l1-8z" />
-      </svg>
-    );
-  if (type === "star")
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden {...common}>
-        <path d="m12 3 2.2 5.5L20 9l-4.5 3.3L17 18l-5-3.2L7 18l1.5-5.7L4 9l5.8-.5L12 3z" />
-      </svg>
-    );
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden {...common}>
-      <path d="M9.5 4C6 7 4 10 4 14a8 8 0 0 0 16 0c0-4-2-7-5.5-10" />
-      <path d="M9 14h6" />
-    </svg>
-  );
-}
-
 function slotOffset(index: number, selected: number, count: number): number {
   let offset = index - selected;
   const half = Math.floor(count / 2);
@@ -173,11 +130,11 @@ export function CharacterRosterSection() {
               <span>/ Archétype</span>
             </p>
             <h1 id={titleId} className="archetype-screen__title">
-              Les personnages
+              Chaque humain est un archétype
             </h1>
             <p className="archetype-screen__lede">
-              Chaque personnage incarne une facette de notre héritage, de notre histoire et de notre
-              vision du futur.
+              Chacun incarne une manière d'exister que la société a cherché à réduire, et que la
+              marque revalorise.
             </p>
           </header>
 
@@ -208,7 +165,7 @@ export function CharacterRosterSection() {
                   className="archetype-screen__pivot-btn"
                   onPointerDown={(e) => e.stopPropagation()}
                   onClick={stepPrev}
-                  aria-label="Personnage précédent"
+                  aria-label="Archétype précédent"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
@@ -226,7 +183,7 @@ export function CharacterRosterSection() {
                   className="archetype-screen__pivot-btn"
                   onPointerDown={(e) => e.stopPropagation()}
                   onClick={stepNext}
-                  aria-label="Personnage suivant"
+                  aria-label="Archétype suivant"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
@@ -300,7 +257,7 @@ export function CharacterRosterSection() {
 
           </div>
 
-          <div className="archetype-screen__thumbs" role="tablist" aria-label="Personnages">
+          <div className="archetype-screen__thumbs" role="tablist" aria-label="Archétypes">
             {roster.map((entry, index) => (
               <button
                 key={entry.clipId}
@@ -328,30 +285,61 @@ export function CharacterRosterSection() {
               <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
               <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="currentColor" strokeWidth="1.4" />
             </svg>
-            <span>/ Personnage</span>
+            <span>/ Archétype</span>
           </p>
 
           <h2 className="archetype-screen__panel-name">
             <GlossedTerm term={active.name} focusable />
           </h2>
-          <p className="archetype-screen__panel-role">{active.meta.role}</p>
           <p className="archetype-screen__panel-bio">{active.description}</p>
 
-          <ul className="archetype-screen__attrs">
-            {ATTRS.map(({ key, label, icon }) => (
-              <li key={key}>
-                <span className="archetype-screen__attr-icon">
-                  <AttrIcon type={icon} />
-                </span>
-                <div className="archetype-screen__attr-copy">
-                  <span className="archetype-screen__attr-label">{label}</span>
-                  <span className="archetype-screen__attr-value">
-                    {active.meta[key as keyof typeof active.meta]}
+          {active.energyLine || active.style || active.visualContent ? (
+            <ul className="archetype-screen__attrs">
+              {active.energyLine ? (
+                <li>
+                  <span className="archetype-screen__attr-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35">
+                      <path d="M13 2 5 14h6l-1 8 8-12h-6l1-8z" />
+                    </svg>
                   </span>
-                </div>
-              </li>
-            ))}
-          </ul>
+                  <div className="archetype-screen__attr-copy">
+                    <span className="archetype-screen__attr-label">Énergie</span>
+                    <span className="archetype-screen__attr-value">{active.energyLine}</span>
+                  </div>
+                </li>
+              ) : null}
+              {active.style ? (
+                <li>
+                  <span className="archetype-screen__attr-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35">
+                      <path d="M4 20 12 4l8 16" />
+                      <path d="M7.5 14h9" />
+                      <circle cx="12" cy="18.5" r="1.2" fill="currentColor" stroke="none" />
+                    </svg>
+                  </span>
+                  <div className="archetype-screen__attr-copy">
+                    <span className="archetype-screen__attr-label">Style</span>
+                    <span className="archetype-screen__attr-value">{active.style}</span>
+                  </div>
+                </li>
+              ) : null}
+              {active.visualContent ? (
+                <li>
+                  <span className="archetype-screen__attr-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35">
+                      <rect x="3.5" y="5" width="17" height="14" rx="1.5" />
+                      <circle cx="9" cy="10.5" r="1.6" />
+                      <path d="m7.5 16.5 3.2-3.2 2.4 2.4 3.4-4.2 3 5" />
+                    </svg>
+                  </span>
+                  <div className="archetype-screen__attr-copy">
+                    <span className="archetype-screen__attr-label">Contenu visuel</span>
+                    <span className="archetype-screen__attr-value">{active.visualContent}</span>
+                  </div>
+                </li>
+              ) : null}
+            </ul>
+          ) : null}
 
           <Link
             className="archetype-screen__cta"

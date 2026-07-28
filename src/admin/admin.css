@@ -653,11 +653,22 @@
   display: grid;
   grid-template-columns: 64px 2fr 1.5fr auto;
   gap: 18px;
-  align-items: center;
+  align-items: start;
   padding: 12px 14px;
   background: var(--bg-elev);
   border: 1px solid var(--line);
   border-radius: 12px;
+}
+.admin-product-row--gallery {
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+}
+.admin-product-row__gallery {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+.admin-product-row__gallery .admin-photo-grid--compact {
+  margin: 0.5rem 0;
 }
 .admin-product-row__media {
   width: 64px;
