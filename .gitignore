@@ -10,6 +10,7 @@ coverage
 .next
 .claude
 .review
+.cursor/
 
 # Assets sources locaux (trop volumineux pour Git)
 COLLECTION 1 NEEL FANG TE DUNDU/
