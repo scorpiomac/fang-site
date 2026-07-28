@@ -18,8 +18,6 @@ export function useRecognitionSectionMotion(
       const eyebrowLines = gsap.utils.toArray<HTMLElement>(".recognition__eyebrow-line", root);
       const eyebrowText = root.querySelector<HTMLElement>(".recognition__eyebrow-text");
       const title = root.querySelector<HTMLElement>(".recognition__title");
-      const diamond = root.querySelector<HTMLElement>(".recognition__diamond");
-      const lede = root.querySelector<HTMLElement>(".recognition__lede");
       const timeline = root.querySelector<HTMLElement>(".recognition__timeline");
       const milestones = gsap.utils.toArray<HTMLElement>(".recognition-milestone", root);
       const vision = root.querySelector<HTMLElement>(".recognition__vision");
@@ -33,8 +31,6 @@ export function useRecognitionSectionMotion(
       gsap.set(eyebrowLines, { scaleX: 0, transformOrigin: "center center" });
       gsap.set(eyebrowText, { opacity: 0, letterSpacing: "0.55em" });
       gsap.set(title, { opacity: 0, y: 28 });
-      gsap.set(diamond, { opacity: 0, scale: 0, rotate: -45 });
-      gsap.set(lede, { opacity: 0, y: 18 });
       milestones.forEach((m) => {
         const year = m.querySelector<HTMLElement>(".recognition-milestone__year");
         const card = m.querySelector<HTMLElement>(".recognition-milestone__card");
@@ -97,13 +93,7 @@ export function useRecognitionSectionMotion(
           { opacity: 1, letterSpacing: "0.42em", duration: 0.6, ease: "power2.out" },
           0.08
         )
-        .to(title, { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 0.2)
-        .to(
-          diamond,
-          { opacity: 0.85, scale: 1, rotate: 45, duration: 0.55, ease: "back.out(2)" },
-          0.38
-        )
-        .to(lede, { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" }, 0.48);
+        .to(title, { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 0.2);
 
       const timelineTl = gsap.timeline({
         scrollTrigger: {

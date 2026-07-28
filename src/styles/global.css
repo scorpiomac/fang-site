@@ -1046,6 +1046,25 @@ img {
   text-transform: uppercase;
 }
 
+.hero__wolof .glossed-term {
+  align-items: flex-start;
+}
+
+.hero__wolof .glossed-term__word {
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  border-bottom-color: rgba(201, 166, 107, 0.4);
+}
+
+.hero__wolof .glossed-term__hint {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-style: normal;
+  font-size: 0.82em;
+  color: rgba(232, 210, 168, 0.95);
+}
+
 .hero__wolof::before {
   content: "✦";
   margin-right: 0.7rem;
@@ -3751,6 +3770,36 @@ img {
   max-width: 880px;
   margin: 0 auto var(--space-lg);
   letter-spacing: -0.005em;
+}
+
+.manifest__gloss {
+  align-items: center;
+  max-width: 100%;
+}
+
+.manifest__gloss .glossed-term__word {
+  border-bottom: 1px dotted rgba(26, 22, 18, 0.35);
+  cursor: help;
+}
+
+.manifest__gloss .glossed-term__hint {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  font-weight: 500;
+  color: rgba(26, 22, 18, 0.72);
+  text-align: center;
+  max-width: min(40rem, 92vw);
+}
+
+.manifest__gloss.is-open .glossed-term__hint,
+.manifest__gloss:hover .glossed-term__hint,
+.manifest__gloss:focus-within .glossed-term__hint,
+h2 .manifest__gloss.is-open .glossed-term__hint,
+h2 .manifest__gloss:hover .glossed-term__hint,
+h2 .manifest__gloss:focus-within .glossed-term__hint {
+  max-height: 6.5rem;
+  opacity: 1;
 }
 
 .manifest__body {

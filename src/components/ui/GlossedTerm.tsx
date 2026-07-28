@@ -3,6 +3,8 @@ import { getArchetypeMeaning } from "@/content/characterProfiles";
 
 type Props = {
   term: string;
+  /** Sens forcé (sinon lookup archétype). */
+  meaning?: string;
   children?: ReactNode;
   className?: string;
   /** Focus clavier sur le mot (ex. titres hors lien). Éviter dans un <a>/<button>. */
@@ -10,11 +12,17 @@ type Props = {
 };
 
 /**
- * Affiche un nom d’archétype ; au survol / focus, la signification française
- * apparaît juste sous le mot (NOM · SENS — ÉNERGIE).
+ * Affiche un terme ; au survol / focus, la signification française
+ * apparaît juste sous le mot.
  */
-export function GlossedTerm({ term, children, className = "", focusable = false }: Props) {
-  const meaning = getArchetypeMeaning(term);
+export function GlossedTerm({
+  term,
+  meaning: meaningProp,
+  children,
+  className = "",
+  focusable = false,
+}: Props) {
+  const meaning = meaningProp ?? getArchetypeMeaning(term);
   const hintId = useId();
   const [open, setOpen] = useState(false);
 

@@ -1,5 +1,6 @@
 import { forwardRef, useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { GlossedTerm } from "@/components/ui/GlossedTerm";
 import { copy } from "@/content/copy";
 import { publicUrl } from "@/lib/publicUrl";
 import { useCmsText } from "@/context/CmsContext";
@@ -18,6 +19,7 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
   const heroPrimary = useCmsText("home.hero.ctaPrimary", copy.heroPrimary);
   const heroSecondary = useCmsText("home.hero.ctaSecondary", copy.heroSecondary);
   const tagline = useCmsText("brand.tagline", copy.tagline);
+  const taglineFr = useCmsText("brand.taglineFr", copy.taglineFr);
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroVideoSrc = publicUrl("video/fang-hero.mp4");
 
@@ -78,7 +80,9 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
 
       <div className="hero__content">
         <p className="hero__wolof" data-split>
-          {tagline}
+          <GlossedTerm term={tagline} meaning={taglineFr} focusable>
+            {tagline}
+          </GlossedTerm>
         </p>
         <h1 className="hero__title">
           {heroTitle === copy.heroTitle ? (

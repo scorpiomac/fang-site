@@ -57,7 +57,6 @@ export const RecognitionSection = forwardRef<HTMLElement>(function RecognitionSe
   const reduced = useReducedMotion();
   const eyebrow = useCmsText("home.recognition.eyebrow", copy.recognitionEyebrow);
   const title = useCmsText("home.recognition.title", copy.recognitionTitle);
-  const body = useCmsText("home.recognition.body", copy.recognitionBody);
 
   const setRefs = useCallback(
     (node: HTMLElement | null) => {
@@ -93,8 +92,6 @@ export const RecognitionSection = forwardRef<HTMLElement>(function RecognitionSe
             title
           )}
         </h2>
-        <span className="recognition__diamond" aria-hidden="true" />
-        <p className="recognition__lede">{body}</p>
       </div>
 
       <ol className="recognition__timeline">
