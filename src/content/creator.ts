@@ -3,10 +3,7 @@ export const creator = {
   role: "Fondateur, directeur artistique & couturier",
   city: "Dakar, Sénégal",
   paragraphs: [
-    "En 2014, je me rends compte que les vêtements “à la mode” ne me vont pas. Mince, morphologie atypique — je ne trouvais rien qui me correspondait.",
-    "Alors j’ai commencé à dessiner mes propres tenues. Je les faisais coudre par le tailleur du quartier, et chaque sortie devenait une exposition.",
-    "J’ai poursuivi en parallèle un Master en ingénierie logicielle entre Mbour et Dakar. J’ai connu le code, le salariat, la routine. Puis le déclic : ma place était ailleurs.",
-    "Avant FANG, il y a eu Carpe Diem (2019) et deux collections restées dans les tiroirs. Et puis est venue Nel Fang Te Dundu — celle qui dit : expose-toi et vis.",
+    "Fallou Ngom a grandi en se sentant « décalé » par les codes de la mode. Plutôt que de s'y conformer, il a créé l'espace qui lui manquait, où le vêtement sert à se libérer plutôt qu'à rentrer dans un moule.",
   ],
   inspirations: [
     "Folklore sénégalais",
@@ -14,18 +11,14 @@ export const creator = {
     "Mangas & animés japonais",
     "Afrofuturisme",
   ],
-  pillars: [
+  stances: [
     {
-      title: "Authenticité",
-      body: "Chaque pièce porte une part de vérité, de vécu.",
+      title: "Notre terrain",
+      body: "L'émancipation par le vêtement. Une écriture propre. La confiance en soi comme un droit.",
     },
     {
-      title: "Culture",
-      body: "Profondément inspirée du folklore sénégalais — Sérère, Diola — réinterprété pour le présent.",
-    },
-    {
-      title: "Afrofuturisme",
-      body: "Un pont entre nos racines et le futur. Tradition, innovation, audace.",
+      title: "Nos partis pris",
+      body: "Loin du luxe froid, du folklore « afro » et du streetwear générique.",
     },
   ],
 } as const;

@@ -46,11 +46,11 @@ export const CreatorSection = forwardRef<HTMLElement>(function CreatorSection(_,
             ))}
           </div>
 
-          <div className="creator__pillars">
-            {creator.pillars.map((p) => (
-              <article key={p.title} className="pillar">
-                <h3 className="pillar__title">{p.title}</h3>
-                <p className="pillar__body">{p.body}</p>
+          <div className="creator__stances">
+            {creator.stances.map((s) => (
+              <article key={s.title} className="creator-stance">
+                <h3 className="creator-stance__title">{s.title}</h3>
+                <p className="creator-stance__body">{s.body}</p>
               </article>
             ))}
           </div>

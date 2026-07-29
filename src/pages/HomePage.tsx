@@ -87,7 +87,7 @@ export function HomePage() {
       mm.add("(min-width: 901px)", () => {
         const creatorEl = creatorRef.current;
         if (creatorEl) {
-          gsap.from(creatorEl.querySelectorAll(".creator__paragraphs > p, .pillar"), {
+          gsap.from(creatorEl.querySelectorAll(".creator__paragraphs > p, .creator-stance"), {
             opacity: 0,
             y: 30,
             stagger: 0.12,
