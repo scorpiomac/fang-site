@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import { getChapterById as getChapterLoreById } from "@/content/chapters";
 import { getChapterById } from "@/content/collectionCatalog";
 import { copy } from "@/content/copy";
 import {
@@ -50,7 +49,6 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
   const navigate = useNavigate();
   const { settings } = useSiteSettings();
   const chapter = getChapterById(product.chapterId);
-  const chapterLore = getChapterLoreById(product.chapterId);
   const {
     variationId,
     variation,
@@ -132,7 +130,7 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
       />
       <CommerceJourney
         steps={[
-          { label: "Collection", to: "/collection" },
+          { label: "Boutique", to: "/boutique" },
           ...(chapter
             ? [{ label: chapter.name, to: `/collection/${chapter.slug}` }]
             : []),
@@ -178,35 +176,6 @@ function ProductPageView({ product, slug }: { product: ShopProduct; slug?: strin
         <div className="product-page__detail">
           <p className="product-page__chapter">{product.chapterLabel}</p>
           <h1 className="product-page__title">{product.name}</h1>
-          {chapter ? (
-            <aside className="product-page__character" aria-labelledby="product-character-heading">
-              <p className="product-page__character-kicker">Archétype · {chapter.name}</p>
-              <h2 className="product-page__character-name" id="product-character-heading">
-                <GlossedTerm term={product.characterName} focusable />
-              </h2>
-              {chapterLore?.role ? (
-                <p className="product-page__character-role">{chapterLore.role}</p>
-              ) : null}
-              {chapterLore?.quote ? (
-                <blockquote className="product-page__character-quote">
-                  <span aria-hidden="true">«&nbsp;</span>
-                  {chapterLore.quote}
-                  <span aria-hidden="true">&nbsp;»</span>
-                </blockquote>
-              ) : null}
-              <Link
-                to={`/collection/${chapter.slug}/${product.characterSlug}`}
-                className="product-page__character-link"
-              >
-                Voir toutes les pièces de l’archétype
-                <span aria-hidden="true"> →</span>
-              </Link>
-              <Link to={`/collection/${chapter.slug}`} className="product-page__character-link">
-                Tous les archétypes · {chapter.name}
-                <span aria-hidden="true"> →</span>
-              </Link>
-            </aside>
-          ) : null}
           <p className="product-page__price">
             {formatPriceXof(variation.priceXof)} <span>FCFA</span>
           </p>

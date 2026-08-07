@@ -1,10 +1,10 @@
 :root {
-  /* Terre, sang, or — palette FANG */
-  --color-void: #0d0b09;
-  --color-night: #14110f;
-  --color-bark: #1a1612;
-  --color-earth: #2a1f17;
-  --color-clay: #3a261a;
+  /* Forêt, sang, or — palette FANG (alignée Philosophie / entités) */
+  --color-void: #0d100e;
+  --color-night: #0f1610;
+  --color-bark: #152016;
+  --color-earth: #1c2a1e;
+  --color-clay: #243528;
   --color-rust: #5c3d1f;
   --color-bronze: #7d5c3a;
   --color-ochre: #9a7b52;
@@ -15,15 +15,19 @@
   --color-copper: #c9a66b;
   --color-copper-dim: #8a6f45;
   --color-blood: #8c2317;
-  --color-blood-deep: #4a0e1c;
+  --color-blood-deep: #3a1c14;
   --color-flame: #a0341e;
 
+  /* Surfaces dérivées */
+  --color-panel: rgba(18, 32, 20, 0.78);
+  --color-panel-warm: rgba(58, 28, 20, 0.88);
   --color-mist: rgba(242, 235, 227, 0.08);
+  --color-line: rgba(201, 166, 107, 0.16);
 
-  --font-display: "Messapia", "Cormorant Garamond", "Times New Roman", serif;
-  --font-sans: "Messapia", "Outfit", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
   /** Écriture manuscrite du fondateur (Fallou Ngom) — pour signature, citation et note. */
-  --font-hand: "Ohasso", "Messapia", "Brush Script MT", cursive;
+  --font-hand: "Ohasso", "Cormorant Garamond", "Brush Script MT", cursive;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
@@ -43,6 +47,6 @@
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
 
-  /* Hauteur utile sous le header fixe (barres sticky boutique / produit) */
+  /* Hauteur réservée sous le header fixe — évite que le contenu passe dessous */
   --header-offset: 4.25rem;
 }

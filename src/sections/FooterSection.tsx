@@ -8,8 +8,6 @@ export function FooterSection() {
   const { settings } = useSiteSettings();
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
-  const tagline = useCmsText("brand.tagline", copy.tagline);
-  const taglineFr = useCmsText("brand.taglineFr", copy.taglineFr);
   const footerTagline = useCmsText("brand.footerTagline", copy.footerTagline);
 
   const onSubscribe = async (e: React.FormEvent) => {
@@ -36,36 +34,25 @@ export function FooterSection() {
 
   return (
     <footer className="footer" id="contact">
-      <div className="footer__hero">
-        <p className="footer__line">{tagline}</p>
-        <p className="footer__line footer__line--ghost">{taglineFr}</p>
-        <div className="footer__hero-actions">
-          <Link to="/boutique" className="cta cta--solid">
-            <span>Commander une pièce</span>
-            <span aria-hidden="true">→</span>
-          </Link>
-          <a className="cta cta--ghost" href={`mailto:${settings.contact.email}`}>
-            Écrire à l'atelier
-          </a>
-        </div>
-      </div>
-
       <div className="footer__grid">
         <div className="footer__block footer__block--brand">
           <p className="footer__brand">{settings.brand.name}</p>
           <p className="footer__tagline">{footerTagline}</p>
-          {instagramUrl ? (
-            <a className="footer__ig" href={instagramUrl} target="_blank" rel="noreferrer">
-              {instagramHandle}
-            </a>
-          ) : null}
+          <a
+            className="footer__ig"
+            href={instagramUrl || "https://www.instagram.com/fanglamarque/"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {instagramHandle}
+          </a>
         </div>
 
         <nav className="footer__block" aria-label="Boutique">
           <p className="footer__label">Boutique</p>
           <Link to="/boutique">Toutes les pièces</Link>
-          <a href="/#pieces-phares">Pièces phares</a>
-          <Link to="/collection">Casting</Link>
+          <a href="/#collections">Chapitres</a>
+          <Link to="/archetype">Archétype</Link>
         </nav>
 
         <nav className="footer__block" aria-label="Maison">
@@ -111,10 +98,13 @@ export function FooterSection() {
 
       <div className="footer__legal">
         <span>
-          © {new Date().getFullYear()} {settings.brand.legalName || settings.brand.name}
+          © {new Date().getFullYear()}{" "}
+          {settings.brand.legalName?.includes(settings.brand.name)
+            ? settings.brand.legalName
+            : `${settings.brand.name} — Fallou Ngom`}
         </span>
         <span className="footer__stamp hand" aria-label="Fait à Dakar">
-          Fait à {settings.brand.address.split(",")[0] || "Dakar"}
+          Fait à {settings.brand.address?.split(",")[0]?.trim() || "Dakar"}
         </span>
       </div>
     </footer>

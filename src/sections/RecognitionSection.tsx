@@ -1,5 +1,4 @@
 import { forwardRef, useCallback, useRef, type MutableRefObject } from "react";
-import { Link } from "react-router-dom";
 import { recognition, type RecognitionIcon } from "@/content/creator";
 import { copy } from "@/content/copy";
 import { useCmsText } from "@/context/CmsContext";
@@ -56,7 +55,6 @@ export const RecognitionSection = forwardRef<HTMLElement>(function RecognitionSe
   const localRef = useRef(null) as MutableRefObject<HTMLElement | null>;
   const reduced = useReducedMotion();
   const eyebrow = useCmsText("home.recognition.eyebrow", copy.recognitionEyebrow);
-  const title = useCmsText("home.recognition.title", copy.recognitionTitle);
 
   const setRefs = useCallback(
     (node: HTMLElement | null) => {
@@ -77,20 +75,10 @@ export const RecognitionSection = forwardRef<HTMLElement>(function RecognitionSe
       aria-labelledby="reconnaissance-title"
     >
       <div className="recognition__head">
-        <p className="recognition__eyebrow">
+        <h2 className="recognition__eyebrow" id="reconnaissance-title">
           <span className="recognition__eyebrow-line" aria-hidden="true" />
           <span className="recognition__eyebrow-text">{eyebrow}</span>
           <span className="recognition__eyebrow-line" aria-hidden="true" />
-        </p>
-        <h2 className="recognition__title" id="reconnaissance-title">
-          {title.includes("2026") ? (
-            <>
-              {title.replace(/\s*2026\s*$/, "").trim()}{" "}
-              <span className="recognition__title-accent">2026</span>
-            </>
-          ) : (
-            title
-          )}
         </h2>
       </div>
 
@@ -132,68 +120,6 @@ export const RecognitionSection = forwardRef<HTMLElement>(function RecognitionSe
         ))}
       </ol>
 
-      <div className="recognition__vision">
-        <span className="recognition__vision-globe" aria-hidden="true">
-          <span className="recognition__vision-globe-aura" />
-          <svg viewBox="0 0 120 120" fill="none" className="recognition__vision-globe-svg">
-            <circle
-              className="recognition__globe-outline"
-              cx="60"
-              cy="60"
-              r="48"
-              stroke="currentColor"
-              strokeWidth="0.6"
-            />
-            <g className="recognition__globe-meridians">
-              <ellipse cx="60" cy="60" rx="20" ry="48" stroke="currentColor" strokeWidth="0.6" />
-              <ellipse
-                cx="60"
-                cy="60"
-                rx="20"
-                ry="48"
-                stroke="currentColor"
-                strokeWidth="0.6"
-                transform="rotate(60 60 60)"
-              />
-              <ellipse
-                cx="60"
-                cy="60"
-                rx="20"
-                ry="48"
-                stroke="currentColor"
-                strokeWidth="0.6"
-                transform="rotate(120 60 60)"
-              />
-            </g>
-            <g className="recognition__globe-parallels">
-              <path d="M12 60h96" stroke="currentColor" strokeWidth="0.6" />
-              <path d="M60 12v96" stroke="currentColor" strokeWidth="0.6" />
-              <path d="M18 36c16 8 68 8 84 0" stroke="currentColor" strokeWidth="0.6" />
-              <path d="M18 84c16-8 68-8 84 0" stroke="currentColor" strokeWidth="0.6" />
-              <ellipse cx="60" cy="60" rx="48" ry="14" stroke="currentColor" strokeWidth="0.5" />
-            </g>
-          </svg>
-        </span>
-        <p className="recognition__vision-label">Vision — 2030</p>
-        <blockquote className="recognition__vision-quote">
-          <span className="recognition__vision-mark recognition__vision-mark--open" aria-hidden="true">
-            &ldquo;
-          </span>
-          {recognition.vision}
-          <span className="recognition__vision-mark recognition__vision-mark--close" aria-hidden="true">
-            &rdquo;
-          </span>
-        </blockquote>
-        <ul className="recognition__cities">
-          {recognition.cities.map((city) => (
-            <li key={city}>{city}</li>
-          ))}
-        </ul>
-        <Link to="/boutique" className="recognition__cta">
-          <span>Commander une pièce</span>
-          <span aria-hidden="true">→</span>
-        </Link>
-      </div>
     </section>
   );
 });

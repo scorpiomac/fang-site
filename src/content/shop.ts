@@ -159,7 +159,7 @@ function productFromCharacterImage(
     description:
       ov.description ??
       profile?.description ??
-      `${character.name} — ${autoLabel}. Pièce produite à l'atelier FANG, collection ${chapter.name}.`,
+      `${character.name} — ${autoLabel}. Pièce produite à l'atelier FANG, boutique ${chapter.name}.`,
     coverImage,
     images: resolveProductImages(coverImage, ov),
     sizes: ov.sizes && ov.sizes.length > 0 ? ov.sizes : DEFAULT_SIZES,

@@ -8,7 +8,7 @@
       ]
     },
     "fod": {
-      "cover": "collection/s01/tambali/personnages/fod/produit-01.png",
+      "cover": "collection/s01/tambali/personnages/fod/look-01-01.png",
       "images": [
         "collection/s01/tambali/personnages/fod/produit-01.png",
         "collection/s01/tambali/personnages/fod/produit-02.png"
@@ -76,7 +76,7 @@
       ]
     },
     "djalann": {
-      "cover": "collection/s01/passage/personnages/djalann/produit-01.png",
+      "cover": "collection/s01/passage/personnages/djalann/look-01-01.png",
       "images": [
         "collection/s01/passage/personnages/djalann/produit-01.png"
       ]
@@ -96,7 +96,7 @@
   },
   "exposition": {
     "jant": {
-      "cover": "collection/s01/exposition/personnages/jant/produit-05.png",
+      "cover": "collection/s01/exposition/personnages/jant/look-05-01.png",
       "images": [
         "collection/s01/exposition/personnages/jant/produit-05.png",
         "collection/s01/exposition/personnages/jant/produit-06.png",
@@ -105,7 +105,7 @@
       ]
     },
     "gue-am": {
-      "cover": "collection/s01/exposition/personnages/gue-am/produit-08.png",
+      "cover": "collection/s01/exposition/personnages/gue-am/produit-10.png",
       "images": [
         "collection/s01/exposition/personnages/gue-am/produit-08.png",
         "collection/s01/exposition/personnages/gue-am/produit-09.png",
@@ -161,7 +161,7 @@
   },
   "racine": {
     "racine": {
-      "cover": "collection/s01/racine/personnages/racine/produit-04.png",
+      "cover": "collection/s01/racine/personnages/racine/look-04-01.png",
       "images": [
         "collection/s01/racine/personnages/racine/produit-04.png",
         "collection/s01/racine/personnages/racine/produit-05.png",

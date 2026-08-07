@@ -16,8 +16,8 @@ export function NotFoundPage() {
           <Link to="/boutique" className="cta cta--ghost">
             Boutique
           </Link>
-          <Link to="/collection" className="cta cta--ghost">
-            Collection
+          <Link to="/archetype" className="cta cta--ghost">
+            Archétype
           </Link>
         </div>
       </div>

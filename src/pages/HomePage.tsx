@@ -7,9 +7,10 @@ import { StorySection } from "@/sections/StorySection";
 import { ChaptersSection } from "@/sections/ChaptersSection";
 import { CreatorSection } from "@/sections/CreatorSection";
 import { RecognitionSection } from "@/sections/RecognitionSection";
+import { VisionSection } from "@/sections/VisionSection";
 import { ManifestSection } from "@/sections/ManifestSection";
+import { FooterSection } from "@/sections/FooterSection";
 import { MarqueeStrip } from "@/components/ui/MarqueeStrip";
-import { homeMarqueeMeanings, homeMarqueeNames } from "@/content/characterProfiles";
 import { useScenePhase } from "@/context/useScenePhase";
 import { useLenisGsap } from "@/hooks/useLenisGsap";
 import { useSectionSceneBindings } from "@/hooks/useSectionSceneBindings";
@@ -19,6 +20,24 @@ import { Seo } from "@/components/Seo";
 import { useSiteSettings } from "@/context/siteSettingsContext";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const LOADER_SEEN_KEY = "fang-loader-seen";
+
+function hasSeenLoaderThisSession(): boolean {
+  try {
+    return sessionStorage.getItem(LOADER_SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markLoaderSeen(): void {
+  try {
+    sessionStorage.setItem(LOADER_SEEN_KEY, "1");
+  } catch {
+    /* private mode / blocked storage */
+  }
+}
 
 const CanvasRoot = lazy(async () => {
   const m = await import("@/r3f/CanvasRoot");
@@ -33,8 +52,11 @@ export function HomePage() {
   const creatorRef = useRef<HTMLElement>(null);
   const manifestRef = useRef<HTMLElement>(null);
 
-  const [loaded, setLoaded] = useState(false);
-  const onLoaderDone = useCallback(() => setLoaded(true), []);
+  const [loaded, setLoaded] = useState(() => hasSeenLoaderThisSession());
+  const onLoaderDone = useCallback(() => {
+    markLoaderSeen();
+    setLoaded(true);
+  }, []);
 
   const webgl = useWebGLSupport();
   const reduced = useReducedMotion();
@@ -210,13 +232,15 @@ export function HomePage() {
         </div>
         <main id="contenu-principal" className="content-root">
           <HeroSection ref={heroRef} showVideoFallback />
-          <MarqueeStrip items={homeMarqueeNames} gloss />
+          <MarqueeStrip items={["FANG", "Boutique 01", "Nel Fang Te Dundu", "Dakar 14°N", "Artisanal", "2024", "Wolof", "Sérère", "Diola"]} />
           <StorySection ref={storyRef} />
-          <MarqueeStrip items={homeMarqueeMeanings} className="marquee-strip--inverse" />
+          <MarqueeStrip items={["Tambali", "Passage", "Exposition", "Feu", "Ge Am", "Racine", "Mbougir", "7 Personnages", "1 Vision"]} className="marquee-strip--inverse" />
           <ChaptersSection ref={chaptersRef} />
           <CreatorSection ref={creatorRef} />
           <RecognitionSection />
+          <VisionSection />
           <ManifestSection ref={manifestRef} />
+          <FooterSection />
         </main>
       </div>
     </div>

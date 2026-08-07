@@ -19,7 +19,8 @@ export function SiteHeader() {
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isShop = location.pathname.startsWith("/boutique");
-  const isArchetype = location.pathname.startsWith("/archetype");
+  const isArchetype =
+    location.pathname.startsWith("/archetype") || location.pathname.startsWith("/collection");
   const isContact = location.pathname.startsWith("/contact");
   const { openDrawer, countItems } = useCart();
   const { customer } = useCustomer();

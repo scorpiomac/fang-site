@@ -30,7 +30,7 @@ export function ChapterEditor() {
   const [quote, setQuote] = useState(lore.quote ?? "");
   const [body, setBody] = useState(lore.body ?? "");
   const [palette, setPalette] = useState<string[]>(
-    lore.palette ?? ["#3a261a", "#7d5c3a", "#c4b6a3"]
+    lore.palette ?? ["#3a1c14", "#7d5c3a", "#c4b6a3"]
   );
   const [coverImage, setCoverImage] = useState<string | null>(lore.coverImage ?? null);
   const [posterImage, setPosterImage] = useState<string | null>(lore.posterImage ?? null);
@@ -47,7 +47,7 @@ export function ChapterEditor() {
     setRole(lore.role ?? "");
     setQuote(lore.quote ?? "");
     setBody(lore.body ?? "");
-    setPalette(lore.palette ?? ["#3a261a", "#7d5c3a", "#c4b6a3"]);
+    setPalette(lore.palette ?? ["#3a1c14", "#7d5c3a", "#c4b6a3"]);
     setCoverImage(lore.coverImage ?? null);
     setPosterImage(lore.posterImage ?? null);
   }, [chapter, lore]);

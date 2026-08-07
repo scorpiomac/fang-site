@@ -1,70 +1,45 @@
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type MouseEvent,
-  type MutableRefObject,
-} from "react";
-import {
-  storyFooterQuote,
-  storyPillars,
-  type StoryPillarIcon,
-} from "@/content/copy";
-import { useCmsText, useCmsList } from "@/context/CmsContext";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useStorySectionMotion } from "@/hooks/useStorySectionMotion";
+import { forwardRef } from "react";
+import { copy } from "@/content/copy";
+import { storyEntities } from "@/content/storyEntities";
+import { useCmsText } from "@/context/CmsContext";
 
-const DEFILE_MS = 3000;
-
-function StoryIcon({ name }: { name: StoryPillarIcon }) {
+function EntityGlyph({ id }: { id: string }) {
   const common = {
-    viewBox: "0 0 48 48",
+    viewBox: "0 0 48 24",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: 1.5,
+    strokeWidth: 1.4,
     strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true,
+    "aria-hidden": true as const,
   };
 
-  switch (name) {
-    case "eye":
+  switch (id) {
+    case "fod":
       return (
         <svg {...common}>
-          <path d="M6 24s8-14 18-14 18 14 18 14-8 14-18 14S6 24 6 24Z" />
-          <circle cx="24" cy="24" r="5" />
+          <path d="M6 18c2-8 6-12 10-12" />
+          <path d="M20 6c2 4 2 10 0 14" />
+          <path d="M28 18c4-10 10-12 14-8" />
         </svg>
       );
-    case "branch":
+    case "ohasso":
       return (
         <svg {...common}>
-          <path d="M10 34c8-2 12-10 14-18" />
-          <path d="M18 28c4-6 10-10 18-12" />
-          <path d="M22 18c2-4 6-7 12-8" />
-          <path d="M14 30l4-4M26 20l4-4" />
+          <path d="M4 16c3-8 7-10 10-6" />
+          <path d="M16 8c2 6 4 10 2 12" />
+          <path d="M22 18c3-9 7-11 10-7" />
+          <path d="M34 9c1 5 3 9 1 11" />
+          <path d="M38 17c3-6 6-8 8-5" />
         </svg>
       );
-    case "mask":
+    case "teunk":
       return (
         <svg {...common}>
-          <path d="M10 18c2-6 8-10 14-10s12 4 14 10v8c-2 8-8 14-14 14s-12-6-14-14v-8Z" />
-          <path d="M18 22h4M26 22h4" />
-          <path d="M20 30c2 2 6 2 8 0" />
-        </svg>
-      );
-    case "sun":
-      return (
-        <svg {...common}>
-          <circle cx="24" cy="24" r="7" />
-          <path d="M24 8v4M24 36v4M8 24h4M36 24h4M13 13l3 3M32 32l3 3M35 13l-3 3M16 32l-3 3" />
-        </svg>
-      );
-    case "heart":
-      return (
-        <svg {...common}>
-          <path d="M24 36s-12-7-12-16a7 7 0 0 1 12-4 7 7 0 0 1 12 4c0 9-12 16-12 16Z" />
+          <path d="M5 17c2-7 5-10 8-8" />
+          <path d="M15 8v12" />
+          <path d="M21 18c3-9 6-11 9-7" />
+          <path d="M32 9c2 5 3 9 1 11" />
+          <path d="M38 17c3-7 6-9 8-6" />
         </svg>
       );
     default:
@@ -72,133 +47,43 @@ function StoryIcon({ name }: { name: StoryPillarIcon }) {
   }
 }
 
-function onCardPointerMove(e: MouseEvent<HTMLLIElement>) {
-  const card = e.currentTarget;
-  const rect = card.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
-  card.style.setProperty("--mx", `${x}%`);
-  card.style.setProperty("--my", `${y}%`);
-}
-
-function onCardPointerLeave(e: MouseEvent<HTMLLIElement>) {
-  e.currentTarget.style.removeProperty("--mx");
-  e.currentTarget.style.removeProperty("--my");
-}
-
 export const StorySection = forwardRef<HTMLElement>(function StorySection(_, ref) {
-  const localRef = useRef(null) as MutableRefObject<HTMLElement | null>;
-  const cardsRef = useRef<HTMLOListElement>(null);
-  const reduced = useReducedMotion();
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const footerQuote = useCmsText("home.story.footerQuote", storyFooterQuote);
-  const cmsTitles = useCmsList(
-    "home.story.fragments",
-    storyPillars.map((p) => p.title)
-  );
-
-  const setRefs = useCallback(
-    (node: HTMLElement | null) => {
-      localRef.current = node;
-      if (typeof ref === "function") ref(node);
-      else if (ref) (ref as MutableRefObject<HTMLElement | null>).current = node;
-    },
-    [ref]
-  );
-
-  useStorySectionMotion(localRef, !reduced);
-
-  const pillars = storyPillars.map((pillar, i) => ({
-    ...pillar,
-    title: cmsTitles[i] ?? pillar.title,
-  }));
-  const count = pillars.length;
-
-  // Auto-défilé horizontal (tablette / mobile) — pause au survol / focus / touch
-  useEffect(() => {
-    if (reduced || paused || count < 2) return;
-    const id = window.setInterval(() => {
-      setActive((i) => (i + 1) % count);
-    }, DEFILE_MS);
-    return () => window.clearInterval(id);
-  }, [count, paused, reduced]);
-
-  useEffect(() => {
-    const root = cardsRef.current;
-    if (!root) return;
-    // Desktop grille 5 colonnes : pas de scroll à forcer
-    if (root.scrollWidth <= root.clientWidth + 12) return;
-    const card = root.children[active] as HTMLElement | undefined;
-    if (!card) return;
-    const left = card.offsetLeft - root.offsetLeft;
-    root.scrollTo({ left, behavior: "smooth" });
-  }, [active]);
+  const tagline = useCmsText("brand.tagline", copy.tagline);
+  const taglineFr = useCmsText("brand.taglineFr", copy.taglineFr);
 
   return (
     <section
-      ref={setRefs}
-      className={`story${reduced ? " story--reduced" : ""}`}
+      ref={ref}
+      className="story story--entities"
       id="philosophie"
       aria-labelledby="philosophie-title"
     >
-      <div className="story__watermark" aria-hidden="true">
-        FANG
-      </div>
-
       <div className="story__inner">
-        <header className="story__masthead">
-          <div className="story__eyebrow-row">
-            <span className="story__eyebrow-line" aria-hidden="true" />
-            <p className="story__eyebrow" id="philosophie-title">
-              Philosophie
-            </p>
-            <span className="story__eyebrow-line" aria-hidden="true" />
-          </div>
+        <header className="story__head">
+          <p className="story__eyebrow" id="philosophie-title">
+            Philosophie
+          </p>
+          <h2 className="story__title">Les entités qui portent le récit</h2>
+          <p className="story__lede">
+            {tagline} — {taglineFr}.
+          </p>
         </header>
 
-        <ol
-          ref={cardsRef}
-          className="story__cards story__cards--defile"
-          aria-live="polite"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocusCapture={() => setPaused(true)}
-          onBlurCapture={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false);
-          }}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => {
-            window.setTimeout(() => setPaused(false), 2800);
-          }}
-        >
-          {pillars.map((pillar, i) => (
+        <ul className="story__entities" aria-label="Entités du récit FANG">
+          {storyEntities.map((entity) => (
             <li
-              key={pillar.title}
-              className={`story-card${i === active ? " is-active" : ""}`}
-              onMouseMove={onCardPointerMove}
-              onMouseLeave={onCardPointerLeave}
+              key={entity.id}
+              className={`story-entity${entity.tone === "antagonist" ? " story-entity--antagonist" : ""}`}
             >
-              <span className="story-card__num">{String(i + 1).padStart(2, "0")}</span>
-              <div className="story-card__icon" aria-hidden="true">
-                <span className="story-card__icon-ring" aria-hidden="true" />
-                <StoryIcon name={pillar.icon} />
-              </div>
-              <h3 className="story-card__title">{pillar.title}</h3>
-              <p className="story-card__desc">{pillar.description}</p>
+              <span className="story-entity__glyph">
+                <EntityGlyph id={entity.id} />
+              </span>
+              <h3 className="story-entity__name">{entity.name}</h3>
+              <p className="story-entity__role">{entity.role}</p>
+              <p className="story-entity__body">{entity.body}</p>
             </li>
           ))}
-        </ol>
-
-        <blockquote className="story__closing">
-          <span className="story__closing-mark" aria-hidden="true">
-            &ldquo;
-          </span>
-          <p>{footerQuote}</p>
-          <span className="story__closing-mark story__closing-mark--end" aria-hidden="true">
-            &rdquo;
-          </span>
-        </blockquote>
+        </ul>
       </div>
     </section>
   );

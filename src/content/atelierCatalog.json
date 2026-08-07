@@ -42,7 +42,7 @@
           "slug": "fod",
           "name": "Fod",
           "sourceFolder": "FOD",
-          "cover": "collection/s01/tambali/personnages/fod/produit-01.png",
+          "cover": "collection/s01/tambali/personnages/fod/look-01-01.png",
           "images": [
             "collection/s01/tambali/personnages/fod/produit-01.png",
             "collection/s01/tambali/personnages/fod/produit-02.png"
@@ -163,7 +163,7 @@
           "slug": "djalann",
           "name": "Djaalan",
           "sourceFolder": "DJAALAN",
-          "cover": "collection/s01/passage/personnages/djalann/produit-01.png",
+          "cover": "collection/s01/passage/personnages/djalann/look-01-01.png",
           "images": [
             "collection/s01/passage/personnages/djalann/produit-01.png"
           ],
@@ -206,7 +206,7 @@
           "slug": "jant",
           "name": "Jant",
           "sourceFolder": "JANT",
-          "cover": "collection/s01/exposition/personnages/jant/produit-05.png",
+          "cover": "collection/s01/exposition/personnages/jant/look-05-01.png",
           "images": [
             "collection/s01/exposition/personnages/jant/produit-05.png",
             "collection/s01/exposition/personnages/jant/produit-07.png",
@@ -219,7 +219,7 @@
           "slug": "gue-am",
           "name": "Gé Am",
           "sourceFolder": "Gue Am",
-          "cover": "collection/s01/exposition/personnages/gue-am/produit-08.png",
+          "cover": "collection/s01/exposition/personnages/gue-am/produit-10.png",
           "images": [
             "collection/s01/exposition/personnages/gue-am/produit-08.png",
             "collection/s01/exposition/personnages/gue-am/produit-11.png",
@@ -327,7 +327,7 @@
           "slug": "racine",
           "name": "Racine",
           "sourceFolder": "RACINE",
-          "cover": "collection/s01/racine/personnages/racine/produit-04.png",
+          "cover": "collection/s01/racine/personnages/racine/look-04-01.png",
           "images": [
             "collection/s01/racine/personnages/racine/produit-04.png",
             "collection/s01/racine/personnages/racine/produit-05.png",

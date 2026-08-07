@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import type { CollectionChapter, CollectionCharacter } from "@/content/collectionCatalog";
-import { formatPriceXof } from "@/content/shop";
 import { copy } from "@/content/copy";
 import { GlossedTerm } from "@/components/ui/GlossedTerm";
 
@@ -58,16 +57,17 @@ type Props = {
   chapter: CollectionChapter;
   characters: CollectionCharacter[];
   cover: string | null;
-  minPrice: number | null;
   productTotal: number;
+  /** Lien du CTA Commander (défaut : filtre boutique). */
+  orderTo?: string;
 };
 
 export function CollectionChapterCard({
   chapter,
   characters,
   cover,
-  minPrice,
   productTotal,
+  orderTo,
 }: Props) {
   const chapterNum = parseInt(chapter.index, 10);
   const isEmpty = characters.length === 0;
@@ -132,12 +132,6 @@ export function CollectionChapterCard({
               ))}
             </ul>
 
-            {minPrice != null ? (
-              <p className="chapter-showcase__price">
-                {copy.fromPrice}{" "}
-                <strong>{formatPriceXof(minPrice)} FCFA</strong>
-              </p>
-            ) : null}
           </>
         ) : (
           <p className="chapter-showcase__empty">{copy.collectionEmptyChapter}</p>
@@ -154,7 +148,7 @@ export function CollectionChapterCard({
 
           {!isEmpty ? (
             <Link
-              to={`/boutique?chapitre=${chapter.id}`}
+              to={orderTo ?? `/collection/${chapter.slug}`}
               className="chapter-showcase__cta chapter-showcase__cta--solid"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">

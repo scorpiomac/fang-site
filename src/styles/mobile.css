@@ -244,10 +244,6 @@ body,
     white-space: normal;
   }
 
-  .product-page__character {
-    padding: 1rem;
-  }
-
   .product-page__related-grid {
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;

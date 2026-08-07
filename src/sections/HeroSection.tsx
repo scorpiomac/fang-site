@@ -27,12 +27,20 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
     const video = videoRef.current;
     if (!video || !showVideoFallback) return;
     video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
     const tryPlay = () => {
-      void video.play().catch(() => {});
+      void video.play().catch(() => {
+        // Autoplay bloqué : le poster reste visible en arrière-plan.
+      });
     };
     tryPlay();
     video.addEventListener("loadeddata", tryPlay);
-    return () => video.removeEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+    };
   }, [showVideoFallback, heroVideoSrc]);
 
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -57,6 +65,7 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
           ref={videoRef}
           className="hero__video"
           src={heroVideoSrc}
+          poster={publicUrl("video/fang-hero-poster.jpg")}
           muted
           playsInline
           autoPlay
@@ -98,7 +107,7 @@ export const HeroSection = forwardRef<HTMLElement, Props>(function HeroSection(
         </h1>
         <p className="hero__subtitle">{heroSubtitle}</p>
         <div className="hero__actions">
-          <Link className="cta cta--solid" to="/collection">
+          <Link className="cta cta--solid" to="/boutique">
             <span>{heroPrimary}</span>
             <span aria-hidden>→</span>
           </Link>

@@ -5,12 +5,6 @@ export const creator = {
   paragraphs: [
     "Fallou Ngom a grandi en se sentant « décalé » par les codes de la mode. Plutôt que de s'y conformer, il a créé l'espace qui lui manquait, où le vêtement sert à se libérer plutôt qu'à rentrer dans un moule.",
   ],
-  inspirations: [
-    "Folklore sénégalais",
-    "Cultures Sérère & Diola",
-    "Mangas & animés japonais",
-    "Afrofuturisme",
-  ],
   stances: [
     {
       title: "Notre terrain",

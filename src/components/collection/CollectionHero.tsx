@@ -6,16 +6,31 @@ import { CommerceJourney } from "@/components/shop/CommerceJourney";
 import { publicUrl } from "@/lib/publicUrl";
 import { MediaImage } from "@/components/ui/MediaImage";
 
-export function CollectionHero() {
+type Props = {
+  /** Variante Boutique : fil d’Ariane et CTA adaptés. */
+  variant?: "collection" | "boutique";
+};
+
+export function CollectionHero({ variant = "collection" }: Props) {
+  const isBoutique = variant === "boutique";
+
   return (
     <section className="collection-hero" aria-labelledby="collection-hero-title">
       <div className="collection-hero__shell">
         <CommerceJourney
-          steps={[
-            { label: "Accueil", to: "/" },
-            { label: "Collection", current: true },
-            { label: "Commander", to: "/boutique" },
-          ]}
+          steps={
+            isBoutique
+              ? [
+                  { label: "Accueil", to: "/" },
+                  { label: "Boutique", current: true },
+                  { label: "Commander", to: "/commande" },
+                ]
+              : [
+                  { label: "Accueil", to: "/" },
+                  { label: "Boutique", current: true },
+                  { label: "Commander", to: "/boutique" },
+                ]
+          }
         />
 
         <div className="collection-hero__stage">
@@ -28,22 +43,20 @@ export function CollectionHero() {
             </h1>
             <p className="collection-hero__lede">{copy.conversionTagline}</p>
             <div className="collection-hero__actions">
-              <Link to="/boutique" className="cta cta--solid collection-hero__cta">
+              <Link to="/archetype" className="cta cta--solid collection-hero__cta">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                  <path d="M6 5v3.5a6 6 0 0 0 12 0V5" />
-                  <path d="M12 12.5V19" />
-                  <path d="M9 19h6" />
+                  <circle cx="12" cy="8" r="3.25" />
+                  <path d="M5.5 19c1.6-3.2 3.9-4.75 6.5-4.75S16.9 15.8 18.5 19" />
                 </svg>
-                <span>{copy.shopAllPieces}</span>
+                <span>Archétype</span>
                 <span aria-hidden="true">→</span>
               </Link>
-              <Link to="/#collections" className="cta cta--ghost collection-hero__cta">
+              <Link to="/contact" className="cta cta--ghost collection-hero__cta">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                  <path d="M5 6.5A2.5 2.5 0 0 1 7.5 4H18v16H7.5A2.5 2.5 0 0 1 5 17.5v-11Z" />
-                  <path d="M5 6.5A2.5 2.5 0 0 0 7.5 4H18" />
-                  <path d="M9 9h6M9 13h4" />
+                  <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
+                  <path d="m4.5 7.5 7.5 5.5 7.5-5.5" />
                 </svg>
-                <span>{copy.narrativeAndShop}</span>
+                <span>Contact</span>
               </Link>
             </div>
           </div>
@@ -54,7 +67,7 @@ export function CollectionHero() {
               fallbacks={[
                 publicUrl("collection/s01/tambali/personnages/jant/produit-09.jpg"),
               ]}
-              alt="Pièce FANG — collection Saison 0 — Neel Fang"
+              alt="Pièce FANG — boutique Saison 0 — Neel Fang"
               loading="eager"
               decoding="async"
             />

@@ -2,24 +2,24 @@ import siteOverridesJson from "./siteOverrides.json";
 
 const baseCopy = {
   brand: "FANG",
-  tagline: "Nel Fang Te Dundu",
-  taglineFr: "Expose-toi et vis",
+  tagline: "louné Fang kénn douko jééx",
+  taglineFr: "sois conciliant comme le sable, expose toi comme le sable",
 
   heroEyebrow: "Maison sénégalaise — Saison 0 — Neel Fang",
   heroTitle: "Le futur a des racines.",
   heroSubtitle:
     "FANG est une maison afro-contemporaine née à Dakar. Saison 0 — Neel Fang : sept chapitres, des archétypes réels, des pièces produites à Dakar.",
-  heroPrimary: "Entrer dans la collection",
-  heroSecondary: "Nos archétypes",
+  heroPrimary: "Entrer dans la boutique",
+  heroSecondary: "Lire l'Archétype",
 
-  chaptersEyebrow: "Casting — Nel Fang Te Dundu",
-  chaptersTitle: "Sept chapitres,\nune même exposition.",
+  chaptersEyebrow: "Saison 0",
+  chaptersTitle: "Nel Fang Te Dundu",
   chaptersIntro:
-    "Sept visages, sept portes : ici on défile le casting. Le récit complet, les images et le lien avec la pièce se vivent sur la page dédiée à chaque archétype.",
+    "La saison zéro s'appelle Neel Fang. Une saison dure dix chapitres — dix capsules, dix fragments d'une même histoire. Aujourd'hui, on est au septième sur dix. La fin approche, mais tu ne sais pas encore ce qu'elle révèle.",
 
   creatorEyebrow: "Le créateur",
   creatorName: "Fallou Ngom",
-  creatorRole: "Fondateur & directeur artistique",
+  creatorRole: "Fondateur, directeur artistique & couturier",
   creatorQuote: "Je ne crée pas des vêtements. Je crée des armures de confiance.",
 
   recognitionEyebrow: "Reconnaissance",
@@ -30,9 +30,9 @@ const baseCopy = {
   manifestEyebrow: "Manifeste",
   manifestLine: "Expose-toi. Tu es beau. Tu es toi. C’est suffisant.",
   manifestBody:
-    "FANG s’adapte aux corps, pas l’inverse. Trois piliers : authenticité, culture, afrofuturisme. Trois couleurs : la terre, le sang, l’or. Une promesse : que porter du FANG, ce soit porter la fierté d’être soi.",
+    "Mes inspirations, c'est les gens de la vraie vie — leur façon de penser, de s'habiller, de chercher à exister confortablement dans leur peau. Ce n'est pas à vous de vous adapter à FANG, c'est FANG qui s'adapte à vous.",
 
-  footerTagline: "Dakar — Paris — bientôt partout.",
+  footerTagline: "Gué am - Jaant - Miik - Sukoox - Djaak - Djalaann - Fod - Mossane",
   newsletter: "Recevoir la lettre",
   newsletterPlaceholder: "votre@email.com",
   contact: "Écrire à l’atelier",
@@ -44,7 +44,7 @@ const baseCopy = {
   personnageCinematicLine:
     "Avant que les cartes ne portent les noms des empires, il y avait des voix, des royaumes et des résistances.",
   personnageCinematicSub:
-    "Ici, ce n’est pas une biographie froide : c’est une traversée. Un archétype FANG, une scène, une mémoire qui continue de parler.",
+    "Ici, ce n’est pas une biographie froide : c’est une traversée. Un personnage FANG, une scène, une mémoire qui continue de parler.",
   personnageEnterStory: "Entrer dans l’histoire",
   personnageSkipIntro: "Passer l’introduction",
   personnageScrollScenes: "Faites défiler — sept scènes, une même ligne du temps.",
@@ -60,18 +60,18 @@ const baseCopy = {
   personnageShopSeePiece: "Voir la pièce",
   personnageShopBrowseCharacter: "Voir dans la boutique",
   personnageShopDiscover: "Découvrir la boutique",
-  productPageContinueCharacterBoutique: "Boutique — cet archétype",
+  productPageContinueCharacterBoutique: "Boutique — ce personnage",
   productPageContinueShopping: "Continuer les achats",
-  chapterPanelBoutiqueFilter: "Boutique — cet archétype",
+  chapterPanelBoutiqueFilter: "Boutique — ce personnage",
 
-  collectionEyebrow: "Collection",
-  collectionPersonnagesLabel: "Archétypes",
-  collectionCharactersOnly: "Uniquement les archétypes de l’atelier",
+  collectionEyebrow: "Boutique",
+  collectionPersonnagesLabel: "Personnages",
+  collectionCharactersOnly: "Uniquement les personnages de l’atelier",
   collectionSeeChapter: "Explorer le chapitre",
   collectionSeePersonnage: "Voir les produits",
-  collectionBackSeason: "Saison 0 — Neel Fang",
+  collectionBackSeason: "Saison 01",
   collectionPersonnagesIntro:
-    "Chaque archétype n’existe que s’il est dans le dossier de la collection. Ouvrez un profil pour voir ses produits dans ce chapitre.",
+    "Chaque personnage n’existe que s’il est dans le dossier de la boutique. Ouvrez un profil pour voir ses produits dans ce chapitre.",
   collectionEmptyChapter: "Ce chapitre arrive bientôt dans l'atelier.",
   collectionPieceCta: "Commander",
 
@@ -80,12 +80,12 @@ const baseCopy = {
   selectSize: "Choisir votre taille",
   selectSizeShort: "Taille",
   checkoutDirect: "Commander maintenant",
-  shopFromCollection: "Voir toute la collection",
+  shopFromCollection: "Voir toute la boutique",
   shopAllPieces: "Toutes les pièces",
   fromPrice: "À partir de",
   chapterShopCta: "Commander une pièce de ce chapitre",
   narrativeAndShop: "Récit & boutique",
-  conversionTagline: "De la collection au vêtement — produit à Dakar, commande en quelques clics.",
+  conversionTagline: "De la boutique au vêtement — produit à Dakar, commande en quelques clics.",
   collectionHeroImage: "collection/s01/hero-premium.jpg",
   assuranceItems: [
     "Fabrication locale à Dakar",
@@ -103,7 +103,7 @@ const chapterCardHighlightsBase = [
 
 const trustItemsBase = [
   { title: "Atelier Dakar", detail: "Coupe & finitions à la main" },
-  { title: "2-6 semaines", detail: "Production lente, qualité durable" },
+  { title: "2–6 semaines", detail: "Production lente, qualité durable" },
   { title: "Sur mesure", detail: "Morphologies atypiques bienvenues" },
   { title: "WhatsApp", detail: "Paiement & livraison avec l'atelier" },
 ];
@@ -142,43 +142,10 @@ export const copy = {
 export const editableCopyKeys = Object.keys(baseCopy) as (keyof typeof baseCopy)[];
 export const editableCopyDefaults = baseCopy;
 
-export const storyFooterQuote = "FANG, ce n'est pas une norme. C'est une liberté.";
-
-export type StoryPillarIcon = "eye" | "branch" | "mask" | "sun" | "heart";
-
-export type StoryPillar = {
-  icon: StoryPillarIcon;
-  title: string;
-  description: string;
-};
-
-export const storyPillars: StoryPillar[] = [
-  {
-    icon: "eye",
-    title: "FANG, en wolof, signifie exposition.",
-    description: "Se montrer au monde, partager sa vision, et affirmer son existence.",
-  },
-  {
-    icon: "branch",
-    title: "Mais pour nous, c'est une philosophie.",
-    description: "Une manière d'habiter le monde avec fierté, créativité et authenticité.",
-  },
-  {
-    icon: "mask",
-    title: "Peu importe ta morphologie. Ton genre. Ta culture.",
-    description: "Ton genre. Ta culture. Ce qui compte, c'est ton identité, ta lumière.",
-  },
-  {
-    icon: "sun",
-    title: "Ose t'exposer.",
-    description: "Montre qui tu es, ce que tu fais, ce qui te rend unique.",
-  },
-  {
-    icon: "heart",
-    title: "Tu es beau. Tu es toi. C'est suffisant.",
-    description: "L'important, c'est d'être vrai, pleinement et sans compromis.",
-  },
-];
-
-/** @deprecated Utiliser storyPillars — conservé pour le CMS (titres). */
-export const storyFragments = storyPillars.map((p) => p.title) as readonly string[];
+export const storyFragments = [
+  "FANG, en wolof, signifie exposition.",
+  "Mais pour nous, c’est une philosophie.",
+  "Peu importe ta morphologie. Ton genre. Ta culture.",
+  "Ose t’exposer.",
+  "Tu es beau. Tu es toi. C’est suffisant.",
+] as const;

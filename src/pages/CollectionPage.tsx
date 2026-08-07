@@ -7,7 +7,6 @@ import {
   getChapterHeroImage,
   totalProductsInChapter,
 } from "@/content/collectionCatalog";
-import { getProductsForChapter } from "@/content/shop";
 import { copy } from "@/content/copy";
 import { CollectionHero } from "@/components/collection/CollectionHero";
 import { CollectionChapterCard } from "@/components/collection/CollectionChapterCard";
@@ -23,11 +22,6 @@ export function CollectionPage() {
           const productTotal = totalProductsInChapter(chapter.id);
           const lore = narrativeChapters.find((n) => n.id === chapter.id);
           const cover = getChapterHeroImage(chapter, characters[0], lore?.images[0]);
-          const chapterProducts = getProductsForChapter(chapter.id);
-          const minPrice =
-            chapterProducts.length > 0
-              ? Math.min(...chapterProducts.map((p) => p.priceXof))
-              : null;
 
           return (
             <li key={chapter.id}>
@@ -35,7 +29,6 @@ export function CollectionPage() {
                 chapter={chapter}
                 characters={characters}
                 cover={cover ?? null}
-                minPrice={minPrice}
                 productTotal={productTotal}
               />
             </li>

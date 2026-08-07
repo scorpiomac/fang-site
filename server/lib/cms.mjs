@@ -16,11 +16,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import { withFileLock } from "./fileLock.mjs";
-import {
-  repairCmsIfNeeded,
-  onCmsWrite,
-  onCmsPublished,
-} from "./persistence.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,18 +43,6 @@ export const CMS_SCHEMA = {
       icon: "✦",
       lede: "La première vue. Sur-titre, titre, sous-titre et boutons d'action.",
       fields: [
-        {
-          id: "video",
-          label: "Vidéo hero",
-          type: "video",
-          hint: "MP4/WebM — stocké hors build (cms-media/)",
-        },
-        {
-          id: "poster",
-          label: "Image poster",
-          type: "image",
-          hint: "Affichée avant lecture et si la vidéo ne charge pas",
-        },
         { id: "eyebrow", label: "Sur-titre", type: "text", hint: "Petit texte au-dessus du titre" },
         { id: "title", label: "Titre principal", type: "text" },
         { id: "subtitle", label: "Sous-titre", type: "textarea", rows: 3 },
@@ -99,12 +82,6 @@ export const CMS_SCHEMA = {
       icon: "❖",
       lede: "Présentation du fondateur.",
       fields: [
-        {
-          id: "portrait",
-          label: "Portrait",
-          type: "image",
-          hint: "Photo du créateur",
-        },
         { id: "eyebrow", label: "Sur-titre", type: "text" },
         { id: "name", label: "Nom", type: "text" },
         { id: "role", label: "Rôle", type: "text" },
@@ -137,7 +114,7 @@ export const CMS_SCHEMA = {
       id: "home.featured",
       label: "Accueil — Pièces phares",
       icon: "❉",
-      lede: "Titre du bloc qui présente quelques pièces de la collection.",
+      lede: "Titre du bloc qui présente quelques pièces de la boutique.",
       fields: [
         { id: "eyebrow", label: "Sur-titre", type: "text" },
         { id: "title", label: "Titre", type: "text" },
@@ -161,12 +138,12 @@ export const CMS_SCHEMA = {
 
 export const CMS_DEFAULTS = {
   "home.hero": {
-    eyebrow: "Maison sénégalaise — Saison 0 — Neel Fang",
+    eyebrow: "Maison sénégalaise — Saison 01",
     title: "Le futur a des racines.",
     subtitle:
-      "FANG est une maison afro-contemporaine née à Dakar. Saison 0 — Neel Fang : sept chapitres, des personnages réels, des pièces produites à Dakar.",
-    ctaPrimary: "Entrer dans la collection",
-    ctaSecondary: "Nos personnages",
+      "FANG est une maison afro-contemporaine née à Dakar. Saison 01 : sept chapitres, des personnages réels, des pièces produites à Dakar.",
+    ctaPrimary: "Entrer dans la boutique",
+    ctaSecondary: "Lire l'Archétype",
   },
   "home.story": {
     fragments: [
@@ -178,15 +155,15 @@ export const CMS_DEFAULTS = {
     ],
   },
   "home.chapters": {
-    eyebrow: "Casting — Nel Fang Te Dundu",
-    title: "Sept chapitres,\nune même exposition.",
+    eyebrow: "Saison 0",
+    title: "Nel Fang Te Dundu",
     intro:
-      "Sept visages, sept portes : ici on défile le casting. Le récit complet, les images et le lien avec la pièce se vivent sur la page dédiée à chaque personnage.",
+      "La saison zéro s'appelle Neel Fang. Une saison dure dix chapitres — dix capsules, dix fragments d'une même histoire. Aujourd'hui, on est au septième sur dix. La fin approche, mais tu ne sais pas encore ce qu'elle révèle.",
   },
   "home.creator": {
     eyebrow: "Le créateur",
     name: "Fallou Ngom",
-    role: "Fondateur & directeur artistique",
+    role: "Fondateur, directeur artistique & couturier",
     quote: "Je ne crée pas des vêtements. Je crée des armures de confiance.",
   },
   "home.recognition": {
@@ -199,25 +176,23 @@ export const CMS_DEFAULTS = {
     eyebrow: "Manifeste",
     line: "Expose-toi. Tu es beau. Tu es toi. C’est suffisant.",
     body:
-      "FANG s’adapte aux corps, pas l’inverse. Trois piliers : authenticité, culture, afrofuturisme. Trois couleurs : la terre, le sang, l’or. Une promesse : que porter du FANG, ce soit porter la fierté d’être soi.",
+      "Mes inspirations, c'est les gens de la vraie vie — leur façon de penser, de s'habiller, de chercher à exister confortablement dans leur peau. Ce n'est pas à vous de vous adapter à FANG, c'est FANG qui s'adapte à vous.",
   },
   "home.featured": {
     eyebrow: "",
     title: "",
     tagline:
-      "De la collection au vêtement — produit à Dakar, commande en quelques clics.",
+      "De la boutique au vêtement — produit à Dakar, commande en quelques clics.",
   },
   brand: {
     name: "FANG",
-    tagline: "Nel Fang Te Dundu",
-    taglineFr: "Expose-toi et vis",
-    footerTagline: "Dakar — Paris — bientôt partout.",
+    tagline: "louné Fang kénn douko jééx",
+    taglineFr: "sois conciliant comme le sable, expose toi comme le sable",
+    footerTagline: "Gué am - Jaant - Miik - Sukoox - Djaak - Djalaann - Fod - Mossane",
   },
 };
 
 function load() {
-  repairCmsIfNeeded();
-
   if (!fs.existsSync(FILE)) {
     const empty = {
       draft: {},
@@ -227,21 +202,12 @@ function load() {
       draftUpdatedBy: null,
       publishedBy: null,
     };
-    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
     fs.writeFileSync(FILE, JSON.stringify(empty, null, 2));
     return empty;
   }
   try {
     return JSON.parse(fs.readFileSync(FILE, "utf8"));
   } catch {
-    const repaired = repairCmsIfNeeded();
-    if (repaired.repaired && fs.existsSync(FILE)) {
-      try {
-        return JSON.parse(fs.readFileSync(FILE, "utf8"));
-      } catch {
-        /* ignore */
-      }
-    }
     return {
       draft: {},
       published: {},
@@ -253,8 +219,7 @@ function load() {
   }
 }
 
-function save(state, reason = "write") {
-  onCmsWrite(state, reason);
+function save(state) {
   fs.writeFileSync(FILE, JSON.stringify(state, null, 2));
 }
 
@@ -329,8 +294,7 @@ export async function publishCms({ actor } = {}) {
     state.published = JSON.parse(JSON.stringify(draft ?? {}));
     state.publishedAt = new Date().toISOString();
     state.publishedBy = actor ?? null;
-    save(state, "publish");
-    onCmsPublished(state);
+    save(state);
     return mergedWithDefaults(state.published);
   });
 }

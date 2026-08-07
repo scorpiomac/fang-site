@@ -118,7 +118,7 @@ function enrichChapter(ch: RawCatalog["chapters"][0]): CollectionChapter {
     palette:
       override.palette && override.palette.length >= 3
         ? override.palette
-        : lore?.palette ?? ["#3a261a", "#7d5c3a", "#c4b6a3"],
+        : lore?.palette ?? ["#3a1c14", "#7d5c3a", "#c4b6a3"],
     characters: ch.characters.map((c) => ({
       id: c.id,
       slug: c.slug,

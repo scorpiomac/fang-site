@@ -19,8 +19,8 @@ export function ChapterHubPage() {
     return (
       <main id="contenu-principal" className="collection-page collection-page--missing shop-shell">
         <p>Chapitre introuvable.</p>
-        <Link to="/collection" className="cta cta--solid">
-          Voir la collection
+        <Link to="/boutique" className="cta cta--solid">
+          Voir la boutique
         </Link>
       </main>
     );
@@ -45,7 +45,7 @@ export function ChapterHubPage() {
     >
       <CommerceJourney
         steps={[
-          { label: "Collection", to: "/collection" },
+          { label: "Boutique", to: "/boutique" },
           { label: `Ch. ${chapter.index} · ${chapter.name}`, current: true },
           { label: "Commander", to: `/boutique?chapitre=${chapter.id}` },
         ]}

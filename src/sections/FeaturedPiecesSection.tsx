@@ -12,7 +12,7 @@ export function FeaturedPiecesSection() {
   const title = useCmsText("home.featured.title", "Du chapitre au vêtement.");
   const tagline = useCmsText(
     "home.featured.tagline",
-    "Des pièces tirées directement des archétypes présents dans la collection Saison 0 — Neel Fang."
+    "Des pièces tirées directement des archétypes présents dans la boutique Saison 0 — Neel Fang."
   );
 
   if (items.length === 0) return null;

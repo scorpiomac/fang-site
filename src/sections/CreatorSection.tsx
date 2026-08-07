@@ -54,15 +54,6 @@ export const CreatorSection = forwardRef<HTMLElement>(function CreatorSection(_,
               </article>
             ))}
           </div>
-
-          <div className="creator__inspirations">
-            <p className="creator__inspirations-label">Inspirations</p>
-            <ul>
-              {creator.inspirations.map((i) => (
-                <li key={i}>{i}</li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
     </section>

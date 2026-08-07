@@ -57,7 +57,7 @@ export const chapters: Chapter[] = [
     meaning: "Le commencement",
     intention: "Poser le premier pas. Ouvrir la voix.",
     body: "Une silhouette qui s’avance dans la lumière brute du matin sénégalais. Coupes nettes, fibres respirantes — la marque dépose ses premières fondations.",
-    palette: ["#3a261a", "#7d5c3a", "#c4b6a3"],
+    palette: ["#3a1c14", "#7d5c3a", "#c4b6a3"],
     images: [
       publicUrl("collection/s01/tambali/personnages/jant/produit-09.jpg"),
     ],
@@ -75,7 +75,7 @@ export const chapters: Chapter[] = [
     meaning: "Silencieuse et souriante",
     intention: "Quitter une peau pour en habiter une autre.",
     body: "Volumes amples, drapés architecturés. Le tissu épouse le mouvement comme l’eau épouse la rive.",
-    palette: ["#2a1f17", "#9a7b52", "#e6d8c2"],
+    palette: ["#3a1c14", "#9a7b52", "#e6d8c2"],
     images: [
       publicUrl("collection/s01/passage/personnages/miik/produit-01.png"),
       publicUrl("collection/s01/passage/personnages/miik/produit-02.png"),
@@ -102,7 +102,7 @@ export const chapters: Chapter[] = [
     meaning: "Ohasso est entré",
     intention: "Le regard de l’autre n’est plus une menace.",
     body: "Coupes franches, épaules dégagées. Le vêtement devient déclaration : oui, je suis là, et je tiens debout.",
-    palette: ["#4a0e1c", "#8c2317", "#d9b08c"],
+    palette: ["#3a1c14", "#8c2317", "#d9b08c"],
     images: [
       publicUrl("collection/s01/exposition/personnages/jant/produit-05.png"),
       publicUrl("collection/s01/exposition/personnages/jant/produit-06.png"),
@@ -130,7 +130,7 @@ export const chapters: Chapter[] = [
     meaning: "Panda et Yaranka",
     intention: "Brûler ce qui n’est plus utile.",
     body: "Rouges sénégalais, bordeaux profonds, bronze patiné. Le feu intérieur trouve enfin sa surface.",
-    palette: ["#3d0a14", "#a0341e", "#c9a66b"],
+    palette: ["#3a1c14", "#a0341e", "#c9a66b"],
     images: [
       publicUrl("collection/s01/feu/personnages/yaranka/produit-01.png"),
       publicUrl("collection/s01/feu/personnages/yaranka/produit-02.png"),
@@ -157,7 +157,7 @@ export const chapters: Chapter[] = [
     meaning: "Voyez-moi",
     intention: "Se reconnaître dans le miroir des autres.",
     body: "Hommage aux cultures Sérère et Diola : motifs réinterprétés, broderies discrètes, mémoire vivante du folklore.",
-    palette: ["#1a1612", "#5c3d1f", "#c4b6a3"],
+    palette: ["#3a1c14", "#5c3d1f", "#c4b6a3"],
     images: [
       publicUrl("collection/s01/ge-am/personnages/panda/produit-01.png"),
       publicUrl("collection/s01/ge-am/personnages/gue-am/produit-12.png"),
@@ -187,7 +187,7 @@ export const chapters: Chapter[] = [
     meaning: "Racine est sorti·e",
     intention: "Nommer ce qui nous fonde.",
     body: "Toutes les pièces sont coupées et cousues à Dakar. Quatre artisans, une main, une vision. La racine n’est pas un décor — c’est la structure.",
-    palette: ["#0d0b09", "#3a261a", "#9a7b52"],
+    palette: ["#3a1c14", "#3a261a", "#9a7b52"],
     images: [
       publicUrl("collection/s01/racine/personnages/racine/produit-04.png"),
       publicUrl("collection/s01/racine/personnages/racine/produit-05.png"),
@@ -213,7 +213,7 @@ export const chapters: Chapter[] = [
     meaning: "Amour",
     intention: "Porter sa fierté plus haut.",
     body: "Final ouvert : silhouettes qui regardent le futur. Du Sénégal vers Paris, Londres, New York, Tokyo — sans jamais se renier.",
-    palette: ["#0d0b09", "#c9a66b", "#f2ebe3"],
+    palette: ["#3a1c14", "#c9a66b", "#f2ebe3"],
     images: [
       publicUrl("collection/s01/mbougir/personnages/mossane/produit-02.png"),
       publicUrl("collection/s01/mbougir/personnages/mossane/produit-03.png"),
@@ -235,7 +235,7 @@ export const chapters: Chapter[] = [
     characterLabel: "Archétype 07",
     role: "Celle qui regarde l’horizon",
     quote: "Je ne quitte pas la terre : je la porte plus haut.",
-    wear: "La cape Mbougirr est son élévation — volume dramatique, final de collection.",
+    wear: "La cape Mbougirr est son élévation — volume dramatique, final de boutique.",
     moodTags: ["Futur", "Fierté", "Scène"],
   },
 ];

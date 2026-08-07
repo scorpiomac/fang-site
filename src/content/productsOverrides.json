@@ -28,10 +28,10 @@
     "priceXof": 40000,
     "excerpt": "FOD — Le Sage / Le Griot",
     "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti.",
-    "coverImage": "collection/s01/tambali/personnages/fod/produit-01.png",
+    "coverImage": "collection/s01/tambali/personnages/fod/look-01-01.png",
     "images": [
-      "collection/s01/tambali/personnages/fod/produit-01.png",
-      "collection/s01/tambali/personnages/fod/look-01-01.png"
+      "collection/s01/tambali/personnages/fod/look-01-01.png",
+      "collection/s01/tambali/personnages/fod/produit-01.png"
     ]
   },
   "tambali/fod/produit-02": {
@@ -39,10 +39,10 @@
     "priceXof": 41000,
     "excerpt": "FOD — Le Sage / Le Griot",
     "description": "Le sable ne résiste pas au vent. Il se laisse traverser. Et il est encore là quand le vent est parti.",
-    "coverImage": "collection/s01/tambali/personnages/fod/produit-02.png",
+    "coverImage": "collection/s01/tambali/personnages/fod/look-02-01.png",
     "images": [
-      "collection/s01/tambali/personnages/fod/produit-02.png",
-      "collection/s01/tambali/personnages/fod/look-02-01.png"
+      "collection/s01/tambali/personnages/fod/look-02-01.png",
+      "collection/s01/tambali/personnages/fod/produit-02.png"
     ]
   },
   "tambali/mossane/produit-01": {
@@ -249,11 +249,11 @@
     "priceXof": 47000,
     "excerpt": "DJAALAN — Souriante",
     "description": "Sa joie n'est pas une naïveté : c'est sa manière d'entrer dans la pièce avant qu'on l'y invite.",
-    "coverImage": "collection/s01/passage/personnages/djalann/produit-01.png",
+    "coverImage": "collection/s01/passage/personnages/djalann/look-01-01.png",
     "images": [
-      "collection/s01/passage/personnages/djalann/produit-01.png",
       "collection/s01/passage/personnages/djalann/look-01-01.png",
-      "collection/s01/passage/personnages/djalann/detail-01-01.png"
+      "collection/s01/passage/personnages/djalann/detail-01-01.png",
+      "collection/s01/passage/personnages/djalann/produit-01.png"
     ]
   },
   "passage/racine/produit-03": {
@@ -278,11 +278,11 @@
     "priceXof": 15000,
     "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
-    "coverImage": "collection/s01/exposition/personnages/jant/produit-05.png",
+    "coverImage": "collection/s01/exposition/personnages/jant/look-05-01.png",
     "images": [
-      "collection/s01/exposition/personnages/jant/produit-05.png",
       "collection/s01/exposition/personnages/jant/look-05-01.png",
       "collection/s01/exposition/personnages/jant/detail-05-01.png",
+      "collection/s01/exposition/personnages/jant/produit-05.png",
       "collection/s01/exposition/personnages/jant/produit-06.png"
     ]
   },
@@ -291,11 +291,11 @@
     "priceXof": 55000,
     "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
-    "coverImage": "collection/s01/exposition/personnages/jant/produit-07.png",
+    "coverImage": "collection/s01/exposition/personnages/jant/look-07-01.png",
     "images": [
-      "collection/s01/exposition/personnages/jant/produit-07.png",
       "collection/s01/exposition/personnages/jant/look-07-01.png",
-      "collection/s01/exposition/personnages/jant/detail-07-01.png"
+      "collection/s01/exposition/personnages/jant/detail-07-01.png",
+      "collection/s01/exposition/personnages/jant/produit-07.png"
     ]
   },
   "exposition/jant/produit-08": {
@@ -303,11 +303,11 @@
     "priceXof": 75000,
     "excerpt": "JANT — Soleil",
     "description": "Il n'essaie pas d'être le centre. Mais la lumière tombe toujours sur lui en premier.",
-    "coverImage": "collection/s01/exposition/personnages/jant/produit-08.png",
+    "coverImage": "collection/s01/exposition/personnages/jant/look-08-01.png",
     "images": [
-      "collection/s01/exposition/personnages/jant/produit-08.png",
       "collection/s01/exposition/personnages/jant/look-08-01.png",
-      "collection/s01/exposition/personnages/jant/detail-08-01.png"
+      "collection/s01/exposition/personnages/jant/detail-08-01.png",
+      "collection/s01/exposition/personnages/jant/produit-08.png"
     ]
   },
   "exposition/gue-am/produit-08": {
@@ -315,10 +315,11 @@
     "priceXof": 25000,
     "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/exposition/personnages/gue-am/produit-10.png",
     "images": [
+      "collection/s01/exposition/personnages/gue-am/produit-10.png",
       "collection/s01/exposition/personnages/gue-am/produit-08.png",
-      "collection/s01/exposition/personnages/gue-am/produit-09.png",
-      "collection/s01/exposition/personnages/gue-am/produit-10.png"
+      "collection/s01/exposition/personnages/gue-am/produit-09.png"
     ]
   },
   "exposition/gue-am/produit-11": {
@@ -326,18 +327,22 @@
     "priceXof": 60000,
     "excerpt": "GÉ AM — Voyez-moi",
     "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
-    "coverImage": "collection/s01/exposition/personnages/gue-am/produit-11.png",
+    "coverImage": "collection/s01/exposition/personnages/gue-am/look-11-01.png",
     "images": [
-      "collection/s01/exposition/personnages/gue-am/produit-11.png",
       "collection/s01/exposition/personnages/gue-am/look-11-01.png",
-      "collection/s01/exposition/personnages/gue-am/detail-11-01.png"
+      "collection/s01/exposition/personnages/gue-am/detail-11-01.png",
+      "collection/s01/exposition/personnages/gue-am/produit-11.png"
     ]
   },
   "exposition/gue-am/produit-12": {
     "name": "Gé Am 10 (édition spéciale pièce de collection)",
     "priceXof": 50000,
     "excerpt": "GÉ AM — Voyez-moi",
-    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse."
+    "description": "Il a grandi avec les épaules rentrées. Aujourd'hui, chaque couleur qu'il porte est une réponse.",
+    "coverImage": "collection/s01/exposition/personnages/gue-am/produit-12.png",
+    "images": [
+      "collection/s01/exposition/personnages/gue-am/produit-12.png"
+    ]
   },
   "feu/yaranka/produit-01": {
     "name": "Yaranka 1",
@@ -459,11 +464,11 @@
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain.",
     "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
-    "coverImage": "collection/s01/racine/personnages/racine/produit-04.png",
+    "coverImage": "collection/s01/racine/personnages/racine/look-04-01.png",
     "images": [
-      "collection/s01/racine/personnages/racine/produit-04.png",
       "collection/s01/racine/personnages/racine/look-04-01.png",
-      "collection/s01/racine/personnages/racine/detail-04-01.png"
+      "collection/s01/racine/personnages/racine/detail-04-01.png",
+      "collection/s01/racine/personnages/racine/produit-04.png"
     ]
   },
   "racine/racine/produit-05": {
@@ -471,11 +476,11 @@
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain",
     "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
-    "coverImage": "collection/s01/racine/personnages/racine/produit-05.png",
+    "coverImage": "collection/s01/racine/personnages/racine/look-05-01.png",
     "images": [
-      "collection/s01/racine/personnages/racine/produit-05.png",
       "collection/s01/racine/personnages/racine/look-05-01.png",
-      "collection/s01/racine/personnages/racine/detail-05-01.png"
+      "collection/s01/racine/personnages/racine/detail-05-01.png",
+      "collection/s01/racine/personnages/racine/produit-05.png"
     ]
   },
   "racine/racine/produit-06": {
@@ -483,11 +488,11 @@
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain",
     "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
-    "coverImage": "collection/s01/racine/personnages/racine/produit-06.png",
+    "coverImage": "collection/s01/racine/personnages/racine/look-06-01.png",
     "images": [
-      "collection/s01/racine/personnages/racine/produit-06.png",
       "collection/s01/racine/personnages/racine/look-06-01.png",
-      "collection/s01/racine/personnages/racine/detail-06-01.png"
+      "collection/s01/racine/personnages/racine/detail-06-01.png",
+      "collection/s01/racine/personnages/racine/produit-06.png"
     ]
   },
   "racine/racine/produit-07": {
@@ -495,10 +500,10 @@
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain",
     "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
-    "coverImage": "collection/s01/racine/personnages/racine/produit-07.png",
+    "coverImage": "collection/s01/racine/personnages/racine/look-07-01.png",
     "images": [
-      "collection/s01/racine/personnages/racine/produit-07.png",
-      "collection/s01/racine/personnages/racine/look-07-01.png"
+      "collection/s01/racine/personnages/racine/look-07-01.png",
+      "collection/s01/racine/personnages/racine/produit-07.png"
     ]
   },
   "racine/racine/produit-08": {
@@ -506,10 +511,10 @@
     "priceXof": 55000,
     "excerpt": "RACINE — Mode de vie urbain.",
     "description": "La rue était là depuis toujours. C'est toi qui n'avais pas encore décidé d'y être.",
-    "coverImage": "collection/s01/racine/personnages/racine/produit-08.png",
+    "coverImage": "collection/s01/racine/personnages/racine/look-01.png",
     "images": [
-      "collection/s01/racine/personnages/racine/produit-08.png",
-      "collection/s01/racine/personnages/racine/look-01.png"
+      "collection/s01/racine/personnages/racine/look-01.png",
+      "collection/s01/racine/personnages/racine/produit-08.png"
     ]
   },
   "mbougir/mossane/produit-02": {

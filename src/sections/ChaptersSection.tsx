@@ -5,6 +5,7 @@ import {
   useId,
   useRef,
   useState,
+  type CSSProperties,
   type MutableRefObject,
 } from "react";
 import { Link } from "react-router-dom";
@@ -17,35 +18,60 @@ import {
   getChapterVisualFallbacks,
   type CollectionChapter,
 } from "@/content/collectionCatalog";
-import { getHomeChapterProducts } from "@/content/homeChapterGallery";
-import { formatPriceXof, type ShopProduct } from "@/content/shop";
+import { getProductsForCharacter, type ShopProduct } from "@/content/shop";
 import { copy } from "@/content/copy";
 import { useCmsText } from "@/context/CmsContext";
 import { MediaImage } from "@/components/ui/MediaImage";
 import { GlossedTerm } from "@/components/ui/GlossedTerm";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useScenePhase } from "@/context/useScenePhase";
 import type { Chapter } from "@/content/chapters";
 
 const narrativeById = new Map(narrativeChapters.map((n) => [n.id, n]));
-const DEFILE_MS = 5500;
+
+type CharacterColumn = {
+  character: ReturnType<typeof getCharactersForChapter>[number];
+  products: ShopProduct[];
+};
 
 type ChapterPanelData = {
   chapter: CollectionChapter;
   characters: ReturnType<typeof getCharactersForChapter>;
   lore: Chapter | undefined;
   visualImages: string[];
-  chapterProducts: ShopProduct[];
+  columns: CharacterColumn[];
 };
+
+const COLUMNS_PER_CHAPTER = 4;
+
+function productsPerColumn(columnCount: number): number {
+  if (columnCount <= 1) return 6;
+  if (columnCount === 2) return 4;
+  return 3;
+}
 
 const chapterPanelData: ChapterPanelData[] = collectionChapters.map((c) => {
   const lore = narrativeById.get(c.id);
+  const characters = getCharactersForChapter(c.id);
+  const rawColumns = characters
+    .map((character) => ({
+      character,
+      products: getProductsForCharacter(c.id, character.slug),
+    }))
+    .filter((col) => col.products.length > 0 || Boolean(col.character.cover))
+    .slice(0, COLUMNS_PER_CHAPTER);
+
+  const perCol = productsPerColumn(Math.max(1, rawColumns.length));
+  const columns = rawColumns.map((col) => ({
+    ...col,
+    products: col.products.slice(0, perCol),
+  }));
+
   return {
     chapter: c,
-    characters: getCharactersForChapter(c.id),
+    characters,
     lore,
     visualImages: getChapterVisualFallbacks(c, lore?.images ?? []),
-    chapterProducts: getHomeChapterProducts(c.id),
+    columns,
   };
 });
 
@@ -54,13 +80,16 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
   const title = useCmsText("home.chapters.title", copy.chaptersTitle);
   const intro = useCmsText("home.chapters.intro", copy.chaptersIntro);
   const titleId = useId();
-  const reduced = useReducedMotion();
   const { scrollRef } = useScenePhase();
   const localRef = useRef<HTMLElement | null>(null);
   const count = chapterPanelData.length;
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [inView, setInView] = useState(false);
+  const [piecePreview, setPiecePreview] = useState<{
+    src: string;
+    alt: string;
+    label: string;
+    href: string;
+  } | null>(null);
 
   const setRefs = useCallback(
     (node: HTMLElement | null) => {
@@ -74,6 +103,7 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
   const goTo = useCallback(
     (index: number) => {
       if (count === 0) return;
+      setPiecePreview(null);
       setActive(((index % count) + count) % count);
     },
     [count]
@@ -84,25 +114,9 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
     scrollRef.current.chapter = count > 1 ? active / (count - 1) : 0;
   }, [active, count, scrollRef]);
 
-  // Défilé auto uniquement quand la section est visible à l’écran
   useEffect(() => {
-    const el = localRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.35, rootMargin: "0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (reduced || paused || !inView || count < 2) return;
-    const id = window.setInterval(() => {
-      setActive((i) => (i + 1) % count);
-    }, DEFILE_MS);
-    return () => window.clearInterval(id);
-  }, [count, paused, reduced, inView]);
+    setPiecePreview(null);
+  }, [active]);
 
   const progress = count > 0 ? (active + 1) / count : 0;
 
@@ -127,215 +141,157 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
         <p className="chapters__lede">{intro}</p>
       </div>
 
-      <div
-        className="chapters__pin"
-        data-chapters-pin
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocusCapture={() => setPaused(true)}
-        onBlurCapture={(e) => {
-          if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false);
-        }}
-      >
+      <div className="chapters__pin" data-chapters-pin>
         <div className="chapters__viewport" aria-live="polite">
           <div
             className="chapters__track"
             data-chapters-track
             style={{ transform: `translate3d(-${active * 100}%, 0, 0)` }}
           >
-            {chapterPanelData.map(({ chapter: c, characters, visualImages, chapterProducts }, i) => {
-              const isActive = characters.length > 0;
-              const heroProduct = chapterProducts[0];
-              const heroChar = heroProduct
-                ? characters.find((ch) => ch.slug === heroProduct.characterSlug) ?? characters[0]
-                : characters[0];
+            {chapterPanelData.map(({ chapter: c, visualImages, columns }, i) => {
               const isCurrent = i === active;
+
               return (
                 <article
                   key={c.id}
                   className={`chapter-panel${isCurrent ? " is-current" : ""}`}
                   data-chapter-index={i}
+                  data-gallery-cols={columns.length}
                   aria-hidden={!isCurrent}
                   style={
                     {
                       "--c1": c.palette[0],
                       "--c2": c.palette[1],
                       "--c3": c.palette[2],
-                    } as React.CSSProperties
+                      "--gallery-cols": Math.max(1, columns.length),
+                    } as CSSProperties
                   }
                 >
-                  <div className="chapter-panel__numbers">
-                    <span className="chapter-panel__index">{c.index}</span>
-                    <span className="chapter-panel__total">
-                      / {String(collectionChapters.length).padStart(2, "0")}
-                    </span>
-                  </div>
-
                   <header className="chapter-panel__head">
-                    <div className="chapter-panel__teaser" aria-label="Aperçu du chapitre">
-                      <div className="chapter-panel__teaser-row">
-                        <span className="chapter-panel__badge">Chapitre {c.index}</span>
-                      </div>
-                      <p className="chapter-panel__role">{c.name}</p>
-                      <div className="chapter-panel__story-links">
-                        {isActive ? (
-                          <Link to={`/collection/${c.slug}`} className="chapter-panel__universe-cta" tabIndex={isCurrent ? 0 : -1}>
-                            Archétypes et produits
-                            <span aria-hidden="true"> →</span>
-                          </Link>
-                        ) : null}
-                        <Link to={`/collection/${c.slug}`} className="chapter-panel__boutique-cta" tabIndex={isCurrent ? 0 : -1}>
-                          Explorer le chapitre
-                          <span aria-hidden="true"> →</span>
-                        </Link>
-                      </div>
-                    </div>
-
-                    <p className="chapter-panel__meaning">{c.meaning ?? ""}</p>
+                    {c.meaning ? <p className="chapter-panel__meaning">{c.meaning}</p> : null}
                     <h3 className="chapter-panel__name">{c.name}</h3>
-                    <p className="chapter-panel__intent">{c.intention ?? ""}</p>
+                    {c.intention ? <p className="chapter-panel__intent">{c.intention}</p> : null}
                     <ul className="chapter-panel__palette" aria-label="Palette">
                       {c.palette.map((p) => (
                         <li key={p} style={{ background: p }} />
                       ))}
                     </ul>
-                    {heroProduct ? (
-                      <Link to={`/boutique/${heroProduct.slug}`} className="chapter-panel__cta" tabIndex={isCurrent ? 0 : -1}>
-                        <span className="chapter-panel__cta-label">
-                          Voir une pièce
-                          {heroChar ? ` — ${heroChar.name}` : ""}
-                          {" · "}
-                          {formatPriceXof(heroProduct.priceXof)}&nbsp;FCFA
-                        </span>
-                        <span className="chapter-panel__cta-arrow" aria-hidden="true">
-                          →
-                        </span>
-                      </Link>
-                    ) : null}
+                    <Link to={`/collection/${c.slug}`} className="chapter-panel__cta" tabIndex={isCurrent ? 0 : -1}>
+                      <span className="chapter-panel__cta-label">Explorer le chapitre</span>
+                      <span className="chapter-panel__cta-arrow" aria-hidden="true">
+                        →
+                      </span>
+                    </Link>
                   </header>
 
-                  <div className="chapter-panel__gallery">
-                    <figure className="chapter-panel__hero chapter-panel__hero--poster">
-                      {heroProduct && heroChar ? (
-                        <Link
-                          to={`/collection/${c.slug}/${heroChar.slug}`}
-                          className="chapter-panel__img-link chapter-panel__img-link--hero"
-                          tabIndex={-1}
-                          aria-label={`Voir ${heroChar.name}`}
-                        >
-                          <MediaImage
-                            src={heroProduct.coverImage || getChapterHeroImage(c, heroChar, visualImages[0])}
-                            fallbacks={[heroProduct.coverImage, heroChar?.cover, ...visualImages]}
-                            alt={`${heroChar.name} — ${c.name}`}
-                            loading={isCurrent ? "eager" : "lazy"}
-                            decoding="async"
-                          />
-                          <div className="chapter-panel__poster-bar" aria-hidden="true">
-                            <span className="chapter-panel__poster-name">
-                              <GlossedTerm term={heroChar.name} />
-                            </span>
-                            <span className="chapter-panel__poster-role">{c.name}</span>
-                          </div>
-                          <div className="chapter-panel__img-overlay">
-                            <p className="chapter-panel__overlay-excerpt">{heroProduct.excerpt}</p>
-                            <div className="chapter-panel__overlay-foot">
-                              <span className="chapter-panel__overlay-name">{heroProduct.name}</span>
-                              <span className="chapter-panel__overlay-price">
-                                {formatPriceXof(heroProduct.priceXof)} FCFA
-                              </span>
-                            </div>
-                            <span className="chapter-panel__overlay-see">
-                              Voir l&apos;archétype <span aria-hidden="true">→</span>
-                            </span>
-                          </div>
-                        </Link>
-                      ) : (
-                        <>
-                          <MediaImage
-                            src={visualImages[0]}
-                            fallbacks={visualImages.slice(1)}
-                            alt={`${c.name} — chapitre`}
-                            loading={isCurrent ? "eager" : "lazy"}
-                            decoding="async"
-                          />
-                          <div className="chapter-panel__poster-bar" aria-hidden="true">
-                            <span className="chapter-panel__poster-name">
-                              {heroChar ? <GlossedTerm term={heroChar.name} /> : c.name}
-                            </span>
-                            <span className="chapter-panel__poster-role">
-                              {heroChar ? c.name : c.role}
-                            </span>
-                          </div>
-                        </>
-                      )}
-                    </figure>
+                  <div
+                    className={`chapter-panel__gallery chapter-panel__gallery--columns${
+                      columns.length === 1 ? " chapter-panel__gallery--sparse" : ""
+                    }${columns.length === 2 ? " chapter-panel__gallery--pair" : ""}${
+                      isCurrent && piecePreview ? " is-previewing" : ""
+                    }`}
+                    aria-label={`Catégories — ${c.name}`}
+                    onMouseLeave={() => {
+                      if (isCurrent) setPiecePreview(null);
+                    }}
+                    onBlur={(e) => {
+                      if (!isCurrent) return;
+                      const next = e.relatedTarget as Node | null;
+                      if (!e.currentTarget.contains(next)) setPiecePreview(null);
+                    }}
+                  >
+                    {columns.map(({ character, products }, colIdx) => {
+                      const images =
+                        products.length > 0
+                          ? products.map((product) => ({
+                              key: product.slug,
+                              href: `/boutique/${product.slug}`,
+                              src: product.coverImage,
+                              alt: `${product.name} — ${character.name}`,
+                              label: product.name,
+                            }))
+                          : [
+                              {
+                                key: character.slug,
+                                href: `/collection/${c.slug}/${character.slug}`,
+                                src:
+                                  character.cover ||
+                                  getChapterGalleryImage(c, character, 0, visualImages) ||
+                                  getChapterHeroImage(c, character, visualImages[0]),
+                                alt: `${character.name} — ${c.name}`,
+                                label: character.name,
+                              },
+                            ];
 
-                    {[
-                      { cls: "chapter-panel__detail--a", idx: 1 },
-                      { cls: "chapter-panel__detail--b", idx: 2 },
-                      { cls: "chapter-panel__detail--c", idx: 3 },
-                      { cls: "chapter-panel__detail--d", idx: 4 },
-                    ].map(({ cls, idx }) => {
-                      const detailProduct = chapterProducts[idx];
-                      const detailChar = detailProduct
-                        ? characters.find((ch) => ch.slug === detailProduct.characterSlug)
-                        : characters[idx];
                       return (
-                        <figure key={cls} className={`chapter-panel__detail ${cls}`}>
-                          {detailProduct ? (
+                        <div key={character.id} className="chapter-panel__cat">
+                          <h4 className="chapter-panel__cat-title">
                             <Link
-                              to={`/boutique/${detailProduct.slug}`}
-                              className="chapter-panel__img-link"
-                              aria-label={`Voir ${detailProduct.name}`}
+                              to={`/collection/${c.slug}/${character.slug}`}
                               tabIndex={isCurrent ? 0 : -1}
                             >
-                              <MediaImage
-                                src={detailProduct.coverImage}
-                                fallbacks={visualImages}
-                                alt={`${detailProduct.name} — ${c.name}`}
-                                loading="lazy"
-                                decoding="async"
-                              />
-                              <div className="chapter-panel__poster-bar" aria-hidden="true">
-                                <span className="chapter-panel__poster-name">{detailProduct.name}</span>
-                                <span className="chapter-panel__poster-role">
-                                  {detailChar ? <GlossedTerm term={detailChar.name} /> : c.name}
-                                </span>
-                              </div>
+                              <GlossedTerm term={character.name} />
                             </Link>
-                          ) : detailChar ? (
-                            <Link
-                              to={`/collection/${c.slug}/${detailChar.slug}`}
-                              className="chapter-panel__img-link"
-                              aria-label={`Voir ${detailChar.name}`}
-                              tabIndex={isCurrent ? 0 : -1}
-                            >
-                              <MediaImage
-                                src={getChapterGalleryImage(c, detailChar, idx - 1, visualImages)}
-                                fallbacks={visualImages}
-                                alt={`${detailChar.name} — ${c.name}`}
-                                loading="lazy"
-                                decoding="async"
-                              />
-                              <div className="chapter-panel__poster-bar" aria-hidden="true">
-                                <span className="chapter-panel__poster-name">
-                                  <GlossedTerm term={detailChar.name} />
-                                </span>
-                                <span className="chapter-panel__poster-role">{c.name}</span>
-                              </div>
-                            </Link>
-                          ) : (
-                            <MediaImage
-                              src={getChapterGalleryImage(c, undefined, idx - 1, visualImages)}
-                              fallbacks={visualImages}
-                              alt=""
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          )}
-                        </figure>
+                          </h4>
+                          <div className="chapter-panel__cat-stack">
+                            {images.map((item, imgIdx) => (
+                              <figure key={item.key} className="chapter-panel__card">
+                                <Link
+                                  to={item.href}
+                                  className="chapter-panel__img-link"
+                                  aria-label={`Voir ${item.label}`}
+                                  tabIndex={isCurrent ? 0 : -1}
+                                  onMouseEnter={() => {
+                                    if (!isCurrent) return;
+                                    setPiecePreview({
+                                      src: item.src,
+                                      alt: item.alt,
+                                      label: item.label,
+                                      href: item.href,
+                                    });
+                                  }}
+                                  onFocus={() => {
+                                    if (!isCurrent) return;
+                                    setPiecePreview({
+                                      src: item.src,
+                                      alt: item.alt,
+                                      label: item.label,
+                                      href: item.href,
+                                    });
+                                  }}
+                                >
+                                  <MediaImage
+                                    src={item.src}
+                                    fallbacks={[character.cover, ...visualImages].filter(Boolean) as string[]}
+                                    alt={item.alt}
+                                    loading={isCurrent && colIdx === 0 && imgIdx === 0 ? "eager" : "lazy"}
+                                    decoding="async"
+                                  />
+                                  <span className="chapter-panel__piece-name">{item.label}</span>
+                                </Link>
+                              </figure>
+                            ))}
+                          </div>
+                        </div>
                       );
                     })}
+
+                    {isCurrent && piecePreview ? (
+                      <Link
+                        to={piecePreview.href}
+                        className="chapter-panel__full-preview"
+                        tabIndex={-1}
+                        aria-label={`${piecePreview.label} — vue entière`}
+                      >
+                        <MediaImage
+                          src={piecePreview.src}
+                          alt={piecePreview.alt}
+                          loading="eager"
+                          decoding="async"
+                        />
+                        <span className="chapter-panel__full-preview-name">{piecePreview.label}</span>
+                      </Link>
+                    ) : null}
                   </div>
                 </article>
               );
@@ -354,9 +310,6 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
               <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" strokeWidth="1.8" />
             </svg>
           </button>
-          <p className="chapters__defile-label" aria-hidden="true">
-            Défilé
-          </p>
           <button
             type="button"
             className="chapters__nav-btn"
@@ -371,7 +324,7 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
 
         <div
           className="chapters__progress"
-          style={{ "--chapter-count": collectionChapters.length } as React.CSSProperties}
+          style={{ "--chapter-count": collectionChapters.length } as CSSProperties}
         >
           <div className="chapters__progress-track">
             <div
@@ -394,7 +347,7 @@ export const ChaptersSection = forwardRef<HTMLElement>(function ChaptersSection(
                   <span>{c.index}</span>
                   <em>
                     <span className="chapters__progress-name">{c.name}</span>
-                    <span className="chapters__progress-sub">collection</span>
+                    <span className="chapters__progress-sub">Boutique</span>
                   </em>
                 </button>
               </li>
